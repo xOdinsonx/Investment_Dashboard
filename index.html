@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data Center Infrastructure — Coverage Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1620;
+    --panel:#141D29;
+    --panel-raised:#182432;
+    --grid-line:#223347;
+    --amber:#E8A33D;
+    --amber-dim:#8A6428;
+    --cyan:#5FB8B0;
+    --cyan-dim:#3A6E68;
+    --text:#EDF1F5;
+    --muted:#8DA0B3;
+    --muted-dim:#5B6B7C;
+    --danger:#D9704F;
+    --up:#6FBF8B;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  ::selection{background:var(--amber-dim); color:var(--text);}
+
+  header{
+    border-bottom:1px solid var(--grid-line);
+    padding:28px 24px 20px;
+    background:linear-gradient(180deg, rgba(15,22,32,0.95), rgba(15,22,32,0.75));
+    position:sticky; top:0; z-index:20;
+    backdrop-filter:blur(6px);
+  }
+  .header-inner{max-width:1280px; margin:0 auto;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+    color:var(--amber); display:flex; align-items:center; gap:8px; margin-bottom:8px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--up); box-shadow:0 0 8px var(--up); animation:pulse 2s infinite;}
+  .eyebrow .dot.stale{background:var(--muted-dim); box-shadow:none; animation:none;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  h1{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:clamp(22px,3vw,32px);
+    font-weight:600; margin:0 0 6px; letter-spacing:-0.5px;
+  }
+  header p.sub{color:var(--muted); margin:0; font-size:14px; max-width:640px; line-height:1.5;}
+  #updated-badge{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted-dim);
+    margin-top:10px;
+  }
+  #updated-badge b{color:var(--muted);}
+
+  .toolbar{
+    max-width:1280px; margin:20px auto 0; display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+  }
+  .search-wrap{position:relative; flex:1 1 220px; min-width:200px;}
+  .search-wrap input{
+    width:100%; background:var(--panel); border:1px solid var(--grid-line); color:var(--text);
+    padding:10px 12px 10px 34px; border-radius:4px; font-family:'IBM Plex Mono',monospace; font-size:13px;
+    outline:none; transition:border-color .15s;
+  }
+  .search-wrap input:focus{border-color:var(--amber);}
+  .search-wrap svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); width:14px; height:14px; stroke:var(--muted);}
+
+  .toggle{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase;
+    background:var(--panel); border:1px solid var(--grid-line); color:var(--muted);
+    padding:9px 13px; border-radius:4px; cursor:pointer; transition:all .15s; white-space:nowrap;
+  }
+  .toggle:hover{border-color:var(--muted);}
+  .toggle.active{border-color:var(--amber); color:var(--amber); background:rgba(232,163,61,0.08);}
+  .toggle .n{color:var(--muted-dim); margin-left:5px;}
+  .toggle.active .n{color:var(--amber-dim);}
+
+  select.sortsel{
+    background:var(--panel); border:1px solid var(--grid-line); color:var(--text);
+    font-family:'IBM Plex Mono',monospace; font-size:12px; padding:9px 10px; border-radius:4px; outline:none;
+  }
+
+  main{max-width:1280px; margin:0 auto; padding:24px;}
+
+  .summary-row{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--grid-line); border:1px solid var(--grid-line); margin-bottom:28px; border-radius:4px; overflow:hidden;
+  }
+  .summary-cell{background:var(--panel); padding:14px 16px;}
+  .summary-cell .label{font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted-dim);}
+  .summary-cell .value{font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:600; margin-top:4px; color:var(--amber);}
+
+  .grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px;
+  }
+
+  .card{
+    background:var(--panel); border:1px solid var(--grid-line); border-radius:5px; padding:16px 16px 14px;
+    position:relative; transition:border-color .15s, transform .15s;
+  }
+  .card:hover{border-color:var(--muted-dim); transform:translateY(-1px);}
+  .card::before{
+    content:''; position:absolute; left:0; top:14px; bottom:14px; width:3px; border-radius:2px;
+    background:var(--cat-color, var(--amber));
+  }
+  .card.stale{opacity:0.55;}
+  .card-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; padding-left:8px;}
+  .ticker-row{display:flex; align-items:baseline; gap:8px;}
+  .ticker{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:17px; letter-spacing:0.5px;}
+  .name{font-size:12.5px; color:var(--muted); margin-top:2px;}
+  .cat-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:1px;
+    padding:3px 7px; border-radius:3px; border:1px solid var(--cat-color); color:var(--cat-color); white-space:nowrap;
+  }
+  .price-row{display:flex; justify-content:space-between; align-items:baseline; padding-left:8px; margin-bottom:10px;}
+  .price{font-family:'IBM Plex Mono',monospace; font-size:15px;}
+  .chg{font-family:'IBM Plex Mono',monospace; font-size:12.5px; padding:2px 6px; border-radius:3px;}
+  .chg.pos{color:var(--up); background:rgba(111,191,139,0.1);}
+  .chg.neg{color:var(--danger); background:rgba(217,112,79,0.1);}
+  .chg.na{color:var(--muted-dim); background:transparent;}
+
+  .blurb{font-size:12.5px; line-height:1.5; color:var(--muted); padding-left:8px; margin-bottom:12px; min-height:38px;}
+
+  .load-meter{padding-left:8px;}
+  .load-label{display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted-dim); margin-bottom:4px; text-transform:uppercase; letter-spacing:1px;}
+  .load-track{height:5px; background:var(--panel-raised); border-radius:3px; overflow:hidden;}
+  .load-fill{height:100%; border-radius:3px; background:var(--cat-color, var(--amber));}
+
+  footer{max-width:1280px; margin:36px auto 0; padding:20px 24px 0; border-top:1px solid var(--grid-line);}
+  footer p{font-size:12px; color:var(--muted-dim); line-height:1.7; font-family:'IBM Plex Mono',monospace;}
+  footer .as-of{color:var(--amber-dim);}
+
+  .empty{grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--muted-dim); font-family:'IBM Plex Mono',monospace; font-size:13px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="eyebrow"><span class="dot" id="status-dot"></span><span id="status-text">COVERAGE PANEL · DATA CENTER &amp; AI INFRASTRUCTURE</span></div>
+    <h1>25 Companies Wiring the AI Buildout</h1>
+    <p class="sub">Hyperscalers, chipmakers, REITs, power, cooling, networking and compute operators tied to the data center capex cycle.</p>
+    <div id="updated-badge">Loading data.json…</div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="search" placeholder="Search ticker or company…" />
+  </div>
+  <div id="filters" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+  <select class="sortsel" id="sortsel">
+    <option value="cap-desc">Market cap ↓</option>
+    <option value="cap-asc">Market cap ↑</option>
+    <option value="chg-desc">Day change ↓</option>
+    <option value="chg-asc">Day change ↑</option>
+    <option value="alpha">Ticker A–Z</option>
+  </select>
+</div>
+
+<main>
+  <div class="summary-row" id="summary"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <p>Prices refresh on a schedule via a GitHub Actions job that calls the Finnhub API and writes <code>data.json</code> — see <code>README.md</code> in this repo to set your own refresh cadence. Not financial advice.</p>
+</footer>
+
+<script>
+// Roster metadata (ticker, name, category, blurb) now lives in tickers.json —
+// the single source of truth shared with fetch-quotes.js and
+// suggest-tickers.js. Live price/cap fields get merged in from data.json.
+let META = {};
+
+const CAT_COLORS = {
+  "Hyperscaler":"#5FB8B0",
+  "Chips":"#E8A33D",
+  "Networking":"#8FA6E8",
+  "REIT":"#C98BD9",
+  "Power & Cooling":"#D9704F",
+  "Servers":"#6FBF8B",
+  "GPU Cloud":"#E8D23D"
+};
+
+let COMPANIES = [];
+let activeCat = null;
+
+const filtersEl = document.getElementById('filters');
+const gridEl = document.getElementById('grid');
+const searchEl = document.getElementById('search');
+const sortEl = document.getElementById('sortsel');
+const summaryEl = document.getElementById('summary');
+const updatedBadge = document.getElementById('updated-badge');
+const statusDot = document.getElementById('status-dot');
+const statusText = document.getElementById('status-text');
+
+function fmtCap(millions){
+  if(millions == null) return '—';
+  const billions = millions / 1000;
+  return billions >= 1000 ? '$' + (billions/1000).toFixed(2) + 'T' : '$' + billions.toFixed(1) + 'B';
+}
+
+async function loadData(){
+  // 1. Load the roster. This must succeed for the page to show anything.
+  try{
+    const rosterRes = await fetch('./tickers.json', {cache:'no-store'});
+    if(!rosterRes.ok) throw new Error('tickers.json not found (' + rosterRes.status + ')');
+    const roster = await rosterRes.json();
+    META = {};
+    roster.forEach(r => { META[r.ticker] = {n:r.name, cat:r.category, b:r.blurb}; });
+  } catch(err){
+    console.error(err);
+    gridEl.innerHTML = '<div class="empty">COULD NOT LOAD tickers.json — CHECK IT EXISTS ALONGSIDE index.html</div>';
+    updatedBadge.textContent = 'Roster failed to load.';
+    return;
+  }
+
+  // 2. Load live price/cap data and merge it onto the roster.
+  try{
+    const res = await fetch('./data.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('data.json not found (' + res.status + ')');
+    const json = await res.json();
+
+    COMPANIES = Object.keys(META).map(ticker => {
+      const q = json.quotes && json.quotes[ticker] ? json.quotes[ticker] : {};
+      return {
+        t: ticker,
+        n: META[ticker].n,
+        cat: META[ticker].cat,
+        b: META[ticker].b,
+        price: q.price ?? null,
+        chg: q.changePercent ?? null,
+        cap: q.marketCap ?? null,
+        error: !!q.error
+      };
+    });
+
+    const generated = new Date(json.generatedAt);
+    const ageHours = (Date.now() - generated.getTime()) / 36e5;
+    const isStale = ageHours > 48; // flag if the Action hasn't run in 2+ days
+
+    updatedBadge.innerHTML = 'Last updated: <b>' + generated.toLocaleString() + '</b>' +
+      (isStale ? ' — feed looks stale, check the Actions tab' : '');
+    statusDot.classList.toggle('stale', isStale);
+    statusText.textContent = isStale
+      ? 'COVERAGE PANEL · DATA STALE'
+      : 'COVERAGE PANEL · DATA CENTER & AI INFRASTRUCTURE';
+
+  } catch(err){
+    console.error(err);
+    // Fall back to metadata-only cards with no price data, so the page
+    // still renders something useful before the first Action run.
+    COMPANIES = Object.keys(META).map(ticker => ({
+      t: ticker, n: META[ticker].n, cat: META[ticker].cat, b: META[ticker].b,
+      price: null, chg: null, cap: null, error: true
+    }));
+    updatedBadge.textContent = 'No data.json yet — run the GitHub Action once to populate live prices.';
+    statusDot.classList.add('stale');
+    statusText.textContent = 'COVERAGE PANEL · AWAITING FIRST DATA PULL';
+  }
+
+  buildFilters();
+  buildSummary();
+  render();
+}
+
+function buildFilters(){
+  const cats = [...new Set(COMPANIES.map(c=>c.cat))];
+  filtersEl.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'toggle active';
+  allBtn.textContent = 'All';
+  allBtn.dataset.cat = '';
+  filtersEl.appendChild(allBtn);
+  cats.forEach(cat=>{
+    const n = COMPANIES.filter(c=>c.cat===cat).length;
+    const btn = document.createElement('button');
+    btn.className = 'toggle';
+    btn.dataset.cat = cat;
+    btn.innerHTML = cat + '<span class="n">'+n+'</span>';
+    filtersEl.appendChild(btn);
+  });
+  filtersEl.querySelectorAll('.toggle').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filtersEl.querySelectorAll('.toggle').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat || null;
+      render();
+    });
+  });
+}
+
+function buildSummary(){
+  const withCap = COMPANIES.filter(c=>c.cap != null);
+  const totalCap = withCap.reduce((s,c)=>s+c.cap,0) / 1000; // -> billions
+  const cats = [...new Set(COMPANIES.map(c=>c.cat))];
+  const top = withCap.slice().sort((a,b)=>b.cap-a.cap)[0];
+  summaryEl.innerHTML = `
+    <div class="summary-cell"><div class="label">Companies</div><div class="value">${COMPANIES.length}</div></div>
+    <div class="summary-cell"><div class="label">Combined Mkt Cap</div><div class="value">${totalCap ? '$'+(totalCap/1000).toFixed(1)+'T' : '—'}</div></div>
+    <div class="summary-cell"><div class="label">Categories</div><div class="value">${cats.length}</div></div>
+    <div class="summary-cell"><div class="label">Largest Holding</div><div class="value">${top ? top.t : '—'}</div></div>
+  `;
+}
+
+function render(){
+  const q = searchEl.value.trim().toLowerCase();
+  let list = COMPANIES.filter(c=>{
+    const matchesCat = !activeCat || c.cat === activeCat;
+    const matchesQ = !q || c.t.toLowerCase().includes(q) || c.n.toLowerCase().includes(q);
+    return matchesCat && matchesQ;
+  });
+
+  const sortVal = sortEl.value;
+  list = list.slice().sort((a,b)=>{
+    const acap = a.cap ?? -1, bcap = b.cap ?? -1;
+    const achg = a.chg ?? -999, bchg = b.chg ?? -999;
+    if(sortVal==='cap-desc') return bcap-acap;
+    if(sortVal==='cap-asc') return acap-bcap;
+    if(sortVal==='chg-desc') return bchg-achg;
+    if(sortVal==='chg-asc') return achg-bchg;
+    if(sortVal==='alpha') return a.t.localeCompare(b.t);
+    return 0;
+  });
+
+  const maxCap = Math.max(1, ...COMPANIES.map(c=>c.cap || 0));
+
+  gridEl.innerHTML = '';
+  if(list.length===0){
+    gridEl.innerHTML = '<div class="empty">NO MATCHES — ADJUST FILTER OR SEARCH</div>';
+    return;
+  }
+
+  list.forEach(c=>{
+    const color = CAT_COLORS[c.cat] || '#E8A33D';
+    const pct = c.cap ? Math.max(4, (c.cap/maxCap*100)).toFixed(1) : 0;
+    const hasChg = c.chg != null;
+    const chgClass = !hasChg ? 'na' : (c.chg >= 0 ? 'pos' : 'neg');
+    const chgSign = hasChg && c.chg >= 0 ? '+' : '';
+    const chgLabel = hasChg ? chgSign + c.chg.toFixed(2) + '%' : '—';
+    const priceLabel = c.price != null ? '$' + c.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) : '—';
+
+    const card = document.createElement('div');
+    card.className = 'card' + (c.error ? ' stale' : '');
+    card.style.setProperty('--cat-color', color);
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="ticker-row">
+          <div>
+            <div class="ticker">${c.t}</div>
+            <div class="name">${c.n}</div>
+          </div>
+        </div>
+        <div class="cat-tag" style="--cat-color:${color}">${c.cat}</div>
+      </div>
+      <div class="price-row">
+        <div class="price">${priceLabel}</div>
+        <div class="chg ${chgClass}">${chgLabel}</div>
+      </div>
+      <div class="blurb">${c.b}</div>
+      <div class="load-meter">
+        <div class="load-label"><span>Mkt Cap</span><span>${fmtCap(c.cap)}</span></div>
+        <div class="load-track"><div class="load-fill" style="width:${pct}%"></div></div>
+      </div>
+    `;
+    gridEl.appendChild(card);
+  });
+}
+
+searchEl.addEventListener('input', render);
+sortEl.addEventListener('change', render);
+loadData();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+name: Scout ETF holdings for roster suggestions
+
+on:
+  schedule:
+    # ETF rebalances happen infrequently (quarterly, typically) — weekly is
+    # plenty often to catch changes without wasting runs. Mondays 14:00 UTC.
+    - cron: '0 14 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run ETF holdings scout
+        run: node suggest-tickers.js
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet -- suggestions.json 2>/dev/null; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit suggestions
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add suggestions.md suggestions.json
+          git commit -m "Update ETF holdings suggestions $(date -u +'%Y-%m-%d')"
+          git push
+
+      - name: Open issue if there's anything to review
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const result = JSON.parse(fs.readFileSync('suggestions.json', 'utf8'));
+            const hasCandidates = result.newCandidates.length > 0;
+            const hasDropped = result.droppedOut.length > 0;
+            if (!hasCandidates && !hasDropped) {
+              console.log('Nothing actionable — skipping issue.');
+              return;
+            }
+            const body = fs.readFileSync('suggestions.md', 'utf8');
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `ETF holdings suggestions — ${result.holdingsAsOf}`,
+              body,
+              labels: ['roster-review'],
+            });
