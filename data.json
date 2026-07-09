@@ -1,0 +1,187 @@
+{
+  "generatedAt": "2026-07-09T03:44:03.779Z",
+  "quotes": {
+    "NVDA": {
+      "price": 204.12,
+      "changePercent": 3.651,
+      "prevClose": 196.93,
+      "marketCap": 4939703.816282672,
+      "name": "NVIDIA Corp"
+    },
+    "GOOGL": {
+      "price": 361.92,
+      "changePercent": -1.3923,
+      "prevClose": 367.03,
+      "marketCap": 4406216.7552,
+      "name": "Alphabet Inc"
+    },
+    "MSFT": {
+      "price": 383.34,
+      "changePercent": -1.4145,
+      "prevClose": 388.84,
+      "marketCap": 2847616.081365062,
+      "name": "Microsoft Corp"
+    },
+    "AMZN": {
+      "price": 243.62,
+      "changePercent": -0.9594,
+      "prevClose": 245.98,
+      "marketCap": 2620646.9404189484,
+      "name": "Amazon.com Inc"
+    },
+    "AVGO": {
+      "price": 388.69,
+      "changePercent": 4.8304,
+      "prevClose": 370.78,
+      "marketCap": 1849223.794478711,
+      "name": "Broadcom Inc"
+    },
+    "META": {
+      "price": 603.12,
+      "changePercent": -2.0241,
+      "prevClose": 615.58,
+      "marketCap": 1530973.7983510003,
+      "name": "Meta Platforms Inc"
+    },
+    "MU": {
+      "price": 948.8,
+      "changePercent": 1.1104,
+      "prevClose": 938.38,
+      "marketCap": 1071568.1469821895,
+      "name": "Micron Technology Inc"
+    },
+    "AMD": {
+      "price": 517.405,
+      "changePercent": 0.2509,
+      "prevClose": 516.11,
+      "marketCap": 843680.8722208549,
+      "name": "Advanced Micro Devices Inc"
+    },
+    "ORCL": {
+      "price": 140.49,
+      "changePercent": -0.7839,
+      "prevClose": 141.6,
+      "marketCap": 404677.3808247165,
+      "name": "Oracle Corp"
+    },
+    "CSCO": {
+      "price": 113.82,
+      "changePercent": 1.8159,
+      "prevClose": 111.79,
+      "marketCap": 448614.1142548628,
+      "name": "Cisco Systems Inc"
+    },
+    "ETN": {
+      "price": 399.56,
+      "changePercent": 0.9806,
+      "prevClose": 395.68,
+      "marketCap": 155149.14025074948,
+      "name": "Eaton Corporation PLC"
+    },
+    "MRVL": {
+      "price": 231.71,
+      "changePercent": 0.4378,
+      "prevClose": 230.7,
+      "marketCap": 202699.90248998243,
+      "name": "Marvell Technology Inc"
+    },
+    "DELL": {
+      "price": 431.97,
+      "changePercent": 3.5204,
+      "prevClose": 417.28,
+      "marketCap": 280037.96128027316,
+      "name": "Dell Technologies Inc"
+    },
+    "ANET": {
+      "price": 181.05,
+      "changePercent": 8.7649,
+      "prevClose": 166.46,
+      "marketCap": 227978.64657269078,
+      "name": "Arista Networks Inc"
+    },
+    "EQIX": {
+      "price": 1015.97,
+      "changePercent": -0.6804,
+      "prevClose": 1022.93,
+      "marketCap": 100199.28091177004,
+      "name": "Equinix Inc"
+    },
+    "CIEN": {
+      "price": 440.97,
+      "changePercent": 5.266,
+      "prevClose": 418.91,
+      "marketCap": 62420.590566910796,
+      "name": "Ciena Corp"
+    },
+    "AMT": {
+      "price": 165.04,
+      "changePercent": -0.1271,
+      "prevClose": 165.25,
+      "marketCap": 76890.99168005421,
+      "name": "American Tower Corp"
+    },
+    "CEG": {
+      "price": 244.52,
+      "changePercent": 2.0066,
+      "prevClose": 239.71,
+      "marketCap": 87807.62845383903,
+      "name": "Constellation Energy Corp"
+    },
+    "DLR": {
+      "price": 176.3,
+      "changePercent": 0.8005,
+      "prevClose": 174.9,
+      "marketCap": 63056.46793187878,
+      "name": "Digital Realty Trust Inc"
+    },
+    "CRWV": {
+      "price": 90,
+      "changePercent": 7.7457,
+      "prevClose": 83.53,
+      "marketCap": 49101.33088100083,
+      "name": "CoreWeave Inc"
+    },
+    "VST": {
+      "price": 154.82,
+      "changePercent": -0.5843,
+      "prevClose": 155.73,
+      "marketCap": 53480.51,
+      "name": "Vistra Corp"
+    },
+    "CCI": {
+      "price": 76.9,
+      "changePercent": -0.4144,
+      "prevClose": 77.22,
+      "marketCap": 33563.15666488475,
+      "name": "Crown Castle Inc"
+    },
+    "IRM": {
+      "price": 115.46,
+      "changePercent": -0.2505,
+      "prevClose": 115.75,
+      "marketCap": 34352.20055927205,
+      "name": "Iron Mountain Inc"
+    },
+    "NRG": {
+      "price": 137.48,
+      "changePercent": -0.384,
+      "prevClose": 138.01,
+      "marketCap": 29006.418115761462,
+      "name": "NRG Energy Inc"
+    },
+    "SMCI": {
+      "price": 28.17,
+      "changePercent": 7.3143,
+      "prevClose": 26.25,
+      "marketCap": 18222.41201079086,
+      "name": "Super Micro Computer Inc"
+    },
+    "VRT": {
+      "price": 317.81,
+      "changePercent": 4.0022,
+      "prevClose": 305.58,
+      "marketCap": 115079,
+      "name": "Vertiv Holdings Co"
+    }
+  }
+}
