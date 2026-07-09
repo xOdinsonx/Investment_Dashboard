@@ -1,12 +1,22 @@
 // fetch-quotes.js
-// Pulls a quote + company profile (for market cap) for each ticker in
-// tickers.json from Finnhub's free API and writes the results to data.json.
+// Pulls a quote + company profile + basic financials + analyst recommendation
+// trends + analyst price targets for each ticker in tickers.json from
+// Finnhub's free API and writes the results to data.json. Also appends
+// today's close to history.json, building a free historical record over
+// time (Finnhub moved its own historical candle endpoint to paid tiers, so
+// this is how the dashboard gets historical data for $0 — it just starts
+// accumulating from whenever you first run this).
+//
 // Designed to run in CI (GitHub Actions), not in the browser — the API key
 // never reaches the client.
 //
 // Free tier limits (Finnhub, as of 2026): 60 calls/minute. This script makes
-// 2 calls per ticker (quote + profile), so ~50 calls for 25 tickers —
-// comfortably inside the limit even run several times a day.
+// 5 calls per ticker (quote + profile + metric + recommendation + price
+// target), so ~130 calls for 26 tickers — spread out with a 1.1s pause
+// between calls, so it stays well under the limit but takes ~2.5 minutes to
+// run. Recommendation and price-target calls are wrapped so that if Finnhub
+// has restricted either to paid tiers, that ticker just loses those two
+// fields rather than failing the whole run.
 
 const fs = require('fs');
 
@@ -30,10 +40,66 @@ async function fetchJson(url) {
 async function fetchTicker(symbol) {
   const quoteUrl = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${API_KEY}`;
   const profileUrl = `https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${API_KEY}`;
+  const metricUrl = `https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&metric=all&token=${API_KEY}`;
+  const recommendationUrl = `https://finnhub.io/api/v1/stock/recommendation?symbol=${symbol}&token=${API_KEY}`;
+  const priceTargetUrl = `https://finnhub.io/api/v1/stock/price-target?symbol=${symbol}&token=${API_KEY}`;
 
   const quote = await fetchJson(quoteUrl);
   await sleep(1100); // stay well under 60 calls/min
   const profile = await fetchJson(profileUrl);
+  await sleep(1100);
+
+  // Basic financials (52wk high/low, P/E) — wrapped separately since this
+  // endpoint occasionally lacks data for smaller/newer tickers; don't let
+  // that fail the whole ticker.
+  let metric = {};
+  try {
+    const metricRes = await fetchJson(metricUrl);
+    metric = metricRes.metric || {};
+  } catch (err) {
+    console.error(`  (metric fetch failed for ${symbol}: ${err.message})`);
+  }
+  await sleep(1100);
+
+  // Analyst recommendation trends. Finnhub has occasionally moved endpoints
+  // like this to paid tiers — if it 403s, we just skip it for this ticker
+  // rather than failing the whole run.
+  let recommendation = null;
+  try {
+    const recRes = await fetchJson(recommendationUrl);
+    if (Array.isArray(recRes) && recRes.length > 0) {
+      // Finnhub returns entries newest-first.
+      const latest = recRes[0];
+      recommendation = {
+        period: latest.period,
+        strongBuy: latest.strongBuy,
+        buy: latest.buy,
+        hold: latest.hold,
+        sell: latest.sell,
+        strongSell: latest.strongSell,
+      };
+    }
+  } catch (err) {
+    console.error(`  (recommendation fetch failed for ${symbol}: ${err.message})`);
+  }
+  await sleep(1100);
+
+  // Analyst price target consensus. Same graceful-fallback treatment.
+  let priceTarget = null;
+  try {
+    const ptRes = await fetchJson(priceTargetUrl);
+    if (ptRes && (ptRes.targetMean != null || ptRes.targetMedian != null)) {
+      priceTarget = {
+        high: ptRes.targetHigh ?? null,
+        low: ptRes.targetLow ?? null,
+        mean: ptRes.targetMean ?? null,
+        median: ptRes.targetMedian ?? null,
+        lastUpdated: ptRes.lastUpdated ?? null,
+      };
+    }
+  } catch (err) {
+    console.error(`  (price target fetch failed for ${symbol}: ${err.message})`);
+  }
   await sleep(1100);
 
   return {
@@ -42,7 +108,50 @@ async function fetchTicker(symbol) {
     prevClose: quote.pc ?? null,
     marketCap: profile.marketCapitalization ?? null, // in millions USD
     name: profile.name ?? null,
+    week52High: metric['52WeekHigh'] ?? null,
+    week52Low: metric['52WeekLow'] ?? null,
+    peTTM: metric['peTTM'] ?? metric['peBasicExclExtraTTM'] ?? null,
+    recommendation,
+    priceTarget,
   };
+}
+
+function appendHistory(quotes, generatedAt) {
+  const historyPath = 'history.json';
+  let history = {};
+  if (fs.existsSync(historyPath)) {
+    try {
+      history = JSON.parse(fs.readFileSync(historyPath, 'utf8'));
+    } catch (err) {
+      console.error('Could not parse existing history.json, starting fresh.');
+      history = {};
+    }
+  }
+
+  const today = generatedAt.slice(0, 10); // YYYY-MM-DD
+
+  for (const symbol of TICKERS) {
+    const q = quotes[symbol];
+    if (!q || q.price == null) continue;
+    if (!history[symbol]) history[symbol] = [];
+
+    // Avoid duplicate entries if the job runs more than once on the same day.
+    const last = history[symbol][history[symbol].length - 1];
+    if (last && last.date === today) {
+      last.price = q.price;
+    } else {
+      history[symbol].push({ date: today, price: q.price });
+    }
+
+    // Cap history length so the file doesn't grow unbounded — ~2 years of
+    // daily entries is plenty for a comparison chart.
+    if (history[symbol].length > 730) {
+      history[symbol] = history[symbol].slice(-730);
+    }
+  }
+
+  fs.writeFileSync(historyPath, JSON.stringify(history));
+  console.log('Updated history.json');
 }
 
 async function main() {
@@ -57,13 +166,14 @@ async function main() {
     }
   }
 
-  const output = {
-    generatedAt: new Date().toISOString(),
-    quotes,
-  };
+  const generatedAt = new Date().toISOString();
+  const output = { generatedAt, quotes };
 
   fs.writeFileSync('data.json', JSON.stringify(output, null, 2));
   console.log('Wrote data.json');
+
+  appendHistory(quotes, generatedAt);
 }
 
 main();
+

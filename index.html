@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   :root{
     --bg:#0F1620;
@@ -138,6 +140,36 @@
   .load-track{height:5px; background:var(--panel-raised); border-radius:3px; overflow:hidden;}
   .load-fill{height:100%; border-radius:3px; background:var(--cat-color, var(--amber));}
 
+  .range52{padding-left:8px; margin-top:12px;}
+  .range52-label{display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted-dim); margin-bottom:4px; text-transform:uppercase; letter-spacing:1px;}
+  .range52-track{position:relative; height:4px; background:var(--panel-raised); border-radius:2px; margin:6px 0 4px;}
+  .range52-dot{position:absolute; top:50%; width:9px; height:9px; border-radius:50%; background:var(--text); border:2px solid var(--bg); transform:translate(-50%,-50%);}
+  .range52-vals{display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted-dim);}
+
+  .stat-row{display:flex; gap:16px; padding-left:8px; margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted);}
+  .stat-row span b{color:var(--text); font-weight:600;}
+
+  .sparkline{padding-left:8px; margin-top:10px;}
+  .sparkline svg{display:block; width:100%; height:36px;}
+
+  #pdf-btn{cursor:pointer;}
+  #pdf-btn:hover{background:rgba(95,184,176,0.08);}
+  #pdf-btn:disabled{opacity:0.5; cursor:wait;}
+
+  .analyst{margin-top:12px; border-top:1px solid var(--grid-line); padding-top:10px;}
+  .analyst-label{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted-dim); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; padding-left:8px;}
+  .analyst-bar{display:flex; height:6px; border-radius:3px; overflow:hidden; margin:0 8px 5px;}
+  .analyst-bar div{height:100%;}
+  .analyst-bar .seg-buy{background:var(--up);}
+  .analyst-bar .seg-hold{background:var(--muted-dim);}
+  .analyst-bar .seg-sell{background:var(--danger);}
+  .analyst-legend{display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); padding-left:8px;}
+
+  .target-row{display:flex; justify-content:space-between; align-items:baseline; margin-top:8px; padding-left:8px; font-family:'IBM Plex Mono',monospace; font-size:11px;}
+  .target-row .label{color:var(--muted-dim); text-transform:uppercase; letter-spacing:1px; font-size:10px;}
+  .target-row .val{color:var(--text);}
+  .target-row .upside{padding:1px 6px; border-radius:3px; font-size:10.5px;}
+
   footer{max-width:1280px; margin:36px auto 0; padding:20px 24px 0; border-top:1px solid var(--grid-line);}
   footer p{font-size:12px; color:var(--muted-dim); line-height:1.7; font-family:'IBM Plex Mono',monospace;}
   footer .as-of{color:var(--amber-dim);}
@@ -169,6 +201,7 @@
     <option value="chg-asc">Day change ↑</option>
     <option value="alpha">Ticker A–Z</option>
   </select>
+  <button class="toggle" id="pdf-btn" style="border-color:var(--cyan-dim); color:var(--cyan);">↓ PDF Report</button>
 </div>
 
 <main>
@@ -177,7 +210,7 @@
 </main>
 
 <footer>
-  <p>Prices refresh on a schedule via a GitHub Actions job that calls the Finnhub API and writes <code>data.json</code> — see <code>README.md</code> in this repo to set your own refresh cadence. Not financial advice.</p>
+  <p>Prices refresh on a schedule via a GitHub Actions job that calls the Finnhub API and writes <code>data.json</code> — see <code>README.md</code> in this repo to set your own refresh cadence. Analyst recommendation trends and price targets are third-party data sourced from Finnhub (aggregated sell-side analyst estimates) — they are not this dashboard's opinion, and are not a recommendation. Not financial advice.</p>
 </footer>
 
 <script>
@@ -197,6 +230,7 @@ const CAT_COLORS = {
 };
 
 let COMPANIES = [];
+let HISTORY = {};
 let activeCat = null;
 
 const filtersEl = document.getElementById('filters');
@@ -245,9 +279,23 @@ async function loadData(){
         price: q.price ?? null,
         chg: q.changePercent ?? null,
         cap: q.marketCap ?? null,
+        week52High: q.week52High ?? null,
+        week52Low: q.week52Low ?? null,
+        peTTM: q.peTTM ?? null,
+        recommendation: q.recommendation ?? null,
+        priceTarget: q.priceTarget ?? null,
         error: !!q.error
       };
     });
+
+    // History is best-effort — the dashboard works fine without it (it just
+    // means no sparkline yet). It fills in day by day as the fetch job runs.
+    try {
+      const histRes = await fetch('./history.json', {cache:'no-store'});
+      if (histRes.ok) HISTORY = await histRes.json();
+    } catch (err) {
+      console.warn('history.json not available yet:', err.message);
+    }
 
     const generated = new Date(json.generatedAt);
     const ageHours = (Date.now() - generated.getTime()) / 36e5;
@@ -357,6 +405,96 @@ function render(){
     const card = document.createElement('div');
     card.className = 'card' + (c.error ? ' stale' : '');
     card.style.setProperty('--cat-color', color);
+
+    // 52-week range bar
+    let range52Html = '';
+    if (c.week52High != null && c.week52Low != null && c.price != null && c.week52High > c.week52Low) {
+      const pctPos = Math.min(100, Math.max(0, ((c.price - c.week52Low) / (c.week52High - c.week52Low)) * 100));
+      const offHigh = ((c.price - c.week52High) / c.week52High * 100).toFixed(1);
+      range52Html = `
+        <div class="range52">
+          <div class="range52-label"><span>52-Week Range</span><span>${offHigh}% off high</span></div>
+          <div class="range52-track"><div class="range52-dot" style="left:${pctPos}%; background:${color};"></div></div>
+          <div class="range52-vals"><span>$${c.week52Low.toFixed(2)}</span><span>$${c.week52High.toFixed(2)}</span></div>
+        </div>`;
+    }
+
+    // P/E stat
+    const peHtml = c.peTTM != null
+      ? `<div class="stat-row"><span>P/E (TTM): <b>${c.peTTM.toFixed(1)}</b></span></div>`
+      : '';
+
+    // Sparkline from accumulated history (self-generated, grows daily)
+    let sparkHtml = '';
+    const hist = HISTORY[c.t];
+    if (hist && hist.length >= 2) {
+      const prices = hist.map(h => h.price);
+      const min = Math.min(...prices), max = Math.max(...prices);
+      const w = 280, h = 32;
+      const pts = prices.map((p, i) => {
+        const x = (i / (prices.length - 1)) * w;
+        const y = max === min ? h / 2 : h - ((p - min) / (max - min)) * h;
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(' ');
+      sparkHtml = `
+        <div class="sparkline">
+          <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+            <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.5" />
+          </svg>
+        </div>`;
+    }
+
+    // Analyst recommendation consensus (third-party, from Finnhub)
+    let analystHtml = '';
+    if (c.recommendation) {
+      const r = c.recommendation;
+      const buyCount = (r.strongBuy || 0) + (r.buy || 0);
+      const holdCount = r.hold || 0;
+      const sellCount = (r.sell || 0) + (r.strongSell || 0);
+      const total = buyCount + holdCount + sellCount;
+      if (total > 0) {
+        const buyPct = (buyCount / total * 100).toFixed(1);
+        const holdPct = (holdCount / total * 100).toFixed(1);
+        const sellPct = (sellCount / total * 100).toFixed(1);
+        analystHtml += `
+          <div class="analyst">
+            <div class="analyst-label">Analyst Consensus (${total} analysts, ${r.period || 'latest'}) — third-party data, not our opinion</div>
+            <div class="analyst-bar">
+              <div class="seg-buy" style="width:${buyPct}%"></div>
+              <div class="seg-hold" style="width:${holdPct}%"></div>
+              <div class="seg-sell" style="width:${sellPct}%"></div>
+            </div>
+            <div class="analyst-legend">
+              <span>Buy ${buyCount}</span><span>Hold ${holdCount}</span><span>Sell ${sellCount}</span>
+            </div>
+          </div>`;
+      }
+    }
+
+    // Analyst price target consensus
+    if (c.priceTarget && c.priceTarget.mean != null) {
+      const pt = c.priceTarget;
+      const hasUpside = c.price != null;
+      const upside = hasUpside ? ((pt.mean - c.price) / c.price * 100) : null;
+      const upsideClass = upside == null ? 'na' : (upside >= 0 ? 'pos' : 'neg');
+      const upsideLabel = upside == null ? '' : `<span class="upside chg ${upsideClass}">${upside >= 0 ? '+' : ''}${upside.toFixed(1)}% to mean</span>`;
+      analystHtml += `
+        <div class="target-row">
+          <span class="label">Price Target (mean)</span>
+          <span class="val">$${pt.mean.toFixed(2)} ${upsideLabel}</span>
+        </div>
+        ${pt.low != null && pt.high != null ? `
+        <div class="target-row">
+          <span class="label">Target Range</span>
+          <span class="val">$${pt.low.toFixed(2)} – $${pt.high.toFixed(2)}</span>
+        </div>` : ''}`;
+      if (!analystHtml.includes('analyst-label')) {
+        // Wrap standalone price-target rows with the same top border/spacing
+        // as the analyst block when there's no recommendation data.
+        analystHtml = `<div class="analyst">${analystHtml}</div>`;
+      }
+    }
+
     card.innerHTML = `
       <div class="card-top">
         <div class="ticker-row">
@@ -376,6 +514,10 @@ function render(){
         <div class="load-label"><span>Mkt Cap</span><span>${fmtCap(c.cap)}</span></div>
         <div class="load-track"><div class="load-fill" style="width:${pct}%"></div></div>
       </div>
+      ${range52Html}
+      ${peHtml}
+      ${sparkHtml}
+      ${analystHtml}
     `;
     gridEl.appendChild(card);
   });
@@ -384,6 +526,62 @@ function render(){
 searchEl.addEventListener('input', render);
 sortEl.addEventListener('change', render);
 loadData();
+
+// --- PDF export ---
+// Renders the current filtered/sorted view to canvas via html2canvas, then
+// paginates it into a multi-page PDF via jsPDF. Both libraries run entirely
+// client-side — nothing is uploaded anywhere.
+document.getElementById('pdf-btn').addEventListener('click', async () => {
+  const btn = document.getElementById('pdf-btn');
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Generating…';
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const target = document.querySelector('main');
+
+    const canvas = await html2canvas(target, {
+      backgroundColor: '#0F1620',
+      scale: 2,
+      useCORS: true,
+    });
+
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+    const imgData = canvas.toDataURL('image/png');
+
+    pdf.setFontSize(9);
+    pdf.setTextColor(150);
+    pdf.text('Data Center Infrastructure — Coverage Panel', 24, 20);
+    pdf.text(new Date().toLocaleString(), pageWidth - 140, 20);
+
+    pdf.addImage(imgData, 'PNG', 0, 30, imgWidth, imgHeight);
+    heightLeft -= (pageHeight - 30);
+
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    const filename = `data-center-dashboard-${new Date().toISOString().slice(0,10)}.pdf`;
+    pdf.save(filename);
+  } catch (err) {
+    console.error('PDF export failed:', err);
+    alert('PDF export failed — check the browser console for details.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = original;
+  }
+});
 </script>
 
 </body>

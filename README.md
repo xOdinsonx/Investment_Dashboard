@@ -13,8 +13,21 @@ name, category, one-line blurb, and where it came from (`"dtcr"` or
 
 **Price refresh** (`fetch-quotes.js` + `update-quotes.yml`)
 Calls the [Finnhub](https://finnhub.io) API (free tier) for every ticker in
-`tickers.json` and writes the results to `data.json`. `index.html` reads
-`tickers.json` + `data.json` on load — no server component, no exposed key.
+`tickers.json` and writes the results to `data.json`, including 52-week
+high/low and trailing P/E from Finnhub's basic-financials endpoint.
+It also appends today's closing price to `history.json` — Finnhub moved its
+own historical candle endpoint to paid tiers, so this is how the dashboard
+builds historical data for $0: it just starts accumulating from whenever
+you first run the job. There's no backfilled past data, but the sparkline
+on each card grows a data point every day going forward. `index.html` reads
+`tickers.json` + `data.json` + `history.json` on load — no server
+component, no exposed key.
+
+**PDF export**
+The "↓ PDF Report" button in the toolbar snapshots the current
+filtered/sorted view and saves it as a paginated PDF, entirely in your
+browser (via html2canvas + jsPDF, loaded from a CDN) — nothing is uploaded
+anywhere.
 
 **ETF holdings scout** (`suggest-tickers.js` + `scout-etf-holdings.yml`)
 Downloads the daily holdings CSV that Global X publishes for **DTCR**
@@ -101,6 +114,16 @@ Pacer's **SRVR** (Data & Infrastructure Real Estate ETF), publish similar
 daily holdings files — if you want broader coverage, find their CSV/XLSX
 URL pattern and add a second fetch-and-diff pass following the same
 structure as `fetchLatestCsv()`.
+
+## On "is this a good buy"
+
+The dashboard deliberately doesn't include a buy/sell signal or a "fair
+value" price. What it does show — 52-week range position, day change, P/E —
+is the same raw context most investors start from; what you do with it is
+a judgment call this tool won't make for you. If you want more structured
+research, Finnhub's free tier also exposes analyst recommendation trends
+and price-target consensus (`/stock/recommendation`, `/stock/price-target`)
+if you want to wire those in as additional factual data points later.
 
 ## Notes
 - GitHub Actions on a public repo is free with no run-time limits for
