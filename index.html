@@ -108,6 +108,34 @@
     display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:14px;
   }
 
+  .movers-row{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px;
+  }
+  .movers-panel{background:var(--panel); border:1px solid var(--grid-line); border-radius:5px; padding:16px 18px;}
+  .movers-panel-title{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-transform:uppercase; letter-spacing:1.5px;
+    margin-bottom:12px; display:flex; align-items:center; gap:7px;
+  }
+  .movers-panel-title.up{color:var(--up);}
+  .movers-panel-title.down{color:var(--danger);}
+  .movers-panel-title .arrow{font-size:14px;}
+  .mover-item{
+    display:flex; justify-content:space-between; align-items:center; padding:9px 0;
+    border-bottom:1px solid var(--grid-line);
+  }
+  .mover-item:last-child{border-bottom:none;}
+  .mover-left{display:flex; align-items:baseline; gap:10px;}
+  .mover-ticker{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:15px;}
+  .mover-name{font-size:13px; color:var(--muted-dim);}
+  .mover-right{display:flex; align-items:baseline; gap:10px;}
+  .mover-price{font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--muted);}
+  .mover-chg{font-family:'IBM Plex Mono',monospace; font-size:14.5px; font-weight:600; padding:2px 8px; border-radius:3px;}
+  .mover-chg.pos{color:var(--up); background:rgba(111,191,139,0.1);}
+  .mover-chg.neg{color:var(--danger); background:rgba(217,112,79,0.1);}
+  @media (max-width: 720px){
+    .movers-row{grid-template-columns:1fr;}
+  }
+
   .card{
     background:var(--panel); border:1px solid var(--grid-line); border-radius:6px; padding:22px 22px 20px;
     position:relative; transition:border-color .15s, transform .15s;
@@ -206,6 +234,7 @@
 
 <main>
   <div class="summary-row" id="summary"></div>
+  <div class="movers-row" id="movers"></div>
   <div class="grid" id="grid"></div>
 </main>
 
@@ -324,6 +353,7 @@ async function loadData(){
 
   buildFilters();
   buildSummary();
+  buildMovers();
   render();
 }
 
@@ -351,6 +381,43 @@ function buildFilters(){
       render();
     });
   });
+}
+
+function buildMovers(){
+  const moversEl = document.getElementById('movers');
+  const withChg = COMPANIES.filter(c => c.chg != null && !c.error);
+
+  if (withChg.length === 0) {
+    moversEl.innerHTML = '';
+    return;
+  }
+
+  const gainers = withChg.slice().sort((a,b) => b.chg - a.chg).slice(0, 3);
+  const losers = withChg.slice().sort((a,b) => a.chg - b.chg).slice(0, 3);
+
+  const renderList = (items) => items.map(c => `
+    <div class="mover-item">
+      <div class="mover-left">
+        <span class="mover-ticker">${c.t}</span>
+        <span class="mover-name">${c.n}</span>
+      </div>
+      <div class="mover-right">
+        <span class="mover-price">$${c.price != null ? c.price.toFixed(2) : '—'}</span>
+        <span class="mover-chg ${c.chg >= 0 ? 'pos' : 'neg'}">${c.chg >= 0 ? '+' : ''}${c.chg.toFixed(2)}%</span>
+      </div>
+    </div>
+  `).join('');
+
+  moversEl.innerHTML = `
+    <div class="movers-panel">
+      <div class="movers-panel-title up"><span class="arrow">▲</span>Top Gainers Today</div>
+      ${renderList(gainers)}
+    </div>
+    <div class="movers-panel">
+      <div class="movers-panel-title down"><span class="arrow">▼</span>Top Losers Today</div>
+      ${renderList(losers)}
+    </div>
+  `;
 }
 
 function buildSummary(){
