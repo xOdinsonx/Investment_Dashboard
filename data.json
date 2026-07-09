@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-09T04:09:44.745Z",
+  "generatedAt": "2026-07-09T15:55:41.784Z",
   "quotes": {
     "NVDA": {
-      "price": 204.12,
-      "changePercent": 3.651,
-      "prevClose": 196.93,
+      "price": 202,
+      "changePercent": -1.0386,
+      "prevClose": 204.12,
       "marketCap": 4939703.816282672,
       "name": "NVIDIA Corp",
       "week52High": 236.54,
-      "week52Low": 157.34,
-      "peTTM": 30.0656,
+      "week52Low": 158.39,
+      "peTTM": 30.5773,
       "recommendation": {
         "period": "2026-07-01",
         "strongBuy": 24,
@@ -21,9 +21,9 @@
       "priceTarget": null
     },
     "GOOGL": {
-      "price": 361.92,
-      "changePercent": -1.3923,
-      "prevClose": 367.03,
+      "price": 352.4,
+      "changePercent": -2.6304,
+      "prevClose": 361.92,
       "marketCap": 4406216.7552,
       "name": "Alphabet Inc",
       "week52High": 408.61,
@@ -40,14 +40,14 @@
       "priceTarget": null
     },
     "MSFT": {
-      "price": 383.34,
-      "changePercent": -1.4145,
-      "prevClose": 388.84,
+      "price": 380.36,
+      "changePercent": -0.7774,
+      "prevClose": 383.34,
       "marketCap": 2847616.081365062,
       "name": "Microsoft Corp",
       "week52High": 555.45,
       "week52Low": 349.2,
-      "peTTM": 22.8188,
+      "peTTM": 22.4616,
       "recommendation": {
         "period": "2026-07-01",
         "strongBuy": 23,
@@ -59,14 +59,14 @@
       "priceTarget": null
     },
     "AMZN": {
-      "price": 243.62,
-      "changePercent": -0.9594,
-      "prevClose": 245.98,
+      "price": 241.76,
+      "changePercent": -0.7635,
+      "prevClose": 243.62,
       "marketCap": 2620646.9404189484,
       "name": "Amazon.com Inc",
       "week52High": 278.56,
       "week52Low": 196,
-      "peTTM": 28.911,
+      "peTTM": 28.8624,
       "recommendation": {
         "period": "2026-07-01",
         "strongBuy": 21,
@@ -78,9 +78,9 @@
       "priceTarget": null
     },
     "AVGO": {
-      "price": 388.69,
-      "changePercent": 4.8304,
-      "prevClose": 370.78,
+      "price": 400.82,
+      "changePercent": 3.1207,
+      "prevClose": 388.69,
       "marketCap": 1849223.794478711,
       "name": "Broadcom Inc",
       "week52High": 495,
@@ -97,14 +97,14 @@
       "priceTarget": null
     },
     "META": {
-      "price": 603.12,
-      "changePercent": -2.0241,
-      "prevClose": 615.58,
+      "price": 606.3,
+      "changePercent": 0.5273,
+      "prevClose": 603.12,
       "marketCap": 1530973.7983510003,
       "name": "Meta Platforms Inc",
       "week52High": 796.25,
       "week52Low": 520.26,
-      "peTTM": 22.1373,
+      "peTTM": 21.6892,
       "recommendation": {
         "period": "2026-07-01",
         "strongBuy": 21,
@@ -116,9 +116,9 @@
       "priceTarget": null
     },
     "MU": {
-      "price": 948.8,
-      "changePercent": 1.1104,
-      "prevClose": 938.38,
+      "price": 1018.74,
+      "changePercent": 7.3714,
+      "prevClose": 948.8,
       "marketCap": 1071568.1469821895,
       "name": "Micron Technology Inc",
       "week52High": 1255,
@@ -135,9 +135,9 @@
       "priceTarget": null
     },
     "AMD": {
-      "price": 517.405,
-      "changePercent": 0.2509,
-      "prevClose": 516.11,
+      "price": 555.24,
+      "changePercent": 7.3125,
+      "prevClose": 517.405,
       "marketCap": 843680.8722208549,
       "name": "Advanced Micro Devices Inc",
       "week52High": 584.73,
@@ -154,14 +154,14 @@
       "priceTarget": null
     },
     "ORCL": {
-      "price": 140.49,
-      "changePercent": -0.7839,
-      "prevClose": 141.6,
+      "price": 146.62,
+      "changePercent": 4.3633,
+      "prevClose": 140.49,
       "marketCap": 404677.3808247165,
       "name": "Oracle Corp",
       "week52High": 345.72,
       "week52Low": 134.57,
-      "peTTM": 23.7466,
+      "peTTM": 24.8145,
       "recommendation": {
         "period": "2026-07-01",
         "strongBuy": 15,
@@ -173,9 +173,9 @@
       "priceTarget": null
     },
     "CSCO": {
-      "price": 113.82,
-      "changePercent": 1.8159,
-      "prevClose": 111.79,
+      "price": 118,
+      "changePercent": 3.6725,
+      "prevClose": 113.82,
       "marketCap": 448614.1142548628,
       "name": "Cisco Systems Inc",
       "week52High": 130.3656,
@@ -192,9 +192,9 @@
       "priceTarget": null
     },
     "ETN": {
-      "price": 399.56,
-      "changePercent": 0.9806,
-      "prevClose": 395.68,
+      "price": 408.93,
+      "changePercent": 2.3451,
+      "prevClose": 399.56,
       "marketCap": 155149.14025074948,
       "name": "Eaton Corporation PLC",
       "week52High": 436.74,
@@ -211,9 +211,9 @@
       "priceTarget": null
     },
     "MRVL": {
-      "price": 231.71,
-      "changePercent": 0.4378,
-      "prevClose": 230.7,
+      "price": 247.89,
+      "changePercent": 6.9829,
+      "prevClose": 231.71,
       "marketCap": 202699.90248998243,
       "name": "Marvell Technology Inc",
       "week52High": 329.88,
@@ -230,9 +230,9 @@
       "priceTarget": null
     },
     "DELL": {
-      "price": 431.97,
-      "changePercent": 3.5204,
-      "prevClose": 417.28,
+      "price": 454.18,
+      "changePercent": 5.1416,
+      "prevClose": 431.97,
       "marketCap": 280037.96128027316,
       "name": "Dell Technologies Inc",
       "week52High": 469.47,
@@ -249,14 +249,14 @@
       "priceTarget": null
     },
     "ANET": {
-      "price": 181.05,
-      "changePercent": 8.7649,
-      "prevClose": 166.46,
+      "price": 185.01,
+      "changePercent": 2.1872,
+      "prevClose": 181.05,
       "marketCap": 227978.64657269078,
       "name": "Arista Networks Inc",
       "week52High": 181.27,
       "week52Low": 100.945,
-      "peTTM": 56.3384,
+      "peTTM": 61.2763,
       "recommendation": {
         "period": "2026-07-01",
         "strongBuy": 9,
@@ -268,9 +268,9 @@
       "priceTarget": null
     },
     "EQIX": {
-      "price": 1015.97,
-      "changePercent": -0.6804,
-      "prevClose": 1022.93,
+      "price": 1037.1,
+      "changePercent": 2.0798,
+      "prevClose": 1015.97,
       "marketCap": 100199.28091177004,
       "name": "Equinix Inc",
       "week52High": 1128.68,
@@ -287,14 +287,14 @@
       "priceTarget": null
     },
     "CIEN": {
-      "price": 440.97,
-      "changePercent": 5.266,
-      "prevClose": 418.91,
+      "price": 473.23,
+      "changePercent": 7.3157,
+      "prevClose": 440.97,
       "marketCap": 62420.590566910796,
       "name": "Ciena Corp",
       "week52High": 637.51,
       "week52Low": 76.89,
-      "peTTM": 137.9519,
+      "peTTM": 153.7899,
       "recommendation": {
         "period": "2026-07-01",
         "strongBuy": 7,
@@ -306,9 +306,9 @@
       "priceTarget": null
     },
     "AMT": {
-      "price": 165.04,
-      "changePercent": -0.1271,
-      "prevClose": 165.25,
+      "price": 165.73,
+      "changePercent": 0.4181,
+      "prevClose": 165.04,
       "marketCap": 76890.99168005421,
       "name": "American Tower Corp",
       "week52High": 234.33,
@@ -325,9 +325,9 @@
       "priceTarget": null
     },
     "CEG": {
-      "price": 244.52,
-      "changePercent": 2.0066,
-      "prevClose": 239.71,
+      "price": 248.66,
+      "changePercent": 1.6931,
+      "prevClose": 244.52,
       "marketCap": 87807.62845383903,
       "name": "Constellation Energy Corp",
       "week52High": 412.7,
@@ -344,9 +344,9 @@
       "priceTarget": null
     },
     "DLR": {
-      "price": 176.3,
-      "changePercent": 0.8005,
-      "prevClose": 174.9,
+      "price": 180.04,
+      "changePercent": 2.1214,
+      "prevClose": 176.3,
       "marketCap": 63056.46793187878,
       "name": "Digital Realty Trust Inc",
       "week52High": 208.14,
@@ -363,12 +363,12 @@
       "priceTarget": null
     },
     "CRWV": {
-      "price": 90,
-      "changePercent": 7.7457,
-      "prevClose": 83.53,
+      "price": 93.02,
+      "changePercent": 3.3556,
+      "prevClose": 90,
       "marketCap": 49101.33088100083,
       "name": "CoreWeave Inc",
-      "week52High": 163.66,
+      "week52High": 160.42,
       "week52Low": 63.8,
       "peTTM": null,
       "recommendation": {
@@ -382,9 +382,9 @@
       "priceTarget": null
     },
     "VST": {
-      "price": 154.82,
-      "changePercent": -0.5843,
-      "prevClose": 155.73,
+      "price": 159.13,
+      "changePercent": 2.7839,
+      "prevClose": 154.82,
       "marketCap": 53480.51,
       "name": "Vistra Corp",
       "week52High": 219.82,
@@ -401,9 +401,9 @@
       "priceTarget": null
     },
     "CCI": {
-      "price": 76.9,
-      "changePercent": -0.4144,
-      "prevClose": 77.22,
+      "price": 77.27,
+      "changePercent": 0.4811,
+      "prevClose": 76.9,
       "marketCap": 33563.15666488475,
       "name": "Crown Castle Inc",
       "week52High": 115.76,
@@ -420,9 +420,9 @@
       "priceTarget": null
     },
     "IRM": {
-      "price": 115.46,
-      "changePercent": -0.2505,
-      "prevClose": 115.75,
+      "price": 118.77,
+      "changePercent": 2.8668,
+      "prevClose": 115.46,
       "marketCap": 34352.20055927205,
       "name": "Iron Mountain Inc",
       "week52High": 134.68,
@@ -439,9 +439,9 @@
       "priceTarget": null
     },
     "NRG": {
-      "price": 137.48,
-      "changePercent": -0.384,
-      "prevClose": 138.01,
+      "price": 142.15,
+      "changePercent": 3.3969,
+      "prevClose": 137.48,
       "marketCap": 29006.418115761462,
       "name": "NRG Energy Inc",
       "week52High": 189.96,
@@ -458,9 +458,9 @@
       "priceTarget": null
     },
     "SMCI": {
-      "price": 28.17,
-      "changePercent": 7.3143,
-      "prevClose": 26.25,
+      "price": 28.76,
+      "changePercent": 2.0944,
+      "prevClose": 28.17,
       "marketCap": 18222.41201079086,
       "name": "Super Micro Computer Inc",
       "week52High": 62.36,
@@ -477,9 +477,9 @@
       "priceTarget": null
     },
     "VRT": {
-      "price": 317.81,
-      "changePercent": 4.0022,
-      "prevClose": 305.58,
+      "price": 329.31,
+      "changePercent": 3.6185,
+      "prevClose": 317.81,
       "marketCap": 115079,
       "name": "Vertiv Holdings Co",
       "week52High": 379.935,
