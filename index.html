@@ -108,6 +108,23 @@
     display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:14px;
   }
 
+  .grouped-root{display:block;}
+  .category-section{margin-bottom:32px;}
+  .category-section:last-child{margin-bottom:0;}
+  .category-header{
+    display:flex; align-items:center; gap:10px; margin-bottom:14px; padding-bottom:8px;
+    border-bottom:1px solid var(--grid-line);
+  }
+  .category-header-bar{width:4px; height:18px; border-radius:2px; background:var(--cat-color, var(--amber));}
+  .category-header-title{
+    font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; text-transform:uppercase;
+    letter-spacing:1.5px; color:var(--cat-color, var(--text));
+  }
+  .category-header-count{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted-dim);
+    background:var(--panel); padding:2px 9px; border-radius:10px; border:1px solid var(--grid-line);
+  }
+
   .movers-row{
     display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px;
   }
@@ -496,6 +513,7 @@ function render(){
 
   const maxCap = Math.max(1, ...COMPANIES.map(c=>c.cap || 0));
 
+  gridEl.className = 'grid';
   gridEl.innerHTML = '';
   if(list.length===0){
     gridEl.innerHTML = pinnedOnly
@@ -504,7 +522,46 @@ function render(){
     return;
   }
 
-  list.forEach(c=>{
+  // When viewing "All" categories (and not in pinned-only mode), group
+  // cards under category headers instead of one flat mixed grid — makes it
+  // much easier to scan. Category order follows first-appearance in the
+  // already-sorted list, so it naturally reflects whatever sort is active
+  // (e.g. sorting by market cap puts the highest-cap category's section
+  // first). A single-category filter or pinned-only view stays flat, since
+  // grouping a single group adds nothing.
+  const shouldGroup = !activeCat && !pinnedOnly;
+  gridEl.className = shouldGroup ? 'grouped-root' : 'grid';
+
+  if (!shouldGroup) {
+    list.forEach(c => gridEl.appendChild(buildCard(c, pinned, maxCap)));
+    return;
+  }
+
+  const groups = new Map();
+  list.forEach(c => {
+    if (!groups.has(c.cat)) groups.set(c.cat, []);
+    groups.get(c.cat).push(c);
+  });
+
+  groups.forEach((items, cat) => {
+    const color = CAT_COLORS[cat] || '#E8A33D';
+    const section = document.createElement('div');
+    section.className = 'category-section';
+    section.innerHTML = `
+      <div class="category-header" style="--cat-color:${color}">
+        <span class="category-header-bar"></span>
+        <span class="category-header-title">${cat}</span>
+        <span class="category-header-count">${items.length}</span>
+      </div>
+    `;
+    const sectionGrid = document.createElement('div');
+    sectionGrid.className = 'grid';
+    items.forEach(c => sectionGrid.appendChild(buildCard(c, pinned, maxCap)));
+    section.appendChild(sectionGrid);
+    gridEl.appendChild(section);
+  });
+}
+function buildCard(c, pinned, maxCap){
     const color = CAT_COLORS[c.cat] || '#E8A33D';
     const pct = c.cap ? Math.max(4, (c.cap/maxCap*100)).toFixed(1) : 0;
     const hasChg = c.chg != null;
@@ -634,8 +691,7 @@ function render(){
       ${sparkHtml}
       ${analystHtml}
     `;
-    gridEl.appendChild(card);
-  });
+    return card;
 }
 
 searchEl.addEventListener('input', render);
