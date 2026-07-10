@@ -1019,17 +1019,25 @@ document.getElementById('pdf-btn').addEventListener('click', () => {
       styles: { fontSize: 8, cellPadding: 5, font: 'helvetica' },
       headStyles: { fillColor: [20, 29, 41], textColor: 255, fontStyle: 'bold' },
       alternateRowStyles: { fillColor: [245, 247, 249] },
-      margin: { left: 24, right: 24 },
-      didDrawPage: () => {
-        const pageCount = pdf.internal.getNumberOfPages();
-        pdf.setFontSize(8);
-        pdf.setTextColor(150);
-        pdf.text(
-          `Page ${pdf.internal.getCurrentPageInfo().pageNumber} of ${pageCount}`,
-          pageWidth - 80, pdf.internal.pageSize.getHeight() - 16
-        );
-      },
+      margin: { left: 24, right: 24, bottom: 30 },
     });
+
+    // Page-number footer: jsPDF doesn't know the final page count while a
+    // page is still being drawn, so "Page X of Y" has to be added in a
+    // second pass over every page once the document is complete — doing
+    // it inside autoTable's didDrawPage callback (the more obvious way)
+    // gives a wrong, ever-changing Y value on every page but the last.
+    const pageCount = pdf.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      pdf.setPage(i);
+      pdf.setFontSize(8);
+      pdf.setTextColor(150);
+      pdf.text(
+        `Page ${i} of ${pageCount}`,
+        pageWidth - 80, pdf.internal.pageSize.getHeight() - 16
+      );
+    }
+    pdf.setPage(pageCount);
 
     const finalY = pdf.lastAutoTable.finalY + 20;
     pdf.setFontSize(8);
