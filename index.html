@@ -154,6 +154,15 @@
     font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-transform:uppercase; letter-spacing:1px;
     padding:5px 10px; border-radius:3px; border:1px solid var(--cat-color); color:var(--cat-color); white-space:nowrap;
   }
+  .card-top-right{display:flex; align-items:center; gap:8px;}
+  .pin-btn{
+    background:none; border:none; cursor:pointer; font-size:18px; line-height:1; padding:2px;
+    color:var(--muted-dim); transition:color .15s, transform .15s;
+  }
+  .pin-btn:hover{color:var(--amber); transform:scale(1.15);}
+  .pin-btn.pinned{color:var(--amber);}
+  .card.is-pinned{border-color:var(--amber-dim);}
+  .card.is-pinned::before{background:var(--amber) !important;}
   .price-row{display:flex; justify-content:space-between; align-items:baseline; padding-left:8px; margin-bottom:10px;}
   .price{font-family:'IBM Plex Mono',monospace; font-size:24px; font-weight:600;}
   .chg{font-family:'IBM Plex Mono',monospace; font-size:16px; padding:4px 9px; border-radius:3px;}
@@ -230,6 +239,7 @@
     <option value="alpha">Ticker A–Z</option>
   </select>
   <button class="toggle" id="pdf-btn" style="border-color:var(--cyan-dim); color:var(--cyan);">↓ PDF Report</button>
+  <button class="toggle" id="pinned-only-btn">★ Pinned Only</button>
 </div>
 
 <main>
@@ -261,6 +271,26 @@ const CAT_COLORS = {
 let COMPANIES = [];
 let HISTORY = {};
 let activeCat = null;
+let pinnedOnly = false;
+
+const PIN_STORAGE_KEY = 'dc-dashboard-pinned-tickers';
+
+function getPinned(){
+  try{
+    const raw = localStorage.getItem(PIN_STORAGE_KEY);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch(err){
+    return new Set();
+  }
+}
+
+function togglePinned(ticker){
+  const pinned = getPinned();
+  if (pinned.has(ticker)) pinned.delete(ticker);
+  else pinned.add(ticker);
+  localStorage.setItem(PIN_STORAGE_KEY, JSON.stringify([...pinned]));
+  render();
+}
 
 const filtersEl = document.getElementById('filters');
 const gridEl = document.getElementById('grid');
@@ -435,10 +465,12 @@ function buildSummary(){
 
 function render(){
   const q = searchEl.value.trim().toLowerCase();
+  const pinned = getPinned();
   let list = COMPANIES.filter(c=>{
     const matchesCat = !activeCat || c.cat === activeCat;
     const matchesQ = !q || c.t.toLowerCase().includes(q) || c.n.toLowerCase().includes(q);
-    return matchesCat && matchesQ;
+    const matchesPin = !pinnedOnly || pinned.has(c.t);
+    return matchesCat && matchesQ && matchesPin;
   });
 
   const sortVal = sortEl.value;
@@ -453,11 +485,22 @@ function render(){
     return 0;
   });
 
+  // Pinned items float to the top, keeping the chosen sort order within
+  // each group (pinned vs. not) — this is a stable partition, not a
+  // secondary sort key, so it doesn't disturb the sort the user picked.
+  if (!pinnedOnly) {
+    const pinnedItems = list.filter(c => pinned.has(c.t));
+    const restItems = list.filter(c => !pinned.has(c.t));
+    list = [...pinnedItems, ...restItems];
+  }
+
   const maxCap = Math.max(1, ...COMPANIES.map(c=>c.cap || 0));
 
   gridEl.innerHTML = '';
   if(list.length===0){
-    gridEl.innerHTML = '<div class="empty">NO MATCHES — ADJUST FILTER OR SEARCH</div>';
+    gridEl.innerHTML = pinnedOnly
+      ? '<div class="empty">NO PINNED TICKERS — CLICK THE ★ ON A CARD TO PIN IT</div>'
+      : '<div class="empty">NO MATCHES — ADJUST FILTER OR SEARCH</div>';
     return;
   }
 
@@ -470,8 +513,9 @@ function render(){
     const chgLabel = hasChg ? chgSign + c.chg.toFixed(2) + '%' : '—';
     const priceLabel = c.price != null ? '$' + c.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) : '—';
 
+    const isPinned = pinned.has(c.t);
     const card = document.createElement('div');
-    card.className = 'card' + (c.error ? ' stale' : '');
+    card.className = 'card' + (c.error ? ' stale' : '') + (isPinned ? ' is-pinned' : '');
     card.style.setProperty('--cat-color', color);
 
     // 52-week range bar
@@ -571,7 +615,10 @@ function render(){
             <div class="name">${c.n}</div>
           </div>
         </div>
-        <div class="cat-tag" style="--cat-color:${color}">${c.cat}</div>
+        <div class="card-top-right">
+          <button class="pin-btn ${isPinned ? 'pinned' : ''}" data-ticker="${c.t}" title="${isPinned ? 'Unpin' : 'Pin to top'}">${isPinned ? '★' : '☆'}</button>
+          <div class="cat-tag" style="--cat-color:${color}">${c.cat}</div>
+        </div>
       </div>
       <div class="price-row">
         <div class="price">${priceLabel}</div>
@@ -593,6 +640,22 @@ function render(){
 
 searchEl.addEventListener('input', render);
 sortEl.addEventListener('change', render);
+
+// Event delegation for pin buttons — cards are re-rendered often, so we
+// bind once on the container rather than re-binding per card.
+gridEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('.pin-btn');
+  if (!btn) return;
+  togglePinned(btn.dataset.ticker);
+});
+
+const pinnedOnlyBtn = document.getElementById('pinned-only-btn');
+pinnedOnlyBtn.addEventListener('click', () => {
+  pinnedOnly = !pinnedOnly;
+  pinnedOnlyBtn.classList.toggle('active', pinnedOnly);
+  render();
+});
+
 loadData();
 
 // --- PDF export ---
