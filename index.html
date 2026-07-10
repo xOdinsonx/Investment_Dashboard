@@ -315,11 +315,16 @@
     <input id="search" placeholder="Search ticker or company…" />
   </div>
   <div id="filters" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+  <select class="sortsel" id="period-sel" title="Change is measured over this period (needs enough accumulated history)">
+    <option value="1d">Change: 1 Day</option>
+    <option value="7d">Change: 7 Days</option>
+    <option value="30d">Change: 30 Days</option>
+  </select>
   <select class="sortsel" id="sortsel">
     <option value="cap-desc">Market cap ↓</option>
     <option value="cap-asc">Market cap ↑</option>
-    <option value="chg-desc">Day change ↓</option>
-    <option value="chg-asc">Day change ↑</option>
+    <option value="chg-desc">Change ↓</option>
+    <option value="chg-asc">Change ↑</option>
     <option value="alpha">Ticker A–Z</option>
   </select>
   <button class="toggle" id="pdf-btn" style="border-color:var(--cyan-dim); color:var(--cyan);">↓ PDF Report</button>
@@ -397,6 +402,7 @@ const filtersEl = document.getElementById('filters');
 const gridEl = document.getElementById('grid');
 const searchEl = document.getElementById('search');
 const sortEl = document.getElementById('sortsel');
+const periodEl = document.getElementById('period-sel');
 const summaryEl = document.getElementById('summary');
 const updatedBadge = document.getElementById('updated-badge');
 const statusDot = document.getElementById('status-dot');
@@ -413,6 +419,44 @@ function fmtCap(millions){
 function fmtVolume(millions){
   if (millions == null) return '—';
   return millions.toFixed(2) + 'M';
+}
+
+// Computes % change over `days` calendar days using the self-accumulated
+// history.json record (not Finnhub's paid historical-candle endpoint).
+// Returns { value, reason, daysAvailable }:
+//   reason 'ok'           — value is a valid % change
+//   reason 'no-history'   — ticker has no history entries at all yet
+//   reason 'insufficient' — history exists but doesn't go back far enough;
+//                           daysAvailable tells you how far it currently does
+function getPeriodChange(ticker, days, currentPrice){
+  if (currentPrice == null) return { value: null, reason: 'no-price' };
+  const hist = HISTORY[ticker];
+  if (!hist || hist.length === 0) return { value: null, reason: 'no-history' };
+
+  const today = new Date();
+  const targetDate = new Date(today.getTime() - days * 24 * 60 * 60 * 1000);
+
+  // hist is appended chronologically, so the last entry with date <= target
+  // is the closest match at or before the target day.
+  let best = null;
+  for (const h of hist) {
+    if (new Date(h.date) <= targetDate) best = h;
+  }
+
+  if (!best) {
+    const oldestDate = new Date(hist[0].date);
+    const daysAvailable = Math.max(0, Math.floor((today - oldestDate) / 86400000));
+    return { value: null, reason: 'insufficient', daysAvailable };
+  }
+
+  const pct = (currentPrice - best.price) / best.price * 100;
+  return { value: pct, reason: 'ok' };
+}
+
+function computeDisplayChange(c, periodKey){
+  if (periodKey === '1d') return { value: c.chg, reason: c.chg != null ? 'ok' : 'no-price' };
+  const days = periodKey === '7d' ? 7 : 30;
+  return getPeriodChange(c.t, days, c.price);
 }
 
 async function loadData(){
@@ -578,6 +622,8 @@ function buildSummary(){
 function render(){
   const q = searchEl.value.trim().toLowerCase();
   const pinned = getPinned();
+  const periodKey = periodEl.value;
+
   let list = COMPANIES.filter(c=>{
     const matchesCat = !activeCat || c.cat === activeCat;
     const matchesQ = !q || c.t.toLowerCase().includes(q) || c.n.toLowerCase().includes(q);
@@ -585,10 +631,16 @@ function render(){
     return matchesCat && matchesQ && matchesPin;
   });
 
+  // Attach the period-adjusted change to each item without mutating the
+  // original COMPANIES objects — exports, the compare modal, and the
+  // movers strip all deliberately keep showing straight daily change
+  // regardless of what period is selected here.
+  list = list.map(c => ({ ...c, _disp: computeDisplayChange(c, periodKey) }));
+
   const sortVal = sortEl.value;
   list = list.slice().sort((a,b)=>{
     const acap = a.cap ?? -1, bcap = b.cap ?? -1;
-    const achg = a.chg ?? -999, bchg = b.chg ?? -999;
+    const achg = a._disp.value ?? -999, bchg = b._disp.value ?? -999;
     if(sortVal==='cap-desc') return bcap-acap;
     if(sortVal==='cap-asc') return acap-bcap;
     if(sortVal==='chg-desc') return bchg-achg;
@@ -659,10 +711,18 @@ function render(){
 function buildCard(c, pinned, maxCap, compareSet){
     const color = CAT_COLORS[c.cat] || '#E8A33D';
     const pct = c.cap ? Math.max(4, (c.cap/maxCap*100)).toFixed(1) : 0;
-    const hasChg = c.chg != null;
-    const chgClass = !hasChg ? 'na' : (c.chg >= 0 ? 'pos' : 'neg');
-    const chgSign = hasChg && c.chg >= 0 ? '+' : '';
-    const chgLabel = hasChg ? chgSign + c.chg.toFixed(2) + '%' : '—';
+    // Use the period-adjusted change computed in render() when present
+    // (grid view); fall back to straight daily change for any other
+    // caller of buildCard that doesn't set it.
+    const disp = c._disp ?? { value: c.chg, reason: c.chg != null ? 'ok' : 'no-price' };
+    const hasChg = disp.value != null;
+    const chgClass = !hasChg ? 'na' : (disp.value >= 0 ? 'pos' : 'neg');
+    const chgSign = hasChg && disp.value >= 0 ? '+' : '';
+    const chgLabel = hasChg
+      ? chgSign + disp.value.toFixed(2) + '%'
+      : (disp.reason === 'insufficient'
+          ? `— (${disp.daysAvailable}d so far)`
+          : '—');
     const priceLabel = c.price != null ? '$' + c.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) : '—';
 
     const isPinned = pinned.has(c.t);
@@ -821,6 +881,7 @@ function buildCard(c, pinned, maxCap, compareSet){
 
 searchEl.addEventListener('input', render);
 sortEl.addEventListener('change', render);
+periodEl.addEventListener('change', render);
 
 // Event delegation for pin buttons — cards are re-rendered often, so we
 // bind once on the container rather than re-binding per card.
