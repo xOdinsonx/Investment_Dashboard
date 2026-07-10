@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <style>
   :root{
     --bg:#0F1620;
@@ -276,6 +276,21 @@
   .target-row .val{color:var(--text);}
   .target-row .upside{padding:2px 7px; border-radius:3px; font-size:12px;}
 
+  .news-block{margin-top:12px; padding-left:8px; border-top:1px solid var(--grid-line); padding-top:10px;}
+  .news-label{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted-dim); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px;}
+  .news-item{display:block; font-size:13px; line-height:1.4; color:var(--muted); text-decoration:none; margin-bottom:6px;}
+  .news-item:hover{color:var(--cyan);}
+  .news-item .news-meta{display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted-dim); margin-top:2px;}
+
+  .insider-badge{
+    display:inline-flex; align-items:center; gap:5px; margin-top:10px; padding-left:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px;
+  }
+  .insider-badge .dot{width:7px; height:7px; border-radius:50%;}
+  .insider-badge.buying .dot{background:var(--up);}
+  .insider-badge.selling .dot{background:var(--danger);}
+  .insider-badge.neutral .dot{background:var(--muted-dim);}
+
   footer{max-width:min(1900px, 96vw); margin:36px auto 0; padding:20px 24px 0; border-top:1px solid var(--grid-line);}
   footer p{font-size:12px; color:var(--muted-dim); line-height:1.7; font-family:'IBM Plex Mono',monospace;}
   footer .as-of{color:var(--amber-dim);}
@@ -308,6 +323,7 @@
     <option value="alpha">Ticker A–Z</option>
   </select>
   <button class="toggle" id="pdf-btn" style="border-color:var(--cyan-dim); color:var(--cyan);">↓ PDF Report</button>
+  <button class="toggle" id="csv-btn" style="border-color:var(--cyan-dim); color:var(--cyan);">↓ CSV</button>
   <button class="toggle" id="pinned-only-btn">★ Pinned Only</button>
 </div>
 
@@ -392,6 +408,13 @@ function fmtCap(millions){
   return billions >= 1000 ? '$' + (billions/1000).toFixed(2) + 'T' : '$' + billions.toFixed(1) + 'B';
 }
 
+// Finnhub's 10DayAverageTradingVolume metric is reported in millions of
+// shares already, so this just formats it with a fixed suffix.
+function fmtVolume(millions){
+  if (millions == null) return '—';
+  return millions.toFixed(2) + 'M';
+}
+
 async function loadData(){
   // 1. Load the roster. This must succeed for the page to show anything.
   try{
@@ -427,8 +450,12 @@ async function loadData(){
         week52High: q.week52High ?? null,
         week52Low: q.week52Low ?? null,
         peTTM: q.peTTM ?? null,
+        dividendYield: q.dividendYield ?? null,
+        avgVolume10D: q.avgVolume10D ?? null,
         recommendation: q.recommendation ?? null,
         priceTarget: q.priceTarget ?? null,
+        news: q.news ?? [],
+        insiderSentiment: q.insiderSentiment ?? null,
         error: !!q.error
       };
     });
@@ -656,9 +683,13 @@ function buildCard(c, pinned, maxCap, compareSet){
         </div>`;
     }
 
-    // P/E stat
-    const peHtml = c.peTTM != null
-      ? `<div class="stat-row"><span>P/E (TTM): <b>${c.peTTM.toFixed(1)}</b></span></div>`
+    // P/E, dividend yield, average volume — combined into one stat row
+    const statParts = [];
+    if (c.peTTM != null) statParts.push(`P/E (TTM): <b>${c.peTTM.toFixed(1)}</b>`);
+    if (c.dividendYield != null && c.dividendYield > 0) statParts.push(`Div Yield: <b>${c.dividendYield.toFixed(2)}%</b>`);
+    if (c.avgVolume10D != null) statParts.push(`Avg Vol (10D): <b>${fmtVolume(c.avgVolume10D)}</b>`);
+    const peHtml = statParts.length > 0
+      ? `<div class="stat-row">${statParts.map(p => `<span>${p}</span>`).join('')}</div>`
       : '';
 
     // Sparkline from accumulated history (self-generated, grows daily)
@@ -732,6 +763,29 @@ function buildCard(c, pinned, maxCap, compareSet){
       }
     }
 
+    // Insider sentiment (third-party, from Finnhub — net insider buying/selling)
+    let insiderHtml = '';
+    if (c.insiderSentiment && c.insiderSentiment.mspr != null) {
+      const mspr = c.insiderSentiment.mspr;
+      const cls = mspr > 5 ? 'buying' : (mspr < -5 ? 'selling' : 'neutral');
+      const label = mspr > 5 ? 'Net insider buying' : (mspr < -5 ? 'Net insider selling' : 'Mixed insider activity');
+      insiderHtml = `
+        <div class="insider-badge ${cls}">
+          <span class="dot"></span>
+          <span>${label} (MSPR ${mspr.toFixed(1)}, ${c.insiderSentiment.month}/${c.insiderSentiment.year})</span>
+        </div>`;
+    }
+
+    // Recent news headlines (factual links, no article content reproduced)
+    let newsHtml = '';
+    if (c.news && c.news.length > 0) {
+      const items = c.news.map(n => {
+        const date = n.datetime ? new Date(n.datetime * 1000).toLocaleDateString() : '';
+        return `<a class="news-item" href="${n.url}" target="_blank" rel="noopener noreferrer">${n.headline}<span class="news-meta">${n.source || ''}${date ? ' — ' + date : ''}</span></a>`;
+      }).join('');
+      newsHtml = `<div class="news-block"><div class="news-label">Recent News</div>${items}</div>`;
+    }
+
     card.innerHTML = `
       <div class="card-top">
         <div class="ticker-row">
@@ -759,6 +813,8 @@ function buildCard(c, pinned, maxCap, compareSet){
       ${peHtml}
       ${sparkHtml}
       ${analystHtml}
+      ${insiderHtml}
+      ${newsHtml}
     `;
     return card;
 }
@@ -863,50 +919,123 @@ pinnedOnlyBtn.addEventListener('click', () => {
 
 loadData();
 
+// --- Shared export helpers ---
+// Both CSV and PDF export the *currently visible* set (respecting active
+// filter/search/pinned-only), not the full roster — what you see is what
+// you get.
+function getVisibleCompaniesForExport(){
+  const q = searchEl.value.trim().toLowerCase();
+  const pinned = getPinned();
+  return COMPANIES.filter(c=>{
+    const matchesCat = !activeCat || c.cat === activeCat;
+    const matchesQ = !q || c.t.toLowerCase().includes(q) || c.n.toLowerCase().includes(q);
+    const matchesPin = !pinnedOnly || pinned.has(c.t);
+    return matchesCat && matchesQ && matchesPin;
+  });
+}
+
+const EXPORT_COLUMNS = [
+  { header: 'Ticker', get: c => c.t },
+  { header: 'Name', get: c => c.n },
+  { header: 'Category', get: c => c.cat },
+  { header: 'Price', get: c => c.price != null ? '$' + c.price.toFixed(2) : '' },
+  { header: 'Day Chg %', get: c => c.chg != null ? c.chg.toFixed(2) : '' },
+  { header: 'Market Cap', get: c => fmtCap(c.cap) },
+  { header: '52W Low', get: c => c.week52Low != null ? '$' + c.week52Low.toFixed(2) : '' },
+  { header: '52W High', get: c => c.week52High != null ? '$' + c.week52High.toFixed(2) : '' },
+  { header: 'P/E (TTM)', get: c => c.peTTM != null ? c.peTTM.toFixed(1) : '' },
+  { header: 'Div Yield %', get: c => (c.dividendYield != null && c.dividendYield > 0) ? c.dividendYield.toFixed(2) : '' },
+  { header: 'Avg Vol 10D', get: c => c.avgVolume10D != null ? fmtVolume(c.avgVolume10D) : '' },
+  { header: 'Analyst Buy/Hold/Sell', get: c => c.recommendation
+      ? `${(c.recommendation.strongBuy||0)+(c.recommendation.buy||0)}/${c.recommendation.hold||0}/${(c.recommendation.sell||0)+(c.recommendation.strongSell||0)}`
+      : '' },
+  { header: 'Price Target (mean)', get: c => (c.priceTarget && c.priceTarget.mean != null) ? '$' + c.priceTarget.mean.toFixed(2) : '' },
+];
+
+// --- CSV export ---
+document.getElementById('csv-btn').addEventListener('click', () => {
+  const rows = getVisibleCompaniesForExport();
+  if (rows.length === 0) {
+    alert('Nothing to export — adjust your filter or search first.');
+    return;
+  }
+
+  const escapeCsv = (val) => {
+    const s = String(val ?? '');
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  };
+
+  const lines = [EXPORT_COLUMNS.map(col => escapeCsv(col.header)).join(',')];
+  rows.forEach(c => {
+    lines.push(EXPORT_COLUMNS.map(col => escapeCsv(col.get(c))).join(','));
+  });
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `data-center-dashboard-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
 // --- PDF export ---
-// Renders the current filtered/sorted view to canvas via html2canvas, then
-// paginates it into a multi-page PDF via jsPDF. Both libraries run entirely
-// client-side — nothing is uploaded anywhere.
-document.getElementById('pdf-btn').addEventListener('click', async () => {
+// Builds an actual formatted table via jspdf-autotable — real selectable
+// text, not a screenshot — so it's sharper, smaller, and faster than the
+// html2canvas approach. Runs entirely client-side.
+document.getElementById('pdf-btn').addEventListener('click', () => {
   const btn = document.getElementById('pdf-btn');
   const original = btn.textContent;
   btn.disabled = true;
   btn.textContent = 'Generating…';
 
   try {
-    const { jsPDF } = window.jspdf;
-    const target = document.querySelector('main');
+    const rows = getVisibleCompaniesForExport();
+    if (rows.length === 0) {
+      alert('Nothing to export — adjust your filter or search first.');
+      return;
+    }
 
-    const canvas = await html2canvas(target, {
-      backgroundColor: '#0F1620',
-      scale: 2,
-      useCORS: true,
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('l', 'pt', 'a4'); // landscape — this table is wide
+    const pageWidth = pdf.internal.pageSize.getWidth();
+
+    pdf.setFontSize(14);
+    pdf.setTextColor(30);
+    pdf.text('Data Center Infrastructure — Coverage Panel', 32, 32);
+    pdf.setFontSize(9);
+    pdf.setTextColor(120);
+    pdf.text(`Generated ${new Date().toLocaleString()} — ${rows.length} companies`, 32, 48);
+
+    const head = [EXPORT_COLUMNS.map(col => col.header)];
+    const body = rows.map(c => EXPORT_COLUMNS.map(col => col.get(c)));
+
+    pdf.autoTable({
+      head, body,
+      startY: 62,
+      theme: 'grid',
+      styles: { fontSize: 8, cellPadding: 5, font: 'helvetica' },
+      headStyles: { fillColor: [20, 29, 41], textColor: 255, fontStyle: 'bold' },
+      alternateRowStyles: { fillColor: [245, 247, 249] },
+      margin: { left: 24, right: 24 },
+      didDrawPage: () => {
+        const pageCount = pdf.internal.getNumberOfPages();
+        pdf.setFontSize(8);
+        pdf.setTextColor(150);
+        pdf.text(
+          `Page ${pdf.internal.getCurrentPageInfo().pageNumber} of ${pageCount}`,
+          pageWidth - 80, pdf.internal.pageSize.getHeight() - 16
+        );
+      },
     });
 
-    const pdf = new jsPDF('p', 'pt', 'a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = pageWidth;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-    let heightLeft = imgHeight;
-    let position = 0;
-    const imgData = canvas.toDataURL('image/png');
-
-    pdf.setFontSize(9);
-    pdf.setTextColor(150);
-    pdf.text('Data Center Infrastructure — Coverage Panel', 24, 20);
-    pdf.text(new Date().toLocaleString(), pageWidth - 140, 20);
-
-    pdf.addImage(imgData, 'PNG', 0, 30, imgWidth, imgHeight);
-    heightLeft -= (pageHeight - 30);
-
-    while (heightLeft > 0) {
-      position = heightLeft - imgHeight;
-      pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-    }
+    const finalY = pdf.lastAutoTable.finalY + 20;
+    pdf.setFontSize(8);
+    pdf.setTextColor(140);
+    const disclaimer = 'Analyst recommendations and price targets are third-party data from Finnhub, not this dashboard\'s opinion. Not financial advice.';
+    pdf.text(disclaimer, 24, Math.min(finalY, pdf.internal.pageSize.getHeight() - 16));
 
     const filename = `data-center-dashboard-${new Date().toISOString().slice(0,10)}.pdf`;
     pdf.save(filename);
@@ -921,4 +1050,5 @@ document.getElementById('pdf-btn').addEventListener('click', async () => {
 </script>
 
 </body>
+
 </html>

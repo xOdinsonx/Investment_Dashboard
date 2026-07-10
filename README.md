@@ -14,20 +14,25 @@ name, category, one-line blurb, and where it came from (`"dtcr"` or
 **Price refresh** (`fetch-quotes.js` + `update-quotes.yml`)
 Calls the [Finnhub](https://finnhub.io) API (free tier) for every ticker in
 `tickers.json` and writes the results to `data.json`, including 52-week
-high/low and trailing P/E from Finnhub's basic-financials endpoint.
-It also appends today's closing price to `history.json` — Finnhub moved its
-own historical candle endpoint to paid tiers, so this is how the dashboard
-builds historical data for $0: it just starts accumulating from whenever
-you first run the job. There's no backfilled past data, but the sparkline
-on each card grows a data point every day going forward. `index.html` reads
-`tickers.json` + `data.json` + `history.json` on load — no server
-component, no exposed key.
+high/low, trailing P/E, dividend yield, 10-day average volume, analyst
+recommendation trends, analyst price targets, recent news headlines, and
+insider sentiment. It also appends today's closing price to `history.json`
+— Finnhub moved its own historical candle endpoint to paid tiers, so this
+is how the dashboard builds historical data for $0: it just starts
+accumulating from whenever you first run the job. There's no backfilled
+past data, but the sparkline on each card grows a data point every day
+going forward. This is now 7 API calls per ticker, so a full run takes
+roughly 3.5 minutes — still comfortably inside Finnhub's free rate limit,
+just slower than it used to be. `index.html` reads `tickers.json` +
+`data.json` + `history.json` on load — no server component, no exposed key.
 
-**PDF export**
-The "↓ PDF Report" button in the toolbar snapshots the current
-filtered/sorted view and saves it as a paginated PDF, entirely in your
-browser (via html2canvas + jsPDF, loaded from a CDN) — nothing is uploaded
-anywhere.
+**Exports**
+The "↓ PDF Report" and "↓ CSV" buttons in the toolbar export whatever is
+*currently visible* — respecting your active category filter, search, and
+"Pinned Only" toggle. The PDF is a real formatted table (via
+jspdf-autotable), not a screenshot, so it's sharper and smaller than an
+image-based export. Both run entirely in your browser — nothing is
+uploaded anywhere.
 
 **ETF holdings scout** (`suggest-tickers.js` + `scout-etf-holdings.yml`)
 Downloads the daily holdings CSV that Global X publishes for **DTCR**

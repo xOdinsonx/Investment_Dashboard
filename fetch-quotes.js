@@ -1,22 +1,22 @@
 // fetch-quotes.js
 // Pulls a quote + company profile + basic financials + analyst recommendation
-// trends + analyst price targets for each ticker in tickers.json from
-// Finnhub's free API and writes the results to data.json. Also appends
-// today's close to history.json, building a free historical record over
-// time (Finnhub moved its own historical candle endpoint to paid tiers, so
-// this is how the dashboard gets historical data for $0 — it just starts
-// accumulating from whenever you first run this).
+// trends + analyst price targets + recent news + insider sentiment for each
+// ticker in tickers.json from Finnhub's free API and writes the results to
+// data.json. Also appends today's close to history.json, building a free
+// historical record over time (Finnhub moved its own historical candle
+// endpoint to paid tiers, so this is how the dashboard gets historical data
+// for $0 — it just starts accumulating from whenever you first run this).
 //
 // Designed to run in CI (GitHub Actions), not in the browser — the API key
 // never reaches the client.
 //
 // Free tier limits (Finnhub, as of 2026): 60 calls/minute. This script makes
-// 5 calls per ticker (quote + profile + metric + recommendation + price
-// target), so ~130 calls for 26 tickers — spread out with a 1.1s pause
-// between calls, so it stays well under the limit but takes ~2.5 minutes to
-// run. Recommendation and price-target calls are wrapped so that if Finnhub
-// has restricted either to paid tiers, that ticker just loses those two
-// fields rather than failing the whole run.
+// 7 calls per ticker (quote + profile + metric + recommendation + price
+// target + news + insider sentiment), so ~180 calls for 26 tickers — spread
+// out with a 1.1s pause between calls, so it stays well under the limit but
+// takes ~3.5 minutes to run. Every call past the core quote/profile is
+// wrapped so that if Finnhub has restricted it to paid tiers, that ticker
+// just loses that one field rather than failing the whole run.
 
 const fs = require('fs');
 
@@ -102,6 +102,54 @@ async function fetchTicker(symbol) {
   }
   await sleep(1100);
 
+  // Recent company news headlines (last 7 days, top 3). Displayed as
+  // headline text + link + source/date only — no article body is fetched
+  // or stored, just the same metadata any news aggregator shows.
+  let news = [];
+  try {
+    const today = new Date();
+    const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const fmt = (d) => d.toISOString().slice(0, 10);
+    const newsUrl = `https://finnhub.io/api/v1/company-news?symbol=${symbol}&from=${fmt(weekAgo)}&to=${fmt(today)}&token=${API_KEY}`;
+    const newsRes = await fetchJson(newsUrl);
+    if (Array.isArray(newsRes)) {
+      news = newsRes.slice(0, 3).map(n => ({
+        headline: n.headline,
+        url: n.url,
+        source: n.source,
+        datetime: n.datetime, // unix seconds
+      }));
+    }
+  } catch (err) {
+    console.error(`  (news fetch failed for ${symbol}: ${err.message})`);
+  }
+  await sleep(1100);
+
+  // Insider sentiment (aggregated monthly share purchase ratio). Positive
+  // mspr = net insider buying, negative = net selling. Third-party/factual,
+  // same treatment as analyst data — displayed as-is, not as our opinion.
+  let insiderSentiment = null;
+  try {
+    const now = new Date();
+    const monthsAgo = new Date(now.getFullYear(), now.getMonth() - 3, 1);
+    const fmtMonth = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    const insiderUrl = `https://finnhub.io/api/v1/stock/insider-sentiment?symbol=${symbol}&from=${fmtMonth(monthsAgo)}-01&to=${fmtMonth(now)}-01&token=${API_KEY}`;
+    const insiderRes = await fetchJson(insiderUrl);
+    if (insiderRes && Array.isArray(insiderRes.data) && insiderRes.data.length > 0) {
+      // Most recent month's entry.
+      const latest = insiderRes.data[insiderRes.data.length - 1];
+      insiderSentiment = {
+        year: latest.year,
+        month: latest.month,
+        mspr: latest.mspr ?? null,       // monthly share purchase ratio
+        change: latest.change ?? null,   // net change in shares
+      };
+    }
+  } catch (err) {
+    console.error(`  (insider sentiment fetch failed for ${symbol}: ${err.message})`);
+  }
+  await sleep(1100);
+
   return {
     price: quote.c ?? null,           // current price
     changePercent: quote.dp ?? null,  // day change %
@@ -111,8 +159,12 @@ async function fetchTicker(symbol) {
     week52High: metric['52WeekHigh'] ?? null,
     week52Low: metric['52WeekLow'] ?? null,
     peTTM: metric['peTTM'] ?? metric['peBasicExclExtraTTM'] ?? null,
+    dividendYield: metric['dividendYieldIndicatedAnnual'] ?? metric['currentDividendYieldTTM'] ?? null,
+    avgVolume10D: metric['10DayAverageTradingVolume'] ?? null,
     recommendation,
     priceTarget,
+    news,
+    insiderSentiment,
   };
 }
 
