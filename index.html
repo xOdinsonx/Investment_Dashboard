@@ -178,6 +178,58 @@
   }
   .pin-btn:hover{color:var(--amber); transform:scale(1.15);}
   .pin-btn.pinned{color:var(--amber);}
+
+  .compare-check{
+    width:18px; height:18px; border:1.5px solid var(--muted-dim); border-radius:3px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; background:var(--panel-raised);
+    transition:border-color .15s, background .15s; flex-shrink:0;
+  }
+  .compare-check:hover{border-color:var(--cyan);}
+  .compare-check.checked{background:var(--cyan); border-color:var(--cyan);}
+  .compare-check.checked::after{content:'✓'; color:var(--bg); font-size:12px; font-weight:700;}
+
+  .compare-bar{
+    position:fixed; bottom:0; left:0; right:0; z-index:50;
+    background:var(--panel-raised); border-top:1px solid var(--cyan-dim);
+    padding:14px 24px; display:none; align-items:center; justify-content:center; gap:16px;
+    box-shadow:0 -4px 20px rgba(0,0,0,0.4);
+  }
+  .compare-bar.visible{display:flex;}
+  .compare-bar-label{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted);}
+  .compare-bar button{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-transform:uppercase; letter-spacing:1px;
+    padding:9px 16px; border-radius:4px; cursor:pointer; border:1px solid var(--grid-line);
+  }
+  #compare-view-btn{background:var(--cyan); color:var(--bg); border-color:var(--cyan); font-weight:600;}
+  #compare-view-btn:disabled{background:var(--panel); color:var(--muted-dim); border-color:var(--grid-line); cursor:not-allowed;}
+  #compare-clear-btn{background:var(--panel); color:var(--muted); }
+
+  .compare-modal-backdrop{
+    position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:100; display:none;
+    align-items:flex-start; justify-content:center; padding:40px 20px; overflow-y:auto;
+  }
+  .compare-modal-backdrop.visible{display:flex;}
+  .compare-modal{
+    background:var(--bg); border:1px solid var(--grid-line); border-radius:8px; max-width:1100px; width:100%;
+    padding:24px; position:relative;
+  }
+  .compare-modal-close{
+    position:absolute; top:18px; right:18px; background:none; border:none; color:var(--muted);
+    font-size:22px; cursor:pointer; line-height:1;
+  }
+  .compare-modal-close:hover{color:var(--text);}
+  .compare-modal h2{font-family:'IBM Plex Mono',monospace; font-size:19px; margin:0 0 18px;}
+  .compare-table{width:100%; border-collapse:collapse; font-family:'IBM Plex Mono',monospace; font-size:13.5px;}
+  .compare-table th, .compare-table td{
+    padding:10px 14px; text-align:left; border-bottom:1px solid var(--grid-line); vertical-align:top;
+  }
+  .compare-table th{color:var(--muted-dim); font-weight:500; text-transform:uppercase; font-size:11px; letter-spacing:1px; white-space:nowrap;}
+  .compare-table td.row-label{color:var(--muted-dim); white-space:nowrap; font-size:11px; text-transform:uppercase; letter-spacing:1px;}
+  .compare-table td.ticker-cell{font-weight:700; font-size:16px;}
+  @media (max-width: 640px){
+    .compare-table{font-size:12px;}
+    .compare-table th, .compare-table td{padding:8px 8px;}
+  }
   .card.is-pinned{border-color:var(--amber-dim);}
   .card.is-pinned::before{background:var(--amber) !important;}
   .price-row{display:flex; justify-content:space-between; align-items:baseline; padding-left:8px; margin-bottom:10px;}
@@ -269,6 +321,20 @@
   <p>Prices refresh on a schedule via a GitHub Actions job that calls the Finnhub API and writes <code>data.json</code> — see <code>README.md</code> in this repo to set your own refresh cadence. Analyst recommendation trends and price targets are third-party data sourced from Finnhub (aggregated sell-side analyst estimates) — they are not this dashboard's opinion, and are not a recommendation. Not financial advice.</p>
 </footer>
 
+<div class="compare-bar" id="compare-bar">
+  <span class="compare-bar-label" id="compare-bar-label">0 selected</span>
+  <button id="compare-view-btn">Compare</button>
+  <button id="compare-clear-btn">Clear</button>
+</div>
+
+<div class="compare-modal-backdrop" id="compare-modal-backdrop">
+  <div class="compare-modal">
+    <button class="compare-modal-close" id="compare-modal-close">×</button>
+    <h2>Side-by-Side Comparison</h2>
+    <div id="compare-table-wrap"></div>
+  </div>
+</div>
+
 <script>
 // Roster metadata (ticker, name, category, blurb) now lives in tickers.json —
 // the single source of truth shared with fetch-quotes.js and
@@ -289,6 +355,8 @@ let COMPANIES = [];
 let HISTORY = {};
 let activeCat = null;
 let pinnedOnly = false;
+let compareSet = new Set();
+const MAX_COMPARE = 4;
 
 const PIN_STORAGE_KEY = 'dc-dashboard-pinned-tickers';
 
@@ -533,7 +601,7 @@ function render(){
   gridEl.className = shouldGroup ? 'grouped-root' : 'grid';
 
   if (!shouldGroup) {
-    list.forEach(c => gridEl.appendChild(buildCard(c, pinned, maxCap)));
+    list.forEach(c => gridEl.appendChild(buildCard(c, pinned, maxCap, compareSet)));
     return;
   }
 
@@ -556,12 +624,12 @@ function render(){
     `;
     const sectionGrid = document.createElement('div');
     sectionGrid.className = 'grid';
-    items.forEach(c => sectionGrid.appendChild(buildCard(c, pinned, maxCap)));
+    items.forEach(c => sectionGrid.appendChild(buildCard(c, pinned, maxCap, compareSet)));
     section.appendChild(sectionGrid);
     gridEl.appendChild(section);
   });
 }
-function buildCard(c, pinned, maxCap){
+function buildCard(c, pinned, maxCap, compareSet){
     const color = CAT_COLORS[c.cat] || '#E8A33D';
     const pct = c.cap ? Math.max(4, (c.cap/maxCap*100)).toFixed(1) : 0;
     const hasChg = c.chg != null;
@@ -674,6 +742,7 @@ function buildCard(c, pinned, maxCap){
         </div>
         <div class="card-top-right">
           <button class="pin-btn ${isPinned ? 'pinned' : ''}" data-ticker="${c.t}" title="${isPinned ? 'Unpin' : 'Pin to top'}">${isPinned ? '★' : '☆'}</button>
+          <div class="compare-check ${compareSet.has(c.t) ? 'checked' : ''}" data-ticker="${c.t}" title="Add to compare"></div>
           <div class="cat-tag" style="--cat-color:${color}">${c.cat}</div>
         </div>
       </div>
@@ -700,9 +769,89 @@ sortEl.addEventListener('change', render);
 // Event delegation for pin buttons — cards are re-rendered often, so we
 // bind once on the container rather than re-binding per card.
 gridEl.addEventListener('click', (e) => {
-  const btn = e.target.closest('.pin-btn');
-  if (!btn) return;
-  togglePinned(btn.dataset.ticker);
+  const pinBtn = e.target.closest('.pin-btn');
+  if (pinBtn) { togglePinned(pinBtn.dataset.ticker); return; }
+
+  const compareBtn = e.target.closest('.compare-check');
+  if (compareBtn) { toggleCompare(compareBtn.dataset.ticker); return; }
+});
+
+function toggleCompare(ticker){
+  if (compareSet.has(ticker)) {
+    compareSet.delete(ticker);
+  } else {
+    if (compareSet.size >= MAX_COMPARE) {
+      alert(`You can compare up to ${MAX_COMPARE} tickers at a time. Remove one before adding another.`);
+      return;
+    }
+    compareSet.add(ticker);
+  }
+  updateCompareBar();
+  render();
+}
+
+function updateCompareBar(){
+  const bar = document.getElementById('compare-bar');
+  const label = document.getElementById('compare-bar-label');
+  const n = compareSet.size;
+  label.textContent = n === 1 ? '1 selected' : `${n} selected`;
+  bar.classList.toggle('visible', n > 0);
+  document.getElementById('compare-view-btn').disabled = n < 2;
+}
+
+function fmtOrDash(val, fn){
+  return val != null ? fn(val) : '—';
+}
+
+function openCompareModal(){
+  const items = COMPANIES.filter(c => compareSet.has(c.t));
+  if (items.length < 2) return;
+
+  const rows = [
+    { label: 'Category', render: c => c.cat },
+    { label: 'Price', render: c => fmtOrDash(c.price, v => '$' + v.toFixed(2)) },
+    { label: 'Day Change', render: c => c.chg != null
+        ? `<span class="chg ${c.chg >= 0 ? 'pos' : 'neg'}">${c.chg >= 0 ? '+' : ''}${c.chg.toFixed(2)}%</span>`
+        : '—' },
+    { label: 'Market Cap', render: c => fmtCap(c.cap) },
+    { label: '52-Week Low', render: c => fmtOrDash(c.week52Low, v => '$' + v.toFixed(2)) },
+    { label: '52-Week High', render: c => fmtOrDash(c.week52High, v => '$' + v.toFixed(2)) },
+    { label: '% Off High', render: c => (c.week52High && c.price != null)
+        ? ((c.price - c.week52High) / c.week52High * 100).toFixed(1) + '%' : '—' },
+    { label: 'P/E (TTM)', render: c => fmtOrDash(c.peTTM, v => v.toFixed(1)) },
+    { label: 'Analyst Buy/Hold/Sell', render: c => {
+        if (!c.recommendation) return '—';
+        const r = c.recommendation;
+        return `${(r.strongBuy||0)+(r.buy||0)} / ${r.hold||0} / ${(r.sell||0)+(r.strongSell||0)}`;
+      } },
+    { label: 'Price Target (mean)', render: c => (c.priceTarget && c.priceTarget.mean != null)
+        ? '$' + c.priceTarget.mean.toFixed(2) : '—' },
+  ];
+
+  let html = '<table class="compare-table"><thead><tr><th></th>';
+  items.forEach(c => { html += `<th>${c.t}</th>`; });
+  html += '</tr></thead><tbody>';
+  html += '<tr><td class="row-label">Company</td>' + items.map(c => `<td class="ticker-cell">${c.n}</td>`).join('') + '</tr>';
+  rows.forEach(row => {
+    html += `<tr><td class="row-label">${row.label}</td>` + items.map(c => `<td>${row.render(c)}</td>`).join('') + '</tr>';
+  });
+  html += '</tbody></table>';
+
+  document.getElementById('compare-table-wrap').innerHTML = html;
+  document.getElementById('compare-modal-backdrop').classList.add('visible');
+}
+
+document.getElementById('compare-view-btn').addEventListener('click', openCompareModal);
+document.getElementById('compare-clear-btn').addEventListener('click', () => {
+  compareSet.clear();
+  updateCompareBar();
+  render();
+});
+document.getElementById('compare-modal-close').addEventListener('click', () => {
+  document.getElementById('compare-modal-backdrop').classList.remove('visible');
+});
+document.getElementById('compare-modal-backdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'compare-modal-backdrop') e.target.classList.remove('visible');
 });
 
 const pinnedOnlyBtn = document.getElementById('pinned-only-btn');
