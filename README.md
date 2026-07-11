@@ -34,6 +34,20 @@ roughly 3.5 minutes — still comfortably inside Finnhub's free rate limit,
 just slower than it used to be. `index.html` reads `tickers.json` +
 `data.json` + `history.json` on load — no server component, no exposed key.
 
+**Email alerts** (`send-alerts.js`, runs as part of `update-quotes.yml`)
+Right after each price refresh, checks every ticker against two
+configurable conditions in `alert-config.json`:
+- **Big movers** — day change of ±`dailyMovePercent` or more (default 5%).
+- **New 52-week lows** — but only a *genuinely new, lower* low, tracked in
+  `alert-state.json`. A stock sitting at the same bottom for a week
+  doesn't re-trigger every day — only a fresh lower low does.
+
+If nothing triggers, no email is sent — quiet days stay quiet. If
+something does, one email goes out via Gmail's free SMTP relay (500/day
+free, no new service to sign up for), listing everything that triggered
+with a "not financial advice" note. Setup needs three more repo secrets —
+see below.
+
 **Exports**
 The "↓ PDF Report" and "↓ CSV" buttons in the toolbar export whatever is
 *currently visible* — respecting your active category filter, search, and
@@ -98,16 +112,48 @@ operators — those categories in `tickers.json` are intentionally
    - Name: `FINNHUB_API_KEY`
    - Value: (your key from step 1)
 
-4. **Enable GitHub Pages**
+4. **Set up email alerts (optional but recommended)**
+   You'll need a Gmail account and an **App Password** (a 16-character
+   code separate from your real password, scoped just to this use):
+   - Turn on 2-Step Verification if you haven't: myaccount.google.com/security
+   - Go to myaccount.google.com/apppasswords, create one (name it
+     "Dashboard Alerts" or similar), and copy the 16-character code
+   - Add three more repo secrets (same place as step 3):
+     - `MAIL_USERNAME` — your full Gmail address
+     - `MAIL_PASSWORD` — the app password you just generated (not your
+       regular Gmail password)
+     - `MAIL_TO` — where alerts should be sent (can be the same address)
+   - If you'd rather skip alerts entirely, that's fine — leave these
+     three secrets unset. The email-send step will then fail (since it
+     has no valid SMTP credentials), but `continue-on-error: true` is set
+     on that step specifically, so it shows as a yellow warning rather
+     than failing the whole workflow, and your price data still updates
+     normally either way.
+
+5. **Enable GitHub Pages**
    Repo → Settings → Pages → Deploy from branch → `main` / `/ (root)`
    Your dashboard will be live at `https://<you>.github.io/<repo>/`
 
-5. **Run both Actions once manually** to populate data immediately instead
+6. **Run both Actions once manually** to populate data immediately instead
    of waiting for the schedule: Repo → Actions → run "Update stock data"
    and "Scout ETF holdings for roster suggestions".
 
 No extra secret is needed for the ETF scout — it uses the repo's built-in
 `GITHUB_TOKEN` to open issues.
+
+## Tuning or disabling alerts
+
+Edit `alert-config.json`:
+- `dailyMovePercent` — how big a single-day move needs to be to alert
+  (default `5`, meaning ±5%)
+- `alertOnNew52WeekLow` — set to `false` to turn off 52-week-low alerts
+  entirely and only get big-mover alerts
+
+To disable alerts altogether without removing the code, just don't set
+the `MAIL_USERNAME`/`MAIL_PASSWORD`/`MAIL_TO` secrets. The check step
+still runs (harmless, a few seconds) and, on a day something triggers,
+the email-send step will show a yellow "failed but continued" mark in the
+Action's log — that's expected and won't block anything else.
 
 ## Changing the price-refresh schedule
 
