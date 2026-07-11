@@ -43,22 +43,40 @@ image-based export. Both run entirely in your browser — nothing is
 uploaded anywhere.
 
 **ETF holdings scout** (`suggest-tickers.js` + `scout-etf-holdings.yml`)
-Downloads the daily holdings CSV that Global X publishes for **DTCR**
-(Data Center & Digital Infrastructure ETF) — public, no key required — and
-diffs it against `tickers.json`:
-- **New candidates** — tickers DTCR now holds that aren't in your roster.
-- **Review for removal** — tickers you'd previously added *because* DTCR
-  held them (`"source": "dtcr"`) that have since dropped out of the fund.
+Downloads holdings from **two** public data-center-themed ETFs — **DTCR**
+(Global X Data Center & Digital Infrastructure ETF) and **SRVR** (Pacer
+Data & Infrastructure Real Estate ETF) — and diffs each against
+`tickers.json`:
+- **New candidates** — tickers a fund now holds that aren't in your roster.
+- **Review for removal** — tickers you'd previously added *because* that
+  fund held them (`"source": "dtcr"` or `"source": "srvr"`) that have
+  since dropped out.
 
-This never edits `tickers.json` automatically. When it finds something, it
-opens a GitHub issue (labeled `roster-review`) with a table of candidates
-and their portfolio weight. You decide what to add — then edit
-`tickers.json` yourself and commit; the next price-refresh run will pick up
-the new ticker automatically.
+The two sources are checked independently — if one fund's feed changes
+format or goes down, the other's results still get reported rather than
+the whole run failing silently.
 
-Note: DTCR's mandate is data-center REITs, memory/AI chips, and digital
-infrastructure — it won't surface hyperscalers, power/utility names, or
-GPU-cloud operators. Those stay `"source": "manual"` and aren't diffed.
+⚠️ **Honest caveat on SRVR:** DTCR's CSV format was verified against a
+real downloaded file, but SRVR's wasn't — I couldn't fetch a live preview
+of Pacer's file when building this. The SRVR parser detects columns by
+header name (Ticker/Symbol, Weight/% of Net Assets, etc.) rather than
+assuming a fixed layout, and throws a descriptive error with a preview of
+the actual file if it doesn't recognize the format — check the "Scout ETF
+holdings" Action's log after its first real run to confirm it worked. If
+it didn't, the error message will show you what the real file looks like,
+which is enough to fix the column-alias list in `suggest-tickers.js`.
+
+This never edits `tickers.json` automatically. When either source finds
+something (or fails), it opens a GitHub issue (labeled `roster-review`)
+covering both sources in one report. You decide what to add — then edit
+`tickers.json` yourself and commit; the next price-refresh run will pick
+up the new ticker automatically.
+
+Coverage note: DTCR tracks data-center REITs, memory/AI chips and digital
+infrastructure. SRVR tracks data-center REITs, power generation and
+connectivity infrastructure. Neither surfaces hyperscalers or GPU-cloud
+operators — those categories in `tickers.json` are intentionally
+`"source": "manual"` and aren't diffed by either.
 
 ## Setup (10 minutes)
 
@@ -122,11 +140,11 @@ it up on their next run automatically; no other file needs to change.
 
 ## Extending the scout to more ETFs
 
-Right now `suggest-tickers.js` only checks DTCR. Other relevant ETFs, like
-Pacer's **SRVR** (Data & Infrastructure Real Estate ETF), publish similar
-daily holdings files — if you want broader coverage, find their CSV/XLSX
-URL pattern and add a second fetch-and-diff pass following the same
-structure as `fetchLatestCsv()`.
+`suggest-tickers.js` now checks DTCR and SRVR via a shared `SOURCES` array
+at the bottom of the file. To add a third fund, write a `fetchX()` +
+`parseX()` pair following the same shape as the DTCR or SRVR ones, then
+add an entry to `SOURCES` — the diff logic, report rendering, and issue
+creation all work generically off that list already.
 
 ## On "is this a good buy"
 

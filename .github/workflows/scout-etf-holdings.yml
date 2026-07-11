@@ -48,18 +48,26 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const result = JSON.parse(fs.readFileSync('suggestions.json', 'utf8'));
-            const hasCandidates = result.newCandidates.length > 0;
-            const hasDropped = result.droppedOut.length > 0;
-            if (!hasCandidates && !hasDropped) {
+            const output = JSON.parse(fs.readFileSync('suggestions.json', 'utf8'));
+            // output.sources is an array — one entry per ETF checked. A
+            // source that failed this run (ok: false) doesn't count toward
+            // "anything actionable" on its own, but IS worth flagging so a
+            // broken feed doesn't go unnoticed indefinitely.
+            const hasCandidates = output.sources.some(s => s.ok && s.newCandidates.length > 0);
+            const hasDropped = output.sources.some(s => s.ok && s.droppedOut.length > 0);
+            const hasFailure = output.sources.some(s => !s.ok);
+            if (!hasCandidates && !hasDropped && !hasFailure) {
               console.log('Nothing actionable — skipping issue.');
               return;
             }
             const body = fs.readFileSync('suggestions.md', 'utf8');
+            const title = hasFailure && !hasCandidates && !hasDropped
+              ? `ETF holdings scout — source failure — ${output.checkedAt.slice(0, 10)}`
+              : `ETF holdings suggestions — ${output.checkedAt.slice(0, 10)}`;
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `ETF holdings suggestions — ${result.holdingsAsOf}`,
+              title,
               body,
               labels: ['roster-review'],
             });
