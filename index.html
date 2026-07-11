@@ -71,6 +71,18 @@
   .workflow-badges img{display:block; height:20px; opacity:0.9; transition:opacity .15s;}
   .workflow-badges a:hover img{opacity:1;}
 
+  .size-toggle{
+    display:flex; border:1px solid var(--grid-line); border-radius:4px; overflow:hidden;
+  }
+  .size-toggle button{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600;
+    background:var(--panel); color:var(--muted); border:none; padding:10px 14px; cursor:pointer;
+    border-right:1px solid var(--grid-line); transition:background .15s, color .15s;
+  }
+  .size-toggle button:last-child{border-right:none;}
+  .size-toggle button:hover{color:var(--text);}
+  .size-toggle button.active{background:var(--amber); color:var(--bg);}
+
   .toolbar{
     max-width:min(1900px, 96vw); margin:20px auto 0; display:flex; flex-wrap:wrap; gap:10px; align-items:center;
   }
@@ -342,6 +354,11 @@
   <button class="toggle" id="pdf-btn" style="border-color:var(--cyan-dim); color:var(--cyan);">↓ PDF Report</button>
   <button class="toggle" id="csv-btn" style="border-color:var(--cyan-dim); color:var(--cyan);">↓ CSV</button>
   <button class="toggle" id="pinned-only-btn">★ Pinned Only</button>
+  <div class="size-toggle" id="size-toggle">
+    <button data-size="small" title="Smaller text">S</button>
+    <button data-size="medium" title="Default text size">M</button>
+    <button data-size="large" title="Larger text">L</button>
+  </div>
 </div>
 
 <main>
@@ -989,6 +1006,28 @@ pinnedOnlyBtn.addEventListener('click', () => {
   pinnedOnlyBtn.classList.toggle('active', pinnedOnly);
   render();
 });
+
+// --- Font size control ---
+// Uses CSS zoom rather than rewriting every font-size rule — scales the
+// whole layout proportionally (text, padding, buttons) in one step, and
+// persists per-browser via localStorage so it survives across visits.
+const SIZE_STORAGE_KEY = 'dc-dashboard-font-size';
+const SIZE_SCALES = { small: 0.85, medium: 1, large: 1.15 };
+
+function applySize(size){
+  if (!SIZE_SCALES[size]) size = 'medium';
+  document.body.style.zoom = SIZE_SCALES[size];
+  document.querySelectorAll('#size-toggle button').forEach(b => {
+    b.classList.toggle('active', b.dataset.size === size);
+  });
+  localStorage.setItem(SIZE_STORAGE_KEY, size);
+}
+
+document.querySelectorAll('#size-toggle button').forEach(b => {
+  b.addEventListener('click', () => applySize(b.dataset.size));
+});
+
+applySize(localStorage.getItem(SIZE_STORAGE_KEY) || 'medium');
 
 loadData();
 
