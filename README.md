@@ -1,9 +1,17 @@
 # Data Center Stocks Dashboard — Self-Hosted
 
+[![Update stock data](https://github.com/xOdinsonx/Investment_Dashboard/actions/workflows/update-quotes.yml/badge.svg)](https://github.com/xOdinsonx/Investment_Dashboard/actions/workflows/update-quotes.yml)
+[![Scout ETF holdings](https://github.com/xOdinsonx/Investment_Dashboard/actions/workflows/scout-etf-holdings.yml/badge.svg)](https://github.com/xOdinsonx/Investment_Dashboard/actions/workflows/scout-etf-holdings.yml)
+
 A static dashboard for data-center-related stocks, refreshed on a schedule
 by GitHub Actions (no server to run, no API key exposed to visitors) — plus
 a weekly job that scouts a real ETF's holdings and opens a GitHub issue
 suggesting roster changes for you to approve.
+
+These badges reflect the real-time status of the last run of each workflow
+— green "passing" means the last run succeeded, red "failing" means it
+didn't. GitHub generates these automatically for public repos; clicking a
+badge takes you straight to that workflow's run history.
 
 ## How it works
 

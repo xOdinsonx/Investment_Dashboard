@@ -67,6 +67,10 @@
   }
   #updated-badge b{color:var(--muted);}
 
+  .workflow-badges{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
+  .workflow-badges img{display:block; height:20px; opacity:0.9; transition:opacity .15s;}
+  .workflow-badges a:hover img{opacity:1;}
+
   .toolbar{
     max-width:min(1900px, 96vw); margin:20px auto 0; display:flex; flex-wrap:wrap; gap:10px; align-items:center;
   }
@@ -306,6 +310,14 @@
     <h1><span id="company-count-heading">25</span> Companies Wiring the AI Buildout</h1>
     <p class="sub">Hyperscalers, chipmakers, REITs, power, cooling, networking and compute operators tied to the data center capex cycle.</p>
     <div id="updated-badge">Loading data.json…</div>
+    <div class="workflow-badges">
+      <a href="https://github.com/xOdinsonx/Investment_Dashboard/actions/workflows/update-quotes.yml" target="_blank" rel="noopener noreferrer">
+        <img src="https://github.com/xOdinsonx/Investment_Dashboard/actions/workflows/update-quotes.yml/badge.svg" alt="Update stock data status">
+      </a>
+      <a href="https://github.com/xOdinsonx/Investment_Dashboard/actions/workflows/scout-etf-holdings.yml" target="_blank" rel="noopener noreferrer">
+        <img src="https://github.com/xOdinsonx/Investment_Dashboard/actions/workflows/scout-etf-holdings.yml/badge.svg" alt="Scout ETF holdings status">
+      </a>
+    </div>
   </div>
 </header>
 
