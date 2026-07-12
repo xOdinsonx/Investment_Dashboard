@@ -202,6 +202,86 @@ research, Finnhub's free tier also exposes analyst recommendation trends
 and price-target consensus (`/stock/recommendation`, `/stock/price-target`)
 if you want to wire those in as additional factual data points later.
 
+## Privacy: minimizing personal data exposure on a public repo
+
+This repo is public (required for free GitHub Pages), which means the
+**code, roster, and workflow history are visible to anyone**. That part
+can't be avoided without a paid GitHub plan for private Pages — you
+already weighed that tradeoff earlier and chose free/public. What follows
+is about minimizing exactly *what* gets exposed within that constraint,
+not making the content itself private.
+
+**1. Your git commit identity (the biggest real gap)**
+Automated commits (price updates, ETF scout) already use a bot identity
+(`github-actions[bot]`) — those are fine. But commits *you* push manually
+via `update.ps1` use whatever name/email your local git is configured
+with — often your real name and personal email, silently baked into
+public commit history forever.
+
+Fix: set a repo-local git identity that doesn't use your real email.
+GitHub gives you a free stand-in address for exactly this — find yours at
+Settings → Emails → look for "Keep my email addresses private", which
+shows an address like `123456+yourusername@users.noreply.github.com`.
+Then, from inside the repo folder:
+```powershell
+git config user.name "xOdinsonx"
+git config user.email "123456+xOdinsonx@users.noreply.github.com"
+```
+No `--global` flag — this only changes identity for this repo, not others
+you may want your real identity on. This only affects *future* commits;
+anything already pushed with your real email is already in the public
+history. Scrubbing that retroactively means rewriting git history
+(tools like `git filter-repo`), which is more invasive and rewrites every
+commit hash — only worth doing if your real email is already exposed and
+that bothers you. Worth checking: run `git log --format='%ae'` and see
+what's actually in there today.
+
+**2. Use a dedicated email for alerts, not your primary address**
+`MAIL_USERNAME`/`MAIL_PASSWORD` (the Gmail App Password) can send email as
+you if ever compromised. GitHub secrets are encrypted and never exposed in
+logs or code regardless of repo visibility — but as defense in depth,
+consider creating a free throwaway Gmail account just for this project's
+alerts instead of using your main personal address. If it's ever
+compromised, the blast radius is "someone can send email from a
+dashboard-alerts-only inbox," not your real account.
+
+**3. Secrets are already safe — this is a reassurance, not an action item**
+`FINNHUB_API_KEY`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_TO` are GitHub
+encrypted secrets. They're never written into any file in this repo,
+never appear in `git log`, and GitHub automatically masks their values as
+`***` in Action logs even when a third-party action prints them. Public
+repo status doesn't change any of this — secrets stay secret.
+
+**4. Reduced discoverability (`robots.txt` + `noindex`)**
+Both now included — they ask well-behaved search engines and crawlers not
+to index the live dashboard site. This doesn't hide it (anyone with the
+direct URL, or who finds the GitHub repo itself, can still see it), but it
+meaningfully cuts down on it showing up in search results tied to your
+name or username.
+
+**5. Optional, lower-priority: third-party font/script loading**
+`index.html` currently loads fonts from Google Fonts and libraries (jsPDF,
+autoTable) from a Cloudflare CDN. Every page load sends the visitor's IP
+to those third parties — standard for the vast majority of the web, and
+low-stakes for a dashboard mainly visited by you, but not zero. If you
+want to eliminate it entirely, the fonts and JS libraries could be
+downloaded once and self-hosted alongside `index.html` instead of loaded
+from a CDN — more setup, no ongoing cost, and it would mean manually
+updating those files if you ever want a newer library version. Not done
+by default since it adds real maintenance overhead for a marginal gain;
+say the word if you'd rather have it.
+
+**6. Recap: repo-level hardening from earlier**
+Worth re-confirming these are all still set (Settings → various), since
+they reduce the odds of any of the above ever mattering:
+- Collaborators: just you
+- Actions → General → "Require approval for all outside collaborators"
+  for fork pull requests
+- Actions → General → default workflow permissions set to read-only
+- Security → Code security → Secret scanning + push protection enabled
+- Branches → protection rule on `main` restricting force-push/deletion
+- 2FA enabled on your GitHub account itself
+
 ## Notes
 - GitHub Actions on a public repo is free with no run-time limits for
   scheduled jobs like these. On a private repo you get 2,000 free
