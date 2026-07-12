@@ -7,8 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <style>
   :root{
     --bg:#0F1620;
@@ -1098,13 +1096,41 @@ document.getElementById('csv-btn').addEventListener('click', () => {
 // Builds an actual formatted table via jspdf-autotable — real selectable
 // text, not a screenshot — so it's sharper, smaller, and faster than the
 // html2canvas approach. Runs entirely client-side.
-document.getElementById('pdf-btn').addEventListener('click', () => {
+//
+// jsPDF and jspdf-autotable are loaded lazily, on first click, rather than
+// in <head> — most visits are just checking prices and never touch this
+// button, so this avoids an unnecessary third-party CDN request (and the
+// visitor-IP exposure that comes with it) on every single page load.
+let pdfLibsLoadPromise = null;
+
+function loadScript(src){
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = () => reject(new Error(`Failed to load ${src}`));
+    document.head.appendChild(script);
+  });
+}
+
+function ensurePdfLibsLoaded(){
+  if (!pdfLibsLoadPromise) {
+    pdfLibsLoadPromise = loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+      .then(() => loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'));
+  }
+  return pdfLibsLoadPromise;
+}
+
+document.getElementById('pdf-btn').addEventListener('click', async () => {
   const btn = document.getElementById('pdf-btn');
   const original = btn.textContent;
   btn.disabled = true;
-  btn.textContent = 'Generating…';
+  btn.textContent = 'Loading…';
 
   try {
+    await ensurePdfLibsLoaded();
+    btn.textContent = 'Generating…';
+
     const rows = getVisibleCompaniesForExport();
     if (rows.length === 0) {
       alert('Nothing to export — adjust your filter or search first.');
