@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T13:27:57.410Z",
+  "generatedAt": "2026-08-23T13:28:58.806Z",
   "quotes": {
     "NVDA": {
       "price": 214.72,
@@ -23,22 +23,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Why Navitas Semiconductor Stock Sank This Week",
-          "url": "https://finnhub.io/api/news?id=4f6288362ddab99f39ea14ffb5b53bfaf9990af4533cc3b7a139f1a7dcf8e07d",
-          "source": "Yahoo",
-          "datetime": 1787403000
+          "headline": "Nvidia Stock May Plunge After Earnings, Even If It Beats",
+          "url": "https://finnhub.io/api/news?id=55ca81f4840f9fbdfd93fb977ace150ad25a7d29c2ff4a1de1b11449d47d2e76",
+          "source": "SeekingAlpha",
+          "datetime": 1787469900
         },
         {
-          "headline": "The Target Turnaround Is Real. Here's What Investors Should Know.",
-          "url": "https://finnhub.io/api/news?id=c23e9db50adf6fff7d72cbcc6ad10f6c4f0f559842df0bde89e38e5087ed604b",
-          "source": "Yahoo",
-          "datetime": 1787403000
+          "headline": "Wall Street Week Ahead",
+          "url": "https://finnhub.io/api/news?id=b2d3954f42ad4308cb6ececb4c1f27e3744121249232ae5fd9158ac623138f63",
+          "source": "SeekingAlpha",
+          "datetime": 1787469186
         },
         {
-          "headline": "3 Software-as-a-Service (SaaS) Stocks with Big Upside from AI",
-          "url": "https://finnhub.io/api/news?id=cd67d00eea195ca7a4949f228f7a57a826cb5ba20e6849e588c74a1169b8e99c",
-          "source": "Yahoo",
-          "datetime": 1787402100
+          "headline": "Bloomberg Reported Earlier, Nvidia Customers Notified About AI-Related Price Hikes Above 15%",
+          "url": "https://finnhub.io/api/news?id=51fbc3c54e333eb7d040e37dac8e794588290c842ee7cf40e87d1bc878f8f263",
+          "source": "Benzinga",
+          "datetime": 1787418389
         }
       ],
       "insiderSentiment": {
@@ -82,10 +82,10 @@
           "datetime": 1787386692
         },
         {
-          "headline": "Tracking Renaissance Technologies (RenTec) 13F Portfolio - Q2 2026 Update",
-          "url": "https://finnhub.io/api/news?id=84bfb407c9056edad49618d27126d3b0eb9b5f9f51cc9d643b255d7ccd0cba66",
-          "source": "SeekingAlpha",
-          "datetime": 1787348579
+          "headline": "Benzinga Bulls and Bears: Ross, Moderna, Webull",
+          "url": "https://finnhub.io/api/news?id=9c7c4b6e7a4bd983931392cae935ba5ee7de9fcf2e7462339dc649abae2c0a2a",
+          "source": "Benzinga",
+          "datetime": 1787385673
         }
       ],
       "insiderSentiment": {
@@ -117,6 +117,12 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Wall Street Week Ahead",
+          "url": "https://finnhub.io/api/news?id=b2d3954f42ad4308cb6ececb4c1f27e3744121249232ae5fd9158ac623138f63",
+          "source": "SeekingAlpha",
+          "datetime": 1787469186
+        },
+        {
           "headline": "Data Center and Cloud Infrastructure Earnings Face a High-Stakes AI Demand Test",
           "url": "https://finnhub.io/api/news?id=e5f829afa2f6175b149487545832e8aa7e002e52df98231000d53e26fd1155fa",
           "source": "ChartMill",
@@ -127,12 +133,6 @@
           "url": "https://finnhub.io/api/news?id=5eff04dfb8625f86bc033202cab7c23ec6aad59722ee11913904fbfd53c965c8",
           "source": "Yahoo",
           "datetime": 1787400030
-        },
-        {
-          "headline": "Microsoft: Higher Revenue Visibility Met Measured Capex",
-          "url": "https://finnhub.io/api/news?id=9180ed2f1e5947e13ec865da5f72aa4215ea7e1cfa9879a73e7b475c77724453",
-          "source": "SeekingAlpha",
-          "datetime": 1787381348
         }
       ],
       "insiderSentiment": {
@@ -258,22 +258,22 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Nvidia Earnings Report To Keep Next Week Busy",
+          "url": "https://finnhub.io/api/news?id=942876dc175ea29c858a82fdcbd974cd778b10d64012ed7a210d252cbf8b1602",
+          "source": "SeekingAlpha",
+          "datetime": 1787396400
+        },
+        {
+          "headline": "Billionaire Activist Investor Dan Loeb’s Anti-Buffett Trade — Third Point Buys This Stock as Berkshire Hathaway Slashes Its Major Stake",
+          "url": "https://finnhub.io/api/news?id=7c2d59b75fed904815b607fff4b82cef1718d2a2b1b9b93c7e0fe01470d3368f",
+          "source": "Benzinga",
+          "datetime": 1787389276
+        },
+        {
           "headline": "The veteran Fortune 500 CEO who turned an 80-year-old AC company into an AI darling",
           "url": "https://finnhub.io/api/news?id=a6839d4c8882ed985f73942c979e5be6c48a86141d0748393c24396ff41ae5e5",
           "source": "Yahoo",
           "datetime": 1787389200
-        },
-        {
-          "headline": "Meta: We've Seen This Situation Before (Rating Upgrade)",
-          "url": "https://finnhub.io/api/news?id=ae7b8de08aa2e1923c854462aad4d7a236ddd84cf640268226a5120b025d2a95",
-          "source": "SeekingAlpha",
-          "datetime": 1787387443
-        },
-        {
-          "headline": "FFA: Beware Of The AI Risk With This High-Yielding Covered Call Fund",
-          "url": "https://finnhub.io/api/news?id=0cbcff8caf58cbcfbfc47128930be73edbbd176eb424c7737c0049545a204699",
-          "source": "SeekingAlpha",
-          "datetime": 1787386692
         }
       ],
       "insiderSentiment": {
@@ -305,22 +305,22 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Wall Street Week Ahead",
+          "url": "https://finnhub.io/api/news?id=b2d3954f42ad4308cb6ececb4c1f27e3744121249232ae5fd9158ac623138f63",
+          "source": "SeekingAlpha",
+          "datetime": 1787469186
+        },
+        {
           "headline": "These 3 AI stocks are bought by both hedge funds and mutual funds",
           "url": "https://finnhub.io/api/news?id=b1493b46750c36714a44f628d677fd6ff8f3f3f52dab3bfd24ce3bd97d3af5c5",
           "source": "Yahoo",
           "datetime": 1787401873
         },
         {
-          "headline": "Alphabet and Amazon Are Investing $420 Billion in Artificial Intelligence (AI) Infrastructure: 4 Hardware Stocks Set to Profit",
-          "url": "https://finnhub.io/api/news?id=45010cc5dfaaf75e827cb8825140c700529ba7fb5c0db0795bcec5c068e82173",
+          "headline": "Palantir, Freeport Clear Buy Points, Lead Five Stocks To Watch",
+          "url": "https://finnhub.io/api/news?id=00fb5eeace4d46b504333c00bc15ca35d4784c27a514ba06107cecb32f62582c",
           "source": "Yahoo",
-          "datetime": 1787398500
-        },
-        {
-          "headline": "Micron Committed $10 Billion Over 10 Years to a Research Lab That Breaks Ground in 2027",
-          "url": "https://finnhub.io/api/news?id=ea76104850033342b8b3fdc5fe66a1d669fc17d4cea0489bd0ab9ac96286f9c0",
-          "source": "Yahoo",
-          "datetime": 1787366281
+          "datetime": 1787400019
         }
       ],
       "insiderSentiment": {
@@ -352,6 +352,12 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Wall Street Week Ahead",
+          "url": "https://finnhub.io/api/news?id=b2d3954f42ad4308cb6ececb4c1f27e3744121249232ae5fd9158ac623138f63",
+          "source": "SeekingAlpha",
+          "datetime": 1787469186
+        },
+        {
           "headline": "These 3 AI stocks are bought by both hedge funds and mutual funds",
           "url": "https://finnhub.io/api/news?id=b1493b46750c36714a44f628d677fd6ff8f3f3f52dab3bfd24ce3bd97d3af5c5",
           "source": "Yahoo",
@@ -362,12 +368,6 @@
           "url": "https://finnhub.io/api/news?id=fae07a955723db3f714470232e761c6fdc1952b0c5b76f33bd3a0db05acc7e54",
           "source": "Yahoo",
           "datetime": 1787400033
-        },
-        {
-          "headline": "Advanced Micro Devices (AMD) Adds Tim Ryan To Board After Director Retirement",
-          "url": "https://finnhub.io/api/news?id=d99806ffef788abf24ee64af9108293ca5fd46c094410ee2446dd400b9b9f69c",
-          "source": "Yahoo",
-          "datetime": 1787382602
         }
       ],
       "insiderSentiment": {
@@ -540,22 +540,22 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Wall Street Week Ahead",
+          "url": "https://finnhub.io/api/news?id=b2d3954f42ad4308cb6ececb4c1f27e3744121249232ae5fd9158ac623138f63",
+          "source": "SeekingAlpha",
+          "datetime": 1787469186
+        },
+        {
           "headline": "Dow Jones Futures: Market Rally Repairs Some Damage; Nvidia, CrowdStrike, Warsh In Focus",
           "url": "https://finnhub.io/api/news?id=4f8b7c80cbcf33b522b77ee1b4c1dc1aad6aa3920cfc545418e0c22663aee678",
           "source": "Yahoo",
           "datetime": 1787401909
         },
         {
-          "headline": "Our Top 10 High Growth Dividend Stocks - August 2026",
-          "url": "https://finnhub.io/api/news?id=a49a6e73e1aeceed0ffd3246f8930654ebd09edea198f76ef780e38deb2feff7",
+          "headline": "Nvidia Earnings Report To Keep Next Week Busy",
+          "url": "https://finnhub.io/api/news?id=942876dc175ea29c858a82fdcbd974cd778b10d64012ed7a210d252cbf8b1602",
           "source": "SeekingAlpha",
-          "datetime": 1787386800
-        },
-        {
-          "headline": "Google Is Getting Paid in Marvell Stock Warrants for Buying Marvell's Chips",
-          "url": "https://finnhub.io/api/news?id=6caf38ab8ba9a2f6e73801672417a6805cfa580a5d37e9b2fab25f94c2f75c24",
-          "source": "Yahoo",
-          "datetime": 1787374021
+          "datetime": 1787396400
         }
       ],
       "insiderSentiment": {
@@ -681,22 +681,22 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Rates Retake The Spotlight",
+          "url": "https://finnhub.io/api/news?id=617062ad7d57c453bb6d745ba2a92b3ec5c516ec567967ec53d2d09a486a6e3c",
+          "source": "SeekingAlpha",
+          "datetime": 1787475600
+        },
+        {
+          "headline": "I Don't Need A Data Center In My Backyard; I Already Own Hundreds Of Them",
+          "url": "https://finnhub.io/api/news?id=0f7cfa39f9e8620b1e7a17a30f87802b1886612ef7c7c97efa177e7bcbb0aa25",
+          "source": "SeekingAlpha",
+          "datetime": 1787472000
+        },
+        {
           "headline": "Data Center and Cloud Infrastructure Earnings Face a High-Stakes AI Demand Test",
           "url": "https://finnhub.io/api/news?id=e5f829afa2f6175b149487545832e8aa7e002e52df98231000d53e26fd1155fa",
           "source": "ChartMill",
           "datetime": 1787400428
-        },
-        {
-          "headline": "AI Cloud Firm Nscale Is Said to Seek Up to $3 Billion in US IPO",
-          "url": "https://finnhub.io/api/news?id=3c35d475e7843cccc79cd9f3169ac8b04a40e7e256cf4fe5434d80798e69c386",
-          "source": "Yahoo",
-          "datetime": 1787334150
-        },
-        {
-          "headline": "Drovix Launches In-House Multi-Asset Liquidity and Execution Stack for Sub-Millisecond Fills, Tighter Spreads",
-          "url": "https://finnhub.io/api/news?id=7bb9650470c2a43bdd8daf50a0fa7eddb8a04cdd803010351d81f84cf48ffd3d",
-          "source": "Yahoo",
-          "datetime": 1787301000
         }
       ],
       "insiderSentiment": {
@@ -775,22 +775,22 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Rates Retake The Spotlight",
+          "url": "https://finnhub.io/api/news?id=617062ad7d57c453bb6d745ba2a92b3ec5c516ec567967ec53d2d09a486a6e3c",
+          "source": "SeekingAlpha",
+          "datetime": 1787475600
+        },
+        {
+          "headline": "I Don't Need A Data Center In My Backyard; I Already Own Hundreds Of Them",
+          "url": "https://finnhub.io/api/news?id=0f7cfa39f9e8620b1e7a17a30f87802b1886612ef7c7c97efa177e7bcbb0aa25",
+          "source": "SeekingAlpha",
+          "datetime": 1787472000
+        },
+        {
           "headline": "The Bull Case For American Tower (AMT) Could Change Following Barclays’ Upgrade And CoreSite Momentum – Learn Why",
           "url": "https://finnhub.io/api/news?id=c0586531c9bf79582ed10fec0dbe7113ea49f977f7485237d4c7c4db71400fd4",
           "source": "Yahoo",
           "datetime": 1787346581
-        },
-        {
-          "headline": "Barclays Upgrades American Tower (AMT)",
-          "url": "https://finnhub.io/api/news?id=b11b53968d76c87e63bdaa4b941a261f8a45a743489f85b44cf9556286ac3dbc",
-          "source": "Fintel",
-          "datetime": 1787326562
-        },
-        {
-          "headline": "American Tower (AMT) Wins A Barclays Upgrade, Does The Valuation Still Look Cheap?",
-          "url": "https://finnhub.io/api/news?id=2e9a2c6f83985d7aef8343c2a2d2d56fa134de0333acaaa5f209303f8f334e9c",
-          "source": "Yahoo",
-          "datetime": 1787325070
         }
       ],
       "insiderSentiment": {
@@ -869,22 +869,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Digital Realty Trust (DLR) Crossed Above the 20-Day Moving Average: What That Means for Investors",
-          "url": "https://finnhub.io/api/news?id=d669b286544782927e29c237c50fd77249331133e427d7e80bca259cad800f3e",
-          "source": "Yahoo",
-          "datetime": 1787322902
-        },
-        {
-          "headline": "3 REITs to Beat Rising Interest Rates, According to a Real Estate Pro",
-          "url": "https://finnhub.io/api/news?id=a1097ac512557e7d495e9a8bf089a04b5875079d5e0da88dc07dcc55b63597cc",
-          "source": "Yahoo",
-          "datetime": 1787255220
-        },
-        {
-          "headline": "Institutions Are Buying Real Estate Blind",
-          "url": "https://finnhub.io/api/news?id=2ee6b67a9adbc2e5b6a4d0531487154b45a7e6addf1f86cd1ac12a7e16c8a59e",
+          "headline": "Rates Retake The Spotlight",
+          "url": "https://finnhub.io/api/news?id=617062ad7d57c453bb6d745ba2a92b3ec5c516ec567967ec53d2d09a486a6e3c",
           "source": "SeekingAlpha",
-          "datetime": 1787212800
+          "datetime": 1787475600
+        },
+        {
+          "headline": "I Don't Need A Data Center In My Backyard; I Already Own Hundreds Of Them",
+          "url": "https://finnhub.io/api/news?id=0f7cfa39f9e8620b1e7a17a30f87802b1886612ef7c7c97efa177e7bcbb0aa25",
+          "source": "SeekingAlpha",
+          "datetime": 1787472000
+        },
+        {
+          "headline": "Benzinga's 'Stock Whisper' Index: 5 Stocks Investors Secretly Monitor But Don't Talk About Yet",
+          "url": "https://finnhub.io/api/news?id=ec1786c80229541baec7dfd7800ef6a4db0c6666c9396856c2aba362cc35fdd8",
+          "source": "Benzinga",
+          "datetime": 1787387433
         }
       ],
       "insiderSentiment": {
@@ -922,16 +922,16 @@
           "datetime": 1787401873
         },
         {
+          "headline": "CoreWeave's Economics Are Finally Starting To Work",
+          "url": "https://finnhub.io/api/news?id=978f39c8e50069439993830571a021d1f27eeb394af25b6c38e2db54348831ee",
+          "source": "SeekingAlpha",
+          "datetime": 1787392915
+        },
+        {
           "headline": "The AI Spending Boom Is Outrunning Wall Street Estimates",
           "url": "https://finnhub.io/api/news?id=4c51e1de8fbf8969e1ab82ed8f25047738b8fcc05e1e09131c7dd756a259a83a",
           "source": "Yahoo",
           "datetime": 1787378400
-        },
-        {
-          "headline": "Neoclouds Shine in AI Build Out",
-          "url": "https://finnhub.io/api/news?id=fd7ccdb98525fcfe1797fa084dbf0578bb8f0c913acca729e4d1adf80c06a5b9",
-          "source": "Yahoo",
-          "datetime": 1787356201
         }
       ],
       "insiderSentiment": {
@@ -1010,6 +1010,12 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Rates Retake The Spotlight",
+          "url": "https://finnhub.io/api/news?id=617062ad7d57c453bb6d745ba2a92b3ec5c516ec567967ec53d2d09a486a6e3c",
+          "source": "SeekingAlpha",
+          "datetime": 1787475600
+        },
+        {
           "headline": "Crown Castle (CCI) Faces A Tower Only Test On A Fair Value Gap",
           "url": "https://finnhub.io/api/news?id=2cf39eb635549c6fb482243c20230e3bb13a694830d2304bfc35a626babf3ff7",
           "source": "Yahoo",
@@ -1020,12 +1026,6 @@
           "url": "https://finnhub.io/api/news?id=0decc17bc6ea05462735b9c76df0de59a0b8dcf9daf7c27084a2ebd69e1a0c52",
           "source": "Fintel",
           "datetime": 1787273293
-        },
-        {
-          "headline": "Crown Castle Draws an Upgrade With a Lower Price Target",
-          "url": "https://finnhub.io/api/news?id=a90682b20b2b568815a094b973484f2392aa4158ed1b30ea94fc7ff3b0af913f",
-          "source": "Yahoo",
-          "datetime": 1787234089
         }
       ],
       "insiderSentiment": {
@@ -1057,22 +1057,22 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Rates Retake The Spotlight",
+          "url": "https://finnhub.io/api/news?id=617062ad7d57c453bb6d745ba2a92b3ec5c516ec567967ec53d2d09a486a6e3c",
+          "source": "SeekingAlpha",
+          "datetime": 1787475600
+        },
+        {
+          "headline": "I Don't Need A Data Center In My Backyard; I Already Own Hundreds Of Them",
+          "url": "https://finnhub.io/api/news?id=0f7cfa39f9e8620b1e7a17a30f87802b1886612ef7c7c97efa177e7bcbb0aa25",
+          "source": "SeekingAlpha",
+          "datetime": 1787472000
+        },
+        {
           "headline": "Iron Mountain: Data Center Leasing Is The Main Growth Driver",
           "url": "https://finnhub.io/api/news?id=09020393435adc922dd0a02680842689ea94ad7cc984074393da6f2f9363befc",
           "source": "SeekingAlpha",
           "datetime": 1787208983
-        },
-        {
-          "headline": "Iron Mountain Is Running Hot",
-          "url": "https://finnhub.io/api/news?id=9120ad04f9991725fe96a99c93622a43cffad11412053d146fededbbecb9a926",
-          "source": "SeekingAlpha",
-          "datetime": 1787163339
-        },
-        {
-          "headline": "What's going on in today's session: S&P500 movers",
-          "url": "https://finnhub.io/api/news?id=9d113a09f48670d436e6f2252bf1887b5a026dfadda5e1b78c4e9f01efe715bf",
-          "source": "ChartMill",
-          "datetime": 1787157301
         }
       ],
       "insiderSentiment": {
