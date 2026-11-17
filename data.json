@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-11-16T22:42:57.329Z",
+  "generatedAt": "2026-11-17T21:30:25.634Z",
   "quotes": {
     "NVDA": {
-      "price": 156.14,
-      "changePercent": -4.1204,
-      "prevClose": 162.85,
-      "marketCap": 3833828.1436897307,
+      "price": 155.46,
+      "changePercent": -0.4355,
+      "prevClose": 156.14,
+      "marketCap": 3762973.985291,
       "name": "NVIDIA Corporation",
       "week52High": 243.37,
       "week52Low": 148.8,
-      "peTTM": 20.3479,
+      "peTTM": 19.5095,
       "dividendYield": 0.03349,
       "avgVolume10D": 319.13005,
       "recommendation": {
@@ -23,22 +23,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Nvidia Earnings Preview: Can Data Center Growth Sustain Its Profit Boom?",
-          "url": "https://finnhub.io/api/news?id=2edf526c53fffb489b4fd932383622e04c631b5767a07e7b220bcac87dfa74ad",
+          "headline": "Cathie Wood's ARK Sells $85 Million in Nvidia, Buys $40 Million in Crypto Stocks",
+          "url": "https://finnhub.io/api/news?id=1e310e4d94c9d752f6c3bc26522e97ca0659078df692b1521b453f46fd469a7a",
           "source": "Yahoo",
-          "datetime": 1794866040
+          "datetime": 1794944763
         },
         {
-          "headline": "Update: Nasdaq, S&P 500 Fall For Third Day as Nvidia Sell-Off Continues",
-          "url": "https://finnhub.io/api/news?id=9a5d663c0841a474a9d06c1cb3a2d3a640322fa8a9246b7e99320ae21dad28c2",
+          "headline": "Prediction: These Will Be Nvidia’s and AMD’s Stock Prices by the End of 2027 (Hint: Only 1 Is a Buy).",
+          "url": "https://finnhub.io/api/news?id=2c56ab344f6f6a0df2eccf32ff1d744ac50594f597d0a44afce7e39898f7754c",
           "source": "Yahoo",
-          "datetime": 1794865947
+          "datetime": 1794944762
         },
         {
-          "headline": "What's dragging down the S&P 500? Apple in focus",
-          "url": "https://finnhub.io/api/news?id=247299d1ab30b189136329f7a2f877cabe730885cc260e39bc2ee29038a00a3f",
+          "headline": "The 5 Best Stocks in Cathie Wood’s Portfolio",
+          "url": "https://finnhub.io/api/news?id=bb0d80da9e7ce9082629afaab87899f11959aa54074b03fbf33e12c4434a1e6e",
           "source": "Yahoo",
-          "datetime": 1794865789
+          "datetime": 1794944322
         }
       ],
       "insiderSentiment": {
@@ -49,15 +49,15 @@
       }
     },
     "GOOGL": {
-      "price": 283.72,
-      "changePercent": -4.0741,
-      "prevClose": 295.77,
-      "marketCap": 3541188.47094,
+      "price": 280.2,
+      "changePercent": -1.2407,
+      "prevClose": 283.72,
+      "marketCap": 3488053.68,
       "name": "Alphabet Inc.",
       "week52High": 408.61,
       "week52Low": 270.7,
-      "peTTM": 15.4276,
-      "dividendYield": 0.2943,
+      "peTTM": 14.9574,
+      "dividendYield": 0.3036,
       "avgVolume10D": 38.21395,
       "recommendation": {
         "period": "2026-11-01",
@@ -70,22 +70,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "What's dragging down the S&P 500? Apple in focus",
-          "url": "https://finnhub.io/api/news?id=247299d1ab30b189136329f7a2f877cabe730885cc260e39bc2ee29038a00a3f",
+          "headline": "This Critical Energy Bill Is A Key Priority For The Lame Duck GOP Congress",
+          "url": "https://finnhub.io/api/news?id=6e973fcce89971ef8b5fb810077bf2e40a73e370a070149d9d32176fa1fb5348",
           "source": "Yahoo",
-          "datetime": 1794865789
+          "datetime": 1794943783
         },
         {
-          "headline": "The cost of ousting a founder: Is the 'bank of Nvidia' at risk?",
-          "url": "https://finnhub.io/api/news?id=6efbcfd3ef79aa754c5377906727bca8e3d8b534fb19688829cd30eb2af4ba06",
+          "headline": "Alphabet, Amazon, and Nvidia All Have a Stake in Anthropic. Here’s the One I’d Buy If I Could Only Pick 1.",
+          "url": "https://finnhub.io/api/news?id=54e623e9f7c0fe72db4df2b0243944e711aa4640755147316abdd3d7b2974c5d",
           "source": "Yahoo",
-          "datetime": 1794865570
+          "datetime": 1794943622
         },
         {
-          "headline": "ServiceNow Stock’s (NOW) Historic Sell-Off May Have Gone Too Far",
-          "url": "https://finnhub.io/api/news?id=dc235adc1b3d4da11003739d3be80fe7f0351ca22024054cc5e706c7d27c4633",
+          "headline": "An $11 Billion Fund Dumps These 2 Stocks",
+          "url": "https://finnhub.io/api/news?id=a74451b417eab59072afe7638fc5034228127242c34f14b40c171552c00dbf2c",
           "source": "Yahoo",
-          "datetime": 1794865080
+          "datetime": 1794942646
         }
       ],
       "insiderSentiment": {
@@ -96,14 +96,14 @@
       }
     },
     "MSFT": {
-      "price": 517.99,
-      "changePercent": -1.1243,
-      "prevClose": 523.88,
-      "marketCap": 3868981.934574392,
+      "price": 506.24,
+      "changePercent": -2.2684,
+      "prevClose": 517.99,
+      "marketCap": 3846694.331551,
       "name": "Microsoft Corporation",
       "week52High": 559.15,
       "week52Low": 349.2,
-      "peTTM": 27.2762,
+      "peTTM": 26.9696,
       "dividendYield": 0.79485,
       "avgVolume10D": 30.1214,
       "recommendation": {
@@ -117,22 +117,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "What's dragging down the S&P 500? Apple in focus",
-          "url": "https://finnhub.io/api/news?id=247299d1ab30b189136329f7a2f877cabe730885cc260e39bc2ee29038a00a3f",
+          "headline": "As tech crashes mount, how can banks respond?",
+          "url": "https://finnhub.io/api/news?id=0633f6e002f2c54570cee3f4317ad4fbe96c8a3234dfe9d8127083fb886a7a84",
           "source": "Yahoo",
-          "datetime": 1794865789
+          "datetime": 1794944486
         },
         {
-          "headline": "ServiceNow Stock’s (NOW) Historic Sell-Off May Have Gone Too Far",
-          "url": "https://finnhub.io/api/news?id=dc235adc1b3d4da11003739d3be80fe7f0351ca22024054cc5e706c7d27c4633",
+          "headline": "Morgan Stanley: Midterms Push “20% of the 2028 Pipeline” to 2029. Microsoft and Amazon Keep Spending",
+          "url": "https://finnhub.io/api/news?id=cf039c7b2b24cf09b23306b8882f7449214c0c53df8c1b70b1158c87f5effce1",
           "source": "Yahoo",
-          "datetime": 1794865080
+          "datetime": 1794944267
         },
         {
-          "headline": "Microsoft (MSFT) Is One of NVIDIA’s Biggest Customers, and a Growing Rival",
-          "url": "https://finnhub.io/api/news?id=ecc47e00860152fcc0487cce1a5392a80ae72118d6606f87f45d372012eb2e4e",
+          "headline": "Zenity Expands AI Agent Security Coverage Across the Microsoft Ecosystem",
+          "url": "https://finnhub.io/api/news?id=f3b0321630c7a20dd1bef0e0c157aeb5b4c24faeb21a345dde315d6f7e89c83b",
           "source": "Yahoo",
-          "datetime": 1794864625
+          "datetime": 1794944100
         }
       ],
       "insiderSentiment": {
@@ -143,16 +143,16 @@
       }
     },
     "AMZN": {
-      "price": 257.75,
-      "changePercent": -3.3413,
-      "prevClose": 266.66,
-      "marketCap": 2821039.532072203,
+      "price": 257.89,
+      "changePercent": 0.0543,
+      "prevClose": 257.75,
+      "marketCap": 2787086.240967,
       "name": "Amazon.com Inc",
       "week52High": 287.2,
       "week52Low": 196,
-      "peTTM": 21.3938,
+      "peTTM": 20.6789,
       "dividendYield": null,
-      "avgVolume10D": 51.18168,
+      "avgVolume10D": 50.07961,
       "recommendation": {
         "period": "2026-11-01",
         "strongBuy": 19,
@@ -164,22 +164,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "What's dragging down the S&P 500? Apple in focus",
-          "url": "https://finnhub.io/api/news?id=247299d1ab30b189136329f7a2f877cabe730885cc260e39bc2ee29038a00a3f",
+          "headline": "Steve Eisman Says the Biggest AI Risk Is Local Governments Slowing Data Center Construction",
+          "url": "https://finnhub.io/api/news?id=e037be6de39fe004a7eb14380eab55d2099d52c931c097c254fd03d5817c0fea",
           "source": "Yahoo",
-          "datetime": 1794865789
+          "datetime": 1794944875
         },
         {
-          "headline": "Rocket Lab Sinks 7%, AST SpaceMobile Down 12% as Tech Selloff and Vulcan Failure Hit Space Stocks",
-          "url": "https://finnhub.io/api/news?id=46513ff84ef9fbea9d77b8b89270556444a3211ecab3f513e95f19f3569689bd",
+          "headline": "Morgan Stanley: Midterms Push “20% of the 2028 Pipeline” to 2029. Microsoft and Amazon Keep Spending",
+          "url": "https://finnhub.io/api/news?id=cf039c7b2b24cf09b23306b8882f7449214c0c53df8c1b70b1158c87f5effce1",
           "source": "Yahoo",
-          "datetime": 1794864124
+          "datetime": 1794944267
         },
         {
-          "headline": "AI Changed the Agency Game. Avenue7Media® Rebrands as Ave7® and Introduces ave7LIFT® to Lead What's Next.",
-          "url": "https://finnhub.io/api/news?id=38b7eef3936dc917b37c98f4cbc657ecdc69cd114e2fee8a0401faf853696579",
+          "headline": "This Critical Energy Bill Is A Key Priority For The Lame Duck GOP Congress",
+          "url": "https://finnhub.io/api/news?id=6e973fcce89971ef8b5fb810077bf2e40a73e370a070149d9d32176fa1fb5348",
           "source": "Yahoo",
-          "datetime": 1794861480
+          "datetime": 1794943783
         }
       ],
       "insiderSentiment": {
@@ -190,16 +190,16 @@
       }
     },
     "AVGO": {
-      "price": 333.4,
-      "changePercent": -3.9221,
-      "prevClose": 347.01,
-      "marketCap": 1581933.251384082,
+      "price": 341.6,
+      "changePercent": 2.4595,
+      "prevClose": 333.4,
+      "marketCap": 1591528.173794,
       "name": "Broadcom Inc",
       "week52High": 495,
       "week52Low": 289.767,
-      "peTTM": 43.2901,
+      "peTTM": 41.6297,
       "dividendYield": 1.87972,
-      "avgVolume10D": 32.1953,
+      "avgVolume10D": 32.86492,
       "recommendation": {
         "period": "2026-11-01",
         "strongBuy": 17,
@@ -211,22 +211,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "INTW 2X Intel ETF Tumbles 13% as Intel Drops Amid Shareholder Lawsuit and AI Chip Selloff; Taiwan Semiconductor Falls 5%",
-          "url": "https://finnhub.io/api/news?id=1c62335723868c483e22a6ee74ea08e056bfd5df0228ab9486a41ff961d572c2",
+          "headline": "Prediction: These 2 Stocks Will Be Worth More Than SpaceX 5 Years From Now",
+          "url": "https://finnhub.io/api/news?id=311aa41cd7d3f7569258893ede416481166b4cddbdeb1de119f33ac744bb262b",
           "source": "Yahoo",
-          "datetime": 1794859392
+          "datetime": 1794941580
         },
         {
-          "headline": "What Mattered Most In Cerebras's Latest Quarter?",
-          "url": "https://finnhub.io/api/news?id=271d753a65a39338b956ad4be0dc4ea16d1a6edf746262c2625df3d6b3e0a0f1",
+          "headline": "Could Nvidia's leadership change fuel a new wave of chip rivals?",
+          "url": "https://finnhub.io/api/news?id=775656b74f1bd3149b4b5141120129b059e119168527eb70e4ada613d2ae9f00",
           "source": "Yahoo",
-          "datetime": 1794857394
+          "datetime": 1794938656
         },
         {
-          "headline": "ACC Granted Leave to Intervene Before EU General Court in Broadcom Legal Privilege Case",
-          "url": "https://finnhub.io/api/news?id=78f722ee6a57aa33384e6eb3fa738b111e8564b187afab89fd097f6c48c44151",
+          "headline": "Who Reaches $100 Billion in TPU Revenue First, Alphabet or Broadcom?",
+          "url": "https://finnhub.io/api/news?id=8518d709dfed5826400302c78cb32db37a87d5b6aa8d488b04b1534e2da08a98",
           "source": "Yahoo",
-          "datetime": 1794854880
+          "datetime": 1794937508
         }
       ],
       "insiderSentiment": {
@@ -237,15 +237,15 @@
       }
     },
     "META": {
-      "price": 626.41,
-      "changePercent": -2.3812,
-      "prevClose": 641.69,
-      "marketCap": 1603146.5830958849,
+      "price": 618.87,
+      "changePercent": -1.2037,
+      "prevClose": 626.41,
+      "marketCap": 1601254.889968,
       "name": "Meta Platforms, Inc.",
       "week52High": 779.8192,
       "week52Low": 520.26,
-      "peTTM": 21.7985,
-      "dividendYield": 0.3291,
+      "peTTM": 21.2794,
+      "dividendYield": 0.3371,
       "avgVolume10D": 18.33465,
       "recommendation": {
         "period": "2026-11-01",
@@ -258,22 +258,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "What's dragging down the S&P 500? Apple in focus",
-          "url": "https://finnhub.io/api/news?id=247299d1ab30b189136329f7a2f877cabe730885cc260e39bc2ee29038a00a3f",
+          "headline": "This Critical Energy Bill Is A Key Priority For The Lame Duck GOP Congress",
+          "url": "https://finnhub.io/api/news?id=6e973fcce89971ef8b5fb810077bf2e40a73e370a070149d9d32176fa1fb5348",
           "source": "Yahoo",
-          "datetime": 1794865789
+          "datetime": 1794943783
         },
         {
-          "headline": "The cost of ousting a founder: Is the 'bank of Nvidia' at risk?",
-          "url": "https://finnhub.io/api/news?id=6efbcfd3ef79aa754c5377906727bca8e3d8b534fb19688829cd30eb2af4ba06",
+          "headline": "CORRECTION – Compute Desk raises $45M led by Lightspeed to build infrastructure for hedging compute",
+          "url": "https://finnhub.io/api/news?id=d7f887ce02c91c3398ca2b0039fca01bddc9d6525aeb0117c5b9033e83f29f73",
           "source": "Yahoo",
-          "datetime": 1794865570
+          "datetime": 1794943200
         },
         {
-          "headline": "Direxion and Anthony Pompliano's Silvia Join Forces to Help Investors Rethink Income",
-          "url": "https://finnhub.io/api/news?id=a3f5087a794d25eefb10fe2b9ebe7ba696b273ee8307192ea6f0aa85c8ed468f",
+          "headline": "An $11 Billion Fund Dumps These 2 Stocks",
+          "url": "https://finnhub.io/api/news?id=a74451b417eab59072afe7638fc5034228127242c34f14b40c171552c00dbf2c",
           "source": "Yahoo",
-          "datetime": 1794862980
+          "datetime": 1794942646
         }
       ],
       "insiderSentiment": {
@@ -284,10 +284,10 @@
       }
     },
     "MU": {
-      "price": 719.02,
-      "changePercent": -7.6178,
-      "prevClose": 778.31,
-      "marketCap": 822041.1934108157,
+      "price": 712.42,
+      "changePercent": -0.9179,
+      "prevClose": 719.02,
+      "marketCap": 813515.9441420002,
       "name": "Micron Technology, Inc.",
       "week52High": 1255,
       "week52Low": 192.59,
@@ -305,22 +305,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "What's dragging down the S&P 500? Apple in focus",
-          "url": "https://finnhub.io/api/news?id=247299d1ab30b189136329f7a2f877cabe730885cc260e39bc2ee29038a00a3f",
+          "headline": "SK hynix Stocks Fall 1.96% as DRAM Price-Fixing Suit Advances and Kospi Drops",
+          "url": "https://finnhub.io/api/news?id=358128845cc6e219c7e02dbc70b2723f953a3eeface2d894670d144ee5a35438",
           "source": "Yahoo",
-          "datetime": 1794865789
+          "datetime": 1794942251
         },
         {
-          "headline": "Direxion and Anthony Pompliano's Silvia Join Forces to Help Investors Rethink Income",
-          "url": "https://finnhub.io/api/news?id=a3f5087a794d25eefb10fe2b9ebe7ba696b273ee8307192ea6f0aa85c8ed468f",
+          "headline": "Jim Simons’ Fund Just Dumped 99.7% of Its Nvidia, Which Had Been Its No. 1 Holding",
+          "url": "https://finnhub.io/api/news?id=d54eb2dbb78f9b715d9b8096900bc58d105dbd759a786b7c2413cc4ca09218fa",
           "source": "Yahoo",
-          "datetime": 1794862980
+          "datetime": 1794941614
         },
         {
-          "headline": "SK Hynix Is Down 16% in a Month. What Will It Take to Get SKHY Stock Back to $150?",
-          "url": "https://finnhub.io/api/news?id=ad61d9a4ee332798d209d4fca868935ada06fcea66d19dbe1702dab58117a87c",
+          "headline": "Why Micron Stock Keeps On Going Down",
+          "url": "https://finnhub.io/api/news?id=0505d8ea64c14700aa485048a6eac7428cb8ca9168202ff815ecd7fdf275826c",
           "source": "Yahoo",
-          "datetime": 1794855801
+          "datetime": 1794940041
         }
       ],
       "insiderSentiment": {
@@ -331,14 +331,14 @@
       }
     },
     "AMD": {
-      "price": 504.28,
-      "changePercent": -5.5762,
-      "prevClose": 534.06,
-      "marketCap": 830490.9923158198,
+      "price": 503.41,
+      "changePercent": -0.1725,
+      "prevClose": 504.28,
+      "marketCap": 827063.2116940002,
       "name": "Advanced Micro Devices, Inc.",
       "week52High": 658.52,
       "week52Low": 188.22,
-      "peTTM": 114.9632,
+      "peTTM": 108.8444,
       "dividendYield": null,
       "avgVolume10D": 48.44701,
       "recommendation": {
@@ -352,22 +352,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "What's dragging down the S&P 500? Apple in focus",
-          "url": "https://finnhub.io/api/news?id=247299d1ab30b189136329f7a2f877cabe730885cc260e39bc2ee29038a00a3f",
+          "headline": "Prediction: These Will Be Nvidia’s and AMD’s Stock Prices by the End of 2027 (Hint: Only 1 Is a Buy).",
+          "url": "https://finnhub.io/api/news?id=2c56ab344f6f6a0df2eccf32ff1d744ac50594f597d0a44afce7e39898f7754c",
           "source": "Yahoo",
-          "datetime": 1794865789
+          "datetime": 1794944762
         },
         {
-          "headline": "Is AMD Stock Still a Buy After Its Post-Earnings Jump?",
-          "url": "https://finnhub.io/api/news?id=688edc5f4e03992262336142073e2d779a2ec98a51868c3f9d3796fdcbcb562a",
+          "headline": "AMD Stocks Decrease 1.62% as New US Rule Requires Licenses for Five Chip Hubs",
+          "url": "https://finnhub.io/api/news?id=b2b3eded8a5b2f264dded512f605e2f11674cf752efa29c82838a4d159137098",
           "source": "Yahoo",
-          "datetime": 1794865398
+          "datetime": 1794942161
         },
         {
-          "headline": "Microsoft Stocks Move Lower as $1 Billion Anthropic Bet Precedes Ignite",
-          "url": "https://finnhub.io/api/news?id=76627a773add19b3351cefafed4c57f44541d960a346e0699ad5d78308825b3e",
+          "headline": "Is AMD Stock a Buy Amid the Uncertainty Around Nvidia?",
+          "url": "https://finnhub.io/api/news?id=c31d4d7136db4d1d09119fcbc178ca227ae1a05f984b23983daa3baae8571342",
           "source": "Yahoo",
-          "datetime": 1794858595
+          "datetime": 1794941762
         }
       ],
       "insiderSentiment": {
@@ -378,14 +378,14 @@
       }
     },
     "ORCL": {
-      "price": 119.09,
-      "changePercent": -4.994,
-      "prevClose": 125.35,
-      "marketCap": 361759.78068460274,
+      "price": 115,
+      "changePercent": -3.4344,
+      "prevClose": 119.09,
+      "marketCap": 360096.719168,
       "name": "Oracle Corporation",
       "week52High": 250.25,
       "week52Low": 109.21,
-      "peTTM": 20.033,
+      "peTTM": 19.0326,
       "dividendYield": 1.37634,
       "avgVolume10D": 49.44516,
       "recommendation": {
@@ -399,22 +399,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "What's dragging down the S&P 500? Apple in focus",
-          "url": "https://finnhub.io/api/news?id=247299d1ab30b189136329f7a2f877cabe730885cc260e39bc2ee29038a00a3f",
+          "headline": "SPCX Stock In Focus: SpaceX To Reportedly Launch $4B Bond Sale This Week",
+          "url": "https://finnhub.io/api/news?id=b9f95fb4e08076e4e19def8d99675646d8069ab65f1cf142b601e9e6047f7d38",
           "source": "Yahoo",
-          "datetime": 1794865789
+          "datetime": 1794938824
         },
         {
-          "headline": "CoreWeave, Oracle and Nebius Plunge as Nvidia Fallout Rattles AI Stocks",
-          "url": "https://finnhub.io/api/news?id=3dea76cc860ce05190f5d004c1ebf08bfcb6af058b484295a33656a16508f9c5",
+          "headline": "Michael Burry Makes Bold Bet on Beaten-Down AI Software Stock",
+          "url": "https://finnhub.io/api/news?id=d687b474907119172ec99e2b9c67d74cb17226b1c8bec817fd7a734c5b08636c",
           "source": "Yahoo",
-          "datetime": 1794857212
+          "datetime": 1794937657
         },
         {
-          "headline": "Is Oracle (ORCL) Undervalued Following Its Expanded Federal Health Data Exchange Deal?",
-          "url": "https://finnhub.io/api/news?id=fc11cd7b3ac8e205346a1d4bd362e0e4ffb2f0f30529921d153742bac772e4c5",
+          "headline": "Oracle’s 40% 6 Month Slide Continues: This Analyst Maintains His Buy Rating, Predicting 230% Returns",
+          "url": "https://finnhub.io/api/news?id=1e5c6f5ed5cd40920e3ad78cf629553fe804fe468bdfcf973b1c71473903cbdd",
           "source": "Yahoo",
-          "datetime": 1794856257
+          "datetime": 1794937533
         }
       ],
       "insiderSentiment": {
@@ -425,14 +425,14 @@
       }
     },
     "CSCO": {
-      "price": 94.52,
-      "changePercent": -1.1711,
-      "prevClose": 95.64,
-      "marketCap": 373619.39776204625,
+      "price": 95.11,
+      "changePercent": 0.6242,
+      "prevClose": 94.52,
+      "marketCap": 372123.334538,
       "name": "Cisco Systems Inc",
       "week52High": 130.3656,
       "week52Low": 72.8,
-      "peTTM": 25.171,
+      "peTTM": 24.8762,
       "dividendYield": 3.22581,
       "avgVolume10D": 24.8844,
       "recommendation": {
@@ -446,22 +446,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Cisco Systems (CSCO) Tied To FAA Ground Stop After Router Failures Hit Flights",
-          "url": "https://finnhub.io/api/news?id=fa5e3b644dbd54d68eba2c4300f7c432a8f5828c43a397accd1fb8b8d204dd72",
+          "headline": "What Needs To Be True To Buy Dell Stock?",
+          "url": "https://finnhub.io/api/news?id=f6a4224bf810038b696d68de3ccf406af8092b13c2e046a77d2a913547743301",
           "source": "Yahoo",
-          "datetime": 1794863654
+          "datetime": 1794940216
         },
         {
-          "headline": "C Spire Wins Cisco’s 2026 Service Provider Partner of the Year Award for the USA Central Area",
-          "url": "https://finnhub.io/api/news?id=ae82020eb1a7517cb6962e465de740bdd930f7aed324a559bfcb22faacda75a4",
+          "headline": "AI industry is 'bigger than one person': Cisco CEO Chuck Robbins",
+          "url": "https://finnhub.io/api/news?id=f516804e5476a46670e52041a028cae91efb5b451c576aa51af85dac433d43c1",
           "source": "Yahoo",
-          "datetime": 1794849000
+          "datetime": 1794939651
         },
         {
-          "headline": "Cisco CEO Chuck Robbins on the importance of succession planning: 'You don't know what's going to happen'",
-          "url": "https://finnhub.io/api/news?id=c37f7bc7d25d51206abab107b0460ea9ecd40cb1d19b9e3971729bd6a48be5a3",
+          "headline": "Update: Market Chatter: Amazon, Google, Meta Lobbying Fails to Stop Trump From Pursuing China Data Center Curbs",
+          "url": "https://finnhub.io/api/news?id=0f363922dfe746bed7a8c7dbca67bb28ffda9c83c7ef122d0662825413ae8809",
           "source": "Yahoo",
-          "datetime": 1794847219
+          "datetime": 1794936066
         }
       ],
       "insiderSentiment": {
@@ -472,10 +472,10 @@
       }
     },
     "ETN": {
-      "price": 336.88,
-      "changePercent": -4.5585,
-      "prevClose": 352.97,
-      "marketCap": 132696.06045867762,
+      "price": 337.11,
+      "changePercent": 0.0683,
+      "prevClose": 336.88,
+      "marketCap": 130877.88189699998,
       "name": "Eaton Corporation PLC",
       "week52High": 478,
       "week52Low": 311.92,
@@ -493,22 +493,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "How Much Higher Can Eaton Stock Go From Here?",
-          "url": "https://finnhub.io/api/news?id=973058791bfa9ebc629e915c58aaf697adb456265e1a2a8c0d2580cff74cff86",
+          "headline": "What Moved Vertiv Stock Nearly 7% Lower?",
+          "url": "https://finnhub.io/api/news?id=1b9fa8ce01cfddb4ea54950171281a6d529d0f51eeefc7652ecd939b02f558af",
           "source": "Yahoo",
-          "datetime": 1794863919
+          "datetime": 1794926449
         },
         {
-          "headline": "3 Industrial Dividend Stocks Built to Keep Raising Their Payouts",
-          "url": "https://finnhub.io/api/news?id=1de334ce0df7542070829d64c201c721acf3ff72a91bf485cc4b5bdc86110998",
+          "headline": "Eaton vs. Vertiv: Which Industrials Stock Is a Better Buy for 2027?",
+          "url": "https://finnhub.io/api/news?id=8fee1f720de101b50ebde1e2dc9951fac75f42aaba0f93b8b2b3c7d3b20402e5",
           "source": "Yahoo",
-          "datetime": 1794862047
+          "datetime": 1794923281
         },
         {
-          "headline": "Eaton Stock Declines More Than 7% in 6 Months: Time to Buy the Dip?",
-          "url": "https://finnhub.io/api/news?id=916f2631a6e068ee543955f10cd03d210585441f354be35e03b720b2401a4c73",
+          "headline": "What Could Send Honeywell Stock Higher?",
+          "url": "https://finnhub.io/api/news?id=f9f42cfb141f5d9ae9618c8041b20560c7f9182a01d0f35444e38a652786e5a3",
           "source": "Yahoo",
-          "datetime": 1794848460
+          "datetime": 1794914985
         }
       ],
       "insiderSentiment": {
@@ -519,14 +519,14 @@
       }
     },
     "MRVL": {
-      "price": 145.36,
-      "changePercent": -7.2723,
-      "prevClose": 156.76,
-      "marketCap": 127904.63307883774,
+      "price": 148.74,
+      "changePercent": 2.3253,
+      "prevClose": 145.36,
+      "marketCap": 127466.188084,
       "name": "Marvell Technology, Inc.",
       "week52High": 329.88,
       "week52Low": 70.685,
-      "peTTM": 52.0712,
+      "peTTM": 48.2845,
       "dividendYield": 0.42834,
       "avgVolume10D": 38.55588,
       "recommendation": {
@@ -540,22 +540,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "What Mattered Most In Cerebras's Latest Quarter?",
-          "url": "https://finnhub.io/api/news?id=271d753a65a39338b956ad4be0dc4ea16d1a6edf746262c2625df3d6b3e0a0f1",
+          "headline": "A $7.2 Billion Fund Dumps These 3 Stocks",
+          "url": "https://finnhub.io/api/news?id=9d509202db8a1ea2abaf4513bd0449d96344cd9c235ae746640676f337694ae6",
           "source": "Yahoo",
-          "datetime": 1794857394
+          "datetime": 1794938753
         },
         {
-          "headline": "CoreWeave, Oracle and Nebius Plunge as Nvidia Fallout Rattles AI Stocks",
-          "url": "https://finnhub.io/api/news?id=3dea76cc860ce05190f5d004c1ebf08bfcb6af058b484295a33656a16508f9c5",
+          "headline": "Marvell and Intel Are Both Down at Least 50% From Their 2026 Highs. Only 1 Is a Stock I’d Buy.",
+          "url": "https://finnhub.io/api/news?id=50ab8b8781645d44f0b10f90c647f1ac9835618020dbe42299f5f987796968a4",
           "source": "Yahoo",
-          "datetime": 1794857212
+          "datetime": 1794935101
         },
         {
-          "headline": "Marvell Technology (MRVL) Adds Three Directors After AI Memory Reveal At SC26",
-          "url": "https://finnhub.io/api/news?id=a8adc27df20847ed4af368f5a82487a5874a6389158ba8fc310b8374f3b99601",
+          "headline": "Wall Street Is Watching Nvidia. This AI Stock Deserves Attention Too",
+          "url": "https://finnhub.io/api/news?id=adee5e9c58ae2ecc95b9e4120639b66482f54d772032b71a43c35b186b53339d",
           "source": "Yahoo",
-          "datetime": 1794856327
+          "datetime": 1794933214
         }
       ],
       "insiderSentiment": {
@@ -566,14 +566,14 @@
       }
     },
     "DELL": {
-      "price": 320.55,
-      "changePercent": -6.9602,
-      "prevClose": 344.53,
-      "marketCap": 206442.04399568136,
+      "price": 322.79,
+      "changePercent": 0.6988,
+      "prevClose": 320.55,
+      "marketCap": 203809.772143,
       "name": "Dell Technologies Inc",
       "week52High": 595.51,
       "week52Low": 110.22,
-      "peTTM": 19.2526,
+      "peTTM": 17.8671,
       "dividendYield": 1.98898,
       "avgVolume10D": 8.61128,
       "recommendation": {
@@ -587,22 +587,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Stock Market Today: Dow Dives As Trump Says This On Huang; Victoria's Secret Flashes Sell Signal (Live Coverage)",
-          "url": "https://finnhub.io/api/news?id=d40ba7070c563d11f06cb9deafd5238cf61191eae3fafb1eec373c28c1f94130",
+          "headline": "GF Securities Revamps Dell Target Ahead of Earnings",
+          "url": "https://finnhub.io/api/news?id=e0a8724fae92044800f540f234f21e390a191249d9628169ed34eacd3c6121bb",
           "source": "Yahoo",
-          "datetime": 1794865066
+          "datetime": 1794943056
         },
         {
-          "headline": "Dell Technologies (DELL) Can Reach New Highs on Backlog and Margins",
-          "url": "https://finnhub.io/api/news?id=51a8cfe4b5712a43eda89c42d74c527897c35b1224930652e2f48e9a2792031e",
+          "headline": "What Needs To Be True To Buy Dell Stock?",
+          "url": "https://finnhub.io/api/news?id=f6a4224bf810038b696d68de3ccf406af8092b13c2e046a77d2a913547743301",
           "source": "Yahoo",
-          "datetime": 1794863940
+          "datetime": 1794940216
         },
         {
-          "headline": "Dell and HPE Have an Opportunity Outside AI, Citi Says",
-          "url": "https://finnhub.io/api/news?id=3acda431a536cd891c6a0e92e5acb3ad1b55cf21214092b985cda649666f9666",
+          "headline": "Super Micro Falls 4%, Dell and Hewlett Packard Enterprise Slide 2%: Do New U.S. Export Curbs Deepen Super Micro’s China Problem?",
+          "url": "https://finnhub.io/api/news?id=71512d25bce4cb303853b08956d88cc676b95ef7eefe6a2fdf046e3022ee1d46",
           "source": "Yahoo",
-          "datetime": 1794858226
+          "datetime": 1794938553
         }
       ],
       "insiderSentiment": {
@@ -613,14 +613,14 @@
       }
     },
     "ANET": {
-      "price": 187.02,
-      "changePercent": -5.2055,
-      "prevClose": 197.29,
-      "marketCap": 234790.6835723526,
+      "price": 186.42,
+      "changePercent": -0.3208,
+      "prevClose": 187.02,
+      "marketCap": 236281.511726,
       "name": "Arista Networks, Inc.",
       "week52High": 217.4099,
       "week52Low": 114.52,
-      "peTTM": 52.453,
+      "peTTM": 49.7225,
       "dividendYield": null,
       "avgVolume10D": 11.17467,
       "recommendation": {
@@ -634,22 +634,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Evercore Calls Arista “the Clearest Beneficiary” of NVIDIA’s CEO Ouster. Here’s the Gap to Close",
-          "url": "https://finnhub.io/api/news?id=c64b8886685ab5fffef39b258da665d286474b92f1071f19691432fb8c0d314b",
+          "headline": "RHISE AI Brings Europe into the Personal AI Race with Lucie",
+          "url": "https://finnhub.io/api/news?id=752c18b57fd326107011ef2b651c493cedde4e3577028d3f3683a077afb330fc",
           "source": "Yahoo",
-          "datetime": 1794860616
+          "datetime": 1794941640
         },
         {
-          "headline": "A $4.3 Billion Fund Just Bought These 3 Stocks",
-          "url": "https://finnhub.io/api/news?id=0e024419ac0cfe8589e9b9d5bc053e33ca27eaaf7106e61c182411caa4bc51e6",
+          "headline": "What Is Driving The Move In Super Micro Computer Stock?",
+          "url": "https://finnhub.io/api/news?id=7aafe6ae998b44f102102b55189970dae828908937f6cc42a7dc6fe7d54c019d",
           "source": "Yahoo",
-          "datetime": 1794843112
+          "datetime": 1794928846
         },
         {
-          "headline": "GLW vs. ANET: Which AI Stock is the Smarter Investment Option Now?",
-          "url": "https://finnhub.io/api/news?id=827669dcab69fdf48d966ec6b7174ff3f90a7b2145c72157b8cd7f3879331114",
+          "headline": "What Does SMCI Stock Offer That HP Does Not?",
+          "url": "https://finnhub.io/api/news?id=3bc3841a646b22c7fcf23fcd7b15f1570d58f0af4397faa9923f4fbb9328d5b9",
           "source": "Yahoo",
-          "datetime": 1794838200
+          "datetime": 1794928253
         }
       ],
       "insiderSentiment": {
@@ -660,14 +660,14 @@
       }
     },
     "EQIX": {
-      "price": 1043.06,
-      "changePercent": -1.0182,
-      "prevClose": 1053.79,
-      "marketCap": 103448.7369036315,
+      "price": 1034.83,
+      "changePercent": -0.789,
+      "prevClose": 1043.06,
+      "marketCap": 103250.76223,
       "name": "Equinix, Inc.",
       "week52High": 1128.68,
       "week52Low": 720.62,
-      "peTTM": 63.2967,
+      "peTTM": 62.4996,
       "dividendYield": 2.1434,
       "avgVolume10D": 0.76766,
       "recommendation": {
@@ -681,22 +681,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Equinix doubles down on Dallas with $500M-plus data center near Love Field",
-          "url": "https://finnhub.io/api/news?id=881755e4a670d150c27b0e9e73d4205d253873fef278cf75daded7ce9eb546b1",
+          "headline": "Steve Eisman Says the Biggest AI Risk Is Local Governments Slowing Data Center Construction",
+          "url": "https://finnhub.io/api/news?id=e037be6de39fe004a7eb14380eab55d2099d52c931c097c254fd03d5817c0fea",
           "source": "Yahoo",
-          "datetime": 1794862800
+          "datetime": 1794944875
         },
         {
-          "headline": "'US moves to tighten AI chip export rules' - Financial Times",
-          "url": "https://finnhub.io/api/news?id=52ce0cf113fde1986466bfa1a7dc93cd2b43c1fb304968c77504711c8fc38139",
-          "source": "Benzinga",
-          "datetime": 1794825993
+          "headline": "Equinix Files for 372K SF DA13 Data Center at Love Field",
+          "url": "https://finnhub.io/api/news?id=0edcee34ea5a4bf5219a5813885cced3849f46027c463bcc78a144b559bc8578",
+          "source": "Yahoo",
+          "datetime": 1794930331
         },
         {
-          "headline": "Why Equinix and Digital Realty Benefit From Data Center Zoning Battles",
-          "url": "https://finnhub.io/api/news?id=9f40041d6a4b998a9fbf537f5b57cc4545777ad2059bb89e9b01e3d5666c7186",
-          "source": "Yahoo",
-          "datetime": 1794747600
+          "headline": "ValuEngine Weekly Market Commentary With Strategy Notes",
+          "url": "https://finnhub.io/api/news?id=0b84a0dc180692d1aa2a0239ffb8095e68644b8bed1c95510e560e85cf4a09a0",
+          "source": "SeekingAlpha",
+          "datetime": 1794906300
         }
       ],
       "insiderSentiment": {
@@ -707,14 +707,14 @@
       }
     },
     "CIEN": {
-      "price": 257.56,
-      "changePercent": -8.1913,
-      "prevClose": 280.54,
-      "marketCap": 36525.62488428958,
+      "price": 264.82,
+      "changePercent": 2.8188,
+      "prevClose": 257.56,
+      "marketCap": 36524.20534,
       "name": "Ciena Corporation",
       "week52High": 637.51,
       "week52Low": 168.22,
-      "peTTM": 60.7921,
+      "peTTM": 55.8124,
       "dividendYield": null,
       "avgVolume10D": 3.59798,
       "recommendation": {
@@ -728,22 +728,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Top 5 Stocks that Have Survived Major Founder Transitions",
-          "url": "https://finnhub.io/api/news?id=d95944b11c4945b90dae3a145be7315a8bc1781c24ce365002bf4f7b85e456b4",
+          "headline": "Will Ciena (CIEN) Beat Estimates Again in Its Next Earnings Report?",
+          "url": "https://finnhub.io/api/news?id=e659b0d6e304bb96814d693f1375b989955808aa7de3940d812083017f50751b",
           "source": "Yahoo",
-          "datetime": 1794852419
+          "datetime": 1794931803
         },
         {
-          "headline": "Ciena Appoints Greg Friesen as Executive Vice President and Chief Product Officer",
-          "url": "https://finnhub.io/api/news?id=8a03f0fe3103fc631c4656db57a9ed45207fa4bb14374823a283e2997ff6ec2b",
+          "headline": "Why Did Arista Networks Stock Lose 5%?",
+          "url": "https://finnhub.io/api/news?id=b79b72f8eb0b4144da281aa488c77933f405e737f134b00c42c4218c8df639b0",
           "source": "Yahoo",
-          "datetime": 1794837600
+          "datetime": 1794926448
         },
         {
-          "headline": "Is Ciena Stock Increasing Your Market Risk?",
-          "url": "https://finnhub.io/api/news?id=b5071b2cd9343af5e08900483da90ca86493a5a1334c16c459757677aea1ccb1",
+          "headline": "Ciena and Internet2 Reach Industry Record for Longest Terrestrial 800 Gb/s Coherent Pluggable Link",
+          "url": "https://finnhub.io/api/news?id=5eb72ce204fc6de0315eb2c5ab6248ea2b5c42d521e68ad1e3927fe2a10a13ba",
           "source": "Yahoo",
-          "datetime": 1794816485
+          "datetime": 1794924000
         }
       ],
       "insiderSentiment": {
@@ -754,10 +754,10 @@
       }
     },
     "AMT": {
-      "price": 190.74,
-      "changePercent": -0.4696,
-      "prevClose": 191.64,
-      "marketCap": 89180.57093502712,
+      "price": 183.18,
+      "changePercent": -3.9635,
+      "prevClose": 190.74,
+      "marketCap": 88458.26203699998,
       "name": "American Tower Corporation",
       "week52High": 202.5,
       "week52Low": 160.06,
@@ -775,6 +775,12 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "3 Cell Tower REITs Positioned to Profit as Wireless Data Demand Quadruples",
+          "url": "https://finnhub.io/api/news?id=77fe31fec309592146ef6b471780fd1431453227409e6e552d273157e17c7480",
+          "source": "Yahoo",
+          "datetime": 1794930514
+        },
+        {
           "headline": "American Tower Corporation Prices Senior Notes Offering",
           "url": "https://finnhub.io/api/news?id=3b7beb7240888f44ad66916b8391b0cb90cced6ea591edffd9d2078ebb11b5c5",
           "source": "Yahoo",
@@ -785,12 +791,6 @@
           "url": "https://finnhub.io/api/news?id=699953b9ecb801e59c93e9e33afdeca16c0b5556fe5429f8ff5c83c2ee1991b5",
           "source": "Yahoo",
           "datetime": 1794836280
-        },
-        {
-          "headline": "Energy Leads Sectors In Thursday Trading As Materials Trail",
-          "url": "https://finnhub.io/api/news?id=9f0b4b5c9edd829fa5e5a059b587c4718291378058032fe071d76edfd141e60a",
-          "source": "Benzinga",
-          "datetime": 1794484825
         }
       ],
       "insiderSentiment": {
@@ -801,14 +801,14 @@
       }
     },
     "CEG": {
-      "price": 277.82,
-      "changePercent": -0.8494,
-      "prevClose": 280.2,
-      "marketCap": 97989.02289586348,
+      "price": 268.07,
+      "changePercent": -3.5095,
+      "prevClose": 277.82,
+      "marketCap": 98433.676975,
       "name": "Constellation Energy Corp",
       "week52High": 380.78,
       "week52Low": 228.63,
-      "peTTM": 22.7178,
+      "peTTM": 22.5249,
       "dividendYield": 0.91071,
       "avgVolume10D": 4.55389,
       "recommendation": {
@@ -822,22 +822,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Is GEV Boosting Its Position in the Global Power Infrastructure Market?",
-          "url": "https://finnhub.io/api/news?id=e7884a51fbc477477221b7527e37d1d1cf08921a7208da3db50943c997a1a0db",
+          "headline": "Steve Eisman Says the Biggest AI Risk Is Local Governments Slowing Data Center Construction",
+          "url": "https://finnhub.io/api/news?id=e037be6de39fe004a7eb14380eab55d2099d52c931c097c254fd03d5817c0fea",
           "source": "Yahoo",
-          "datetime": 1794848760
+          "datetime": 1794944875
         },
         {
-          "headline": "Will Rising Operating Income Boost CEG's Long-Term Earnings Growth?",
-          "url": "https://finnhub.io/api/news?id=95809f63af5628465201ea5339093d088b2af949c25aa1fe885aa08bf9001278",
+          "headline": "Bernstein Cut Its Constellation Energy Target to $293. It Still Sees 5% Upside",
+          "url": "https://finnhub.io/api/news?id=ffefd7179cb2601a0be262fd89b1ee37c6840447994874f41421c28915e9ae73",
           "source": "Yahoo",
-          "datetime": 1794845400
+          "datetime": 1794936085
         },
         {
-          "headline": "Nuclear Energy Stocks Gain as Reliable Power Demand Grows in US",
-          "url": "https://finnhub.io/api/news?id=433bc8e114c6505b1f490a2838951c2d4ad109a90a8b7bd73ccfc66010176339",
+          "headline": "Constellation Energy vs. Vistra: Which Utilities Stock Is a Better Buy for 2027?",
+          "url": "https://finnhub.io/api/news?id=6051352d8c45b82ec0e6e6beb4ab347af35207c95e7589afc8b8c50e17d48e8d",
           "source": "Yahoo",
-          "datetime": 1794841140
+          "datetime": 1794931525
         }
       ],
       "insiderSentiment": {
@@ -848,14 +848,14 @@
       }
     },
     "DLR": {
-      "price": 178.77,
-      "changePercent": -0.6778,
-      "prevClose": 179.99,
-      "marketCap": 67644.66702989055,
+      "price": 176.53,
+      "changePercent": -1.253,
+      "prevClose": 178.77,
+      "marketCap": 67633.316806,
       "name": "Digital Realty Trust, Inc.",
       "week52High": 208.14,
       "week52Low": 146.23,
-      "peTTM": 73.4925,
+      "peTTM": 72.9943,
       "dividendYield": 3.57509,
       "avgVolume10D": 3.23136,
       "recommendation": {
@@ -869,22 +869,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Digital Realty Expands Sovereign Cloud Ecosystem with Four New OVHcloud Deployments",
-          "url": "https://finnhub.io/api/news?id=a3a5496206d8f1eb48f22646fd7810542d14ff743d97c86f620bd3fe1a44db70",
+          "headline": "Steve Eisman Says the Biggest AI Risk Is Local Governments Slowing Data Center Construction",
+          "url": "https://finnhub.io/api/news?id=e037be6de39fe004a7eb14380eab55d2099d52c931c097c254fd03d5817c0fea",
           "source": "Yahoo",
-          "datetime": 1794848520
+          "datetime": 1794944875
         },
         {
-          "headline": "'US moves to tighten AI chip export rules' - Financial Times",
-          "url": "https://finnhub.io/api/news?id=52ce0cf113fde1986466bfa1a7dc93cd2b43c1fb304968c77504711c8fc38139",
-          "source": "Benzinga",
-          "datetime": 1794825993
+          "headline": "Digital Realty Supports Growth at Digital Park Fechenheim with Dedicated 110 kV Power Connection Now Online",
+          "url": "https://finnhub.io/api/news?id=2e50e4264bcfce40602f20da1d05f859ac1e9971cdaa17765598e182c3838095",
+          "source": "Yahoo",
+          "datetime": 1794902400
         },
         {
-          "headline": "Why Equinix and Digital Realty Benefit From Data Center Zoning Battles",
-          "url": "https://finnhub.io/api/news?id=9f40041d6a4b998a9fbf537f5b57cc4545777ad2059bb89e9b01e3d5666c7186",
+          "headline": "Digital Realty Innovation Lab (DRIL) Launches in Singapore, Enabling Asia Pacific Enterprises to Validate and Scale AI-Ready Infrastructure",
+          "url": "https://finnhub.io/api/news?id=dfb651d7f34844f7969843a5c2d5a7fa1d55267f2020973765cbf236197763c5",
           "source": "Yahoo",
-          "datetime": 1794747600
+          "datetime": 1794896100
         }
       ],
       "insiderSentiment": {
@@ -895,10 +895,10 @@
       }
     },
     "CRWV": {
-      "price": 49.88,
-      "changePercent": -6.1171,
-      "prevClose": 53.13,
-      "marketCap": 27443.58423113119,
+      "price": 49.89,
+      "changePercent": 0.02,
+      "prevClose": 49.88,
+      "marketCap": 27377.719665000004,
       "name": "CoreWeave, Inc.",
       "week52High": 138.25,
       "week52Low": 40.58,
@@ -916,22 +916,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Stock Market Today: Dow Dives As Trump Says This On Huang; Victoria's Secret Flashes Sell Signal (Live Coverage)",
-          "url": "https://finnhub.io/api/news?id=d40ba7070c563d11f06cb9deafd5238cf61191eae3fafb1eec373c28c1f94130",
+          "headline": "Why Goldman Sachs Thinks the Bull Market Will Keep Raging",
+          "url": "https://finnhub.io/api/news?id=d39c40124e3641821081e6f48cb7ac684d0a29ec5e1be53c4193d28098d0f85a",
           "source": "Yahoo",
-          "datetime": 1794865066
+          "datetime": 1794944460
         },
         {
-          "headline": "Cathie Wood Just Bought $16 Million of Tumbling AI Stock",
-          "url": "https://finnhub.io/api/news?id=315050fa5fb173a2b144a200208e9f4f82c04fdc9e6ac9595dc78aaa48524b44",
+          "headline": "The 5 Best Stocks in Cathie Wood’s Portfolio",
+          "url": "https://finnhub.io/api/news?id=bb0d80da9e7ce9082629afaab87899f11959aa54074b03fbf33e12c4434a1e6e",
           "source": "Yahoo",
-          "datetime": 1794858831
+          "datetime": 1794944322
         },
         {
-          "headline": "CoreWeave, Oracle and Nebius Plunge as Nvidia Fallout Rattles AI Stocks",
-          "url": "https://finnhub.io/api/news?id=3dea76cc860ce05190f5d004c1ebf08bfcb6af058b484295a33656a16508f9c5",
+          "headline": "Anthropic forges ahead with its IPO even as AI fears mount and markets wobble",
+          "url": "https://finnhub.io/api/news?id=553664dae2304a93405e8b5a3e7e186621e883b024a4bf08efe8dca7323cc9ed",
           "source": "Yahoo",
-          "datetime": 1794857212
+          "datetime": 1794941704
         }
       ],
       "insiderSentiment": {
@@ -942,9 +942,9 @@
       }
     },
     "VST": {
-      "price": 130.16,
-      "changePercent": -2.1427,
-      "prevClose": 133.01,
+      "price": 127.15,
+      "changePercent": -2.3125,
+      "prevClose": 130.16,
       "marketCap": 46441.84,
       "name": "Vistra Corp.",
       "week52High": 189.29,
@@ -963,22 +963,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Is It Too Late to Buy the Dip? 3 Corners of the Market Still Offering Real Value",
-          "url": "https://finnhub.io/api/news?id=8ccee8eed151115e555cbd276820032c98153821c239d53430717a4cc839df5a",
+          "headline": "Vistra Is Down 41% From Its High. History Suggests This Is What Happens Next.",
+          "url": "https://finnhub.io/api/news?id=ad741fb6d212df68ddff9ca710f6f557a0e0708ad79a5d8302a5264993390899",
           "source": "Yahoo",
-          "datetime": 1794750600
+          "datetime": 1794943322
         },
         {
-          "headline": "Earnings Guidance Could Be A Game Changer For Vistra (VST)",
-          "url": "https://finnhub.io/api/news?id=093ea7368b19730e41e9a9d2ca44ebe685425f7dac7412089ad1cc855f31f00e",
+          "headline": "Constellation Energy vs. Vistra: Which Utilities Stock Is a Better Buy for 2027?",
+          "url": "https://finnhub.io/api/news?id=6051352d8c45b82ec0e6e6beb4ab347af35207c95e7589afc8b8c50e17d48e8d",
           "source": "Yahoo",
-          "datetime": 1794719473
+          "datetime": 1794931525
         },
         {
-          "headline": "Vistra (VST) Posts $269 Million Long Lived Asset Impairment In Third Quarter",
-          "url": "https://finnhub.io/api/news?id=416a1607ce1dca459c8b7886cab585ab5f77980e815e9fc6a90dac79e09b88d5",
+          "headline": "Vistra Keeps Sliding: Why BMO Sees 51% Upside",
+          "url": "https://finnhub.io/api/news?id=d4151ad6b578155f7d1abff30e8a840b4b5f8fcb99904261f535940abb423ba7",
           "source": "Yahoo",
-          "datetime": 1794716367
+          "datetime": 1794928841
         }
       ],
       "insiderSentiment": {
@@ -989,14 +989,14 @@
       }
     },
     "CCI": {
-      "price": 89.36,
-      "changePercent": -1.6184,
-      "prevClose": 90.83,
-      "marketCap": 38646.458282,
+      "price": 84.16,
+      "changePercent": -5.8192,
+      "prevClose": 89.36,
+      "marketCap": 38021.000396,
       "name": "Crown Castle Inc",
       "week52High": 95.07,
       "week52Low": 65.32,
-      "peTTM": 47.0152,
+      "peTTM": 46.5441,
       "dividendYield": 6.04364,
       "avgVolume10D": 4.09624,
       "recommendation": {
@@ -1010,6 +1010,12 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "3 Cell Tower REITs Positioned to Profit as Wireless Data Demand Quadruples",
+          "url": "https://finnhub.io/api/news?id=77fe31fec309592146ef6b471780fd1431453227409e6e552d273157e17c7480",
+          "source": "Yahoo",
+          "datetime": 1794930514
+        },
+        {
           "headline": "Billboards and Cell Towers Collect Rent From Brands and Carriers, and $120,000 Across These 3 Stocks Pays $5,077 a Year",
           "url": "https://finnhub.io/api/news?id=62b2e3e626cde488d5a0cf7a6908573dcceeb9d4b857ae25766cf73df9aeaec6",
           "source": "Yahoo",
@@ -1020,12 +1026,6 @@
           "url": "https://finnhub.io/api/news?id=81486f38ea4176ebb6e12788ffff0b3441f0c64ecf1e54afc0915656474238a1",
           "source": "Benzinga",
           "datetime": 1794583364
-        },
-        {
-          "headline": "Are Wall Street Analysts Bullish on Crown Castle Stock?",
-          "url": "https://finnhub.io/api/news?id=d13712bad22dd43bdcdf684512525f14642670719d3f0b80242187807c49a1e6",
-          "source": "Yahoo",
-          "datetime": 1794487600
         }
       ],
       "insiderSentiment": {
@@ -1036,14 +1036,14 @@
       }
     },
     "IRM": {
-      "price": 112.57,
-      "changePercent": -1.0374,
-      "prevClose": 113.75,
-      "marketCap": 33525.65840465929,
+      "price": 111.79,
+      "changePercent": -0.6929,
+      "prevClose": 112.57,
+      "marketCap": 33527.14748299999,
       "name": "Iron Mountain Inc",
       "week52High": 134.68,
       "week52Low": 77.77,
-      "peTTM": 73.8893,
+      "peTTM": 73.1195,
       "dividendYield": 4.11327,
       "avgVolume10D": 2.09348,
       "recommendation": {
@@ -1057,6 +1057,12 @@
       "priceTarget": null,
       "news": [
         {
+          "headline": "Iron Mountain Incorporated (IRM) Presents at J.P. Morgan Ultimate Services Investor Conference 2026 Transcript",
+          "url": "https://finnhub.io/api/news?id=28ed1ef0b1883912423e2246b025d96a046b4e48cf861ddb528783ba72696d4d",
+          "source": "SeekingAlpha",
+          "datetime": 1794919980
+        },
+        {
           "headline": "AI Adoption Stalled by \"Information Tax\" in Financial Services: Iron Mountain Advances InSight DXP to Bridge the Data-to-AI Gap",
           "url": "https://finnhub.io/api/news?id=921d7ed7754c492b85d4195eb3de091e25ce123316600149989d2e3ad1b5969a",
           "source": "Yahoo",
@@ -1067,12 +1073,6 @@
           "url": "https://finnhub.io/api/news?id=3db8e3c694e2c8edbefe482c84f85b4a9245e469118952e47bacb9919abff38a",
           "source": "SeekingAlpha",
           "datetime": 1794490671
-        },
-        {
-          "headline": "Iron Mountain Raises Its Dividend 15% as Data Center Revenue Surges 34%",
-          "url": "https://finnhub.io/api/news?id=0672138d8b8bd93b9765f33011d03730bff44feb109bda672469bcec1da2e6d1",
-          "source": "Yahoo",
-          "datetime": 1794403078
         }
       ],
       "insiderSentiment": {
@@ -1083,14 +1083,14 @@
       }
     },
     "NRG": {
-      "price": 93.99,
-      "changePercent": -3.2029,
-      "prevClose": 97.1,
-      "marketCap": 19845.961109544234,
+      "price": 91.76,
+      "changePercent": -2.3726,
+      "prevClose": 93.99,
+      "marketCap": 19739.900223,
       "name": "NRG Energy Inc",
       "week52High": 189.96,
       "week52Low": 79.65,
-      "peTTM": 24.0201,
+      "peTTM": 23.2508,
       "dividendYield": 3.29048,
       "avgVolume10D": 5.19203,
       "recommendation": {
@@ -1104,22 +1104,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "NRG Energy Honors Trailblazers at 7th Annual Excellence in Energy Awards",
-          "url": "https://finnhub.io/api/news?id=3c801e166629a8a67f6a6abf754ba4c122c25ddce5ef36708dcd09deada8ce43",
+          "headline": "NRG Energy, Inc. (NRG) is Attracting Investor Attention: Here is What You Should Know",
+          "url": "https://finnhub.io/api/news?id=40054d363d2c93b3a46e40e703955e3304a5a84a33c755b49f4745f0470dab2b",
           "source": "Yahoo",
-          "datetime": 1794861000
+          "datetime": 1794920402
         },
         {
-          "headline": "How one energy company uses CX to drive customer retention",
-          "url": "https://finnhub.io/api/news?id=6c0cee808e5590b5fd830ff429091840589935832bb98377561aae38960527b7",
+          "headline": "Vistra Stock's $21 Billion Debt: Should Holders Worry?",
+          "url": "https://finnhub.io/api/news?id=49c141985a351fb999f1f3ae55a8f58d84a0e3fef68367712d3340edd427ee97",
           "source": "Yahoo",
-          "datetime": 1794848400
+          "datetime": 1794911938
         },
         {
-          "headline": "NRG to sell 4.9 GW of gas plants to LS Power for $4B",
-          "url": "https://finnhub.io/api/news?id=86fe91ddbabcbb3f4058e82bb5a729a070a1836310994614559191fab154be5c",
+          "headline": "What Mattered Most In Vistra's Latest Quarter?",
+          "url": "https://finnhub.io/api/news?id=7570982ae0db417d69ab531bcf12a9ab7d3757d9a80837e5870bf4a73250367e",
           "source": "Yahoo",
-          "datetime": 1794846092
+          "datetime": 1794877669
         }
       ],
       "insiderSentiment": {
@@ -1130,14 +1130,14 @@
       }
     },
     "SMCI": {
-      "price": 25.025,
-      "changePercent": -6.8491,
-      "prevClose": 26.865,
-      "marketCap": 16727.894014986974,
+      "price": 24.14,
+      "changePercent": -3.5365,
+      "prevClose": 25.025,
+      "marketCap": 16497.164331,
       "name": "Super Micro Computer Inc",
       "week52High": 51.4,
       "week52Low": 19.48,
-      "peTTM": 4.8436,
+      "peTTM": 4.5335,
       "dividendYield": null,
       "avgVolume10D": 58.55561,
       "recommendation": {
@@ -1151,22 +1151,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "Could Nvidia Be the Next Super Micro?",
-          "url": "https://finnhub.io/api/news?id=62a1dc30e9e79e2869a5b73bf43c91f9dc6a549d437047062c95ca326753b8b7",
+          "headline": "Super Micro Falls 4%, Dell and Hewlett Packard Enterprise Slide 2%: Do New U.S. Export Curbs Deepen Super Micro’s China Problem?",
+          "url": "https://finnhub.io/api/news?id=71512d25bce4cb303853b08956d88cc676b95ef7eefe6a2fdf046e3022ee1d46",
           "source": "Yahoo",
-          "datetime": 1794853682
+          "datetime": 1794938553
         },
         {
-          "headline": "AI Trade Is Tanking the S&P 500, But Average Stock Sees Monthly Gains",
-          "url": "https://finnhub.io/api/news?id=29940b37ff2159f235b5dca45f7ca37d775dfa94cade64dd404ec2da8edfaf97",
+          "headline": "SMCI support and resistance as stock trades near key levels",
+          "url": "https://finnhub.io/api/news?id=08aae2bd25fe0b763e9258545d50e054338649f52abf9591bf81d2e5d194d920",
           "source": "Yahoo",
-          "datetime": 1794847871
+          "datetime": 1794930913
         },
         {
-          "headline": "NVIDIA Expands Vera CPU Platform to Accelerate Scientific Discovery",
-          "url": "https://finnhub.io/api/news?id=c5e7bc563c3474dcd7f12d8968f5307222b79a4f1c8a21bb6a1e1fee14424e92",
+          "headline": "Three stocks with the highest exposure to Nvidia earnings",
+          "url": "https://finnhub.io/api/news?id=d8af1baf7624a61e4bdd09d708c4c45ed1af03712f0e3736e1c2d996d9ca96a6",
           "source": "Yahoo",
-          "datetime": 1794844800
+          "datetime": 1794930714
         }
       ],
       "insiderSentiment": {
@@ -1177,9 +1177,9 @@
       }
     },
     "VRT": {
-      "price": 188.67,
-      "changePercent": -6.6314,
-      "prevClose": 202.07,
+      "price": 190.37,
+      "changePercent": 0.901,
+      "prevClose": 188.67,
       "marketCap": 89526.55,
       "name": "Vertiv Holdings Co",
       "week52High": 379.935,
@@ -1198,22 +1198,22 @@
       "priceTarget": null,
       "news": [
         {
-          "headline": "5 Stocks to Buy as Investors Look Beyond NVIDIA",
-          "url": "https://finnhub.io/api/news?id=17433fdea12495e8c808ade4323a604b5af49bd713c88d7ac51514454fb432e3",
+          "headline": "Steve Eisman Says the Biggest AI Risk Is Local Governments Slowing Data Center Construction",
+          "url": "https://finnhub.io/api/news?id=e037be6de39fe004a7eb14380eab55d2099d52c931c097c254fd03d5817c0fea",
           "source": "Yahoo",
-          "datetime": 1794852150
+          "datetime": 1794944875
         },
         {
-          "headline": "Vertiv (VRT) is an Incredible Growth Stock: 3 Reasons Why",
-          "url": "https://finnhub.io/api/news?id=72eea0aea12880ea9648bda3b22dc2386cf7071c6e293ab541e24dd4ca205502",
+          "headline": "/U P D A T E/ - Vertiv Holdings Co/",
+          "url": "https://finnhub.io/api/news?id=ff800379056f6f022cad2e34564e1b26419cb7b5f573b163ad8ace2aaf81166b",
           "source": "Yahoo",
-          "datetime": 1794847502
+          "datetime": 1794941580
         },
         {
-          "headline": "Vertiv vs. Teradyne: Which AI Infrastructure Stock Is the Better Buy?",
-          "url": "https://finnhub.io/api/news?id=26dc9e9db743e7e5653c0703646ea10986a5b4a07c4543967dfc9574c3185e03",
+          "headline": "Why Vertiv’s Big AI Data Center Power Breakthrough Couldn’t Save the Stock Today",
+          "url": "https://finnhub.io/api/news?id=7d8c343841070fd6659d1cdadadb23a043822b0fcb8db3b5707a15e26d842be6",
           "source": "Yahoo",
-          "datetime": 1794844080
+          "datetime": 1794938880
         }
       ],
       "insiderSentiment": {
