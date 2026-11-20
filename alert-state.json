@@ -1,11 +1,11 @@
 {
   "ORCL": {
-    "alertedLow": 119.44,
-    "alertedDate": "2026-07-24T14:49:20.705Z"
+    "alertedLow": 109.21,
+    "alertedDate": "2026-11-20T20:54:39.841Z"
   },
   "CRWV": {
-    "alertedLow": 48.02,
-    "alertedDate": "2026-11-05T20:27:42.394Z"
+    "alertedLow": 40.58,
+    "alertedDate": "2026-11-20T20:54:39.841Z"
   },
   "CCI": {
     "alertedLow": 69.72,
@@ -22,5 +22,13 @@
   "NVDA": {
     "alertedLow": 148.8,
     "alertedDate": "2026-11-19T21:08:55.588Z"
+  },
+  "GOOGL": {
+    "alertedLow": 272.11,
+    "alertedDate": "2026-11-20T20:54:39.841Z"
+  },
+  "ETN": {
+    "alertedLow": 311.92,
+    "alertedDate": "2026-11-20T20:54:39.841Z"
   }
 }
